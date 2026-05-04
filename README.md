@@ -5,15 +5,14 @@
 > If you wanna contact me: see [Contact Me](#contact-me)
 
 # SonolusReverse
-Mod for [Sonolus](https://sonolus.com/) written using [Frida](https://frida.re/) and [frida-il2cpp-bridge](https://github.com/vfsfitvnm/frida-il2cpp-bridge)
+Mod for the [Sonolus](https://sonolus.com/) rhythm game with extra features, written using [Frida](https://frida.re/) and [frida-il2cpp-bridge](https://github.com/vfsfitvnm/frida-il2cpp-bridge)
 
 Tested Sonolus version `1.1.1` (`4eee014389747`) on Android. Should work on iOS too, but **untested**.
 
 
 ## Screenshots
-<img src="assets/images/screenshot1.jpg" width="800" alt="SonolusReverse section in Settings">
-<br><br>
-<img src="assets/images/screenshot2.jpg" width="800" alt="Themes shortcut & Themes spoofing">
+<img src="assets/images/screenshot1.jpg" width="700" alt="SonolusReverse section in Settings">
+<img src="assets/images/screenshot2.jpg" width="700" alt="Themes shortcut & Themes spoofing">
 
 
 ## Features
@@ -106,7 +105,7 @@ Got ideas? Found a bug? Pull requests and issues are welcome!
 
 
 ## Contact Me
-My contacts are on my GitHub Profile - @repinek
+My contacts are on my GitHub Profile - [@repinek](https://github.com/repinek/)
 
 
 ## License
