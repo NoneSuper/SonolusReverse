@@ -1,6 +1,8 @@
 import { BaseModule } from "./base-module";
 
 // Modules
+import { ThemeAction } from "../features/theme-action";
+import { UserInfoSpoof } from "../features/userinfo-spoof";
 
 import { Logger } from "../logger/logger";
 
@@ -9,10 +11,11 @@ export class ModuleManager {
 
     // prettier-ignore
     private static modules: BaseModule[] = [
-        //
+        new ThemeAction(),
+        new UserInfoSpoof(),
     ];
 
-    /** Initializes all modules by calling init() in module */
+    /** Initializes all modules by calling init() and initHooks() in module */
     static initAll() {
         Logger.info(`[${this.tag}::initAll] Initializing modules...`);
 

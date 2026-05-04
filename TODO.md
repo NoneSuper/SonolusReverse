@@ -3,7 +3,7 @@ Mostly for developers and me, so I don't forgetting things.
 
 ### Architecture
 - [ ] i18n: read locale from game
-- [ ] BaseModule: use it
+- [x] BaseModule: use it
 - [ ] ESLint integration
 - [ ] Webpack integration
 - [ ] GitHub workflow
@@ -19,5 +19,8 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] Information about your recent plays on map (by replays)
 - [ ] Export / Import Sonolus settings
 - [ ] Change Health value
+- [ ] About tab in SonolusReverse settings
+- [ ] Modify version text in startup screen to show `Reverse` 
+- [ ] Disable Analytics
 
 also some todos by searching `TODO` in project files
