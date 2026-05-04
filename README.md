@@ -14,17 +14,15 @@ Tested Sonolus version `1.1.1` (`4eee014389747`) on Android. Should work on iOS 
 <img src="assets/images/screenshot1.jpg" width="700" alt="SonolusReverse section in Settings">
 <img src="assets/images/screenshot2.jpg" width="700" alt="Themes shortcut & Themes spoofing">
 
+> `彗く星（しいたけ杯）` - An exclusive theme for tournament participants
+
 
 ## Features
 * **Custom Settings Section**
-* **VIP + Themes spoof**: Client-side unlock of VIP and all themes (including exclusives)
+* **VIP + Themes spoof**: Client-side unlock of VIP _(removes ad)_ and all themes (including exclusives)
 
 ##### Planned:
-* Auto saving replay
-* Information about your recent plays on map (by replays)
-* UwUify across all Sonolus
-* Custom Themes
-* Version Spoof
+See our [TODO](TODO.md). If you wanna contribute: see [Contributing](#contributing)
 
 
 ## Building
@@ -101,7 +99,7 @@ NOTE: You can re-build script without re-launching game
 
 
 ## Contributing
-Got ideas? Found a bug? Pull requests and issues are welcome!
+Got ideas? Want to add localization? Found a bug? Pull requests and issues are welcome!
 
 
 ## Contact Me
