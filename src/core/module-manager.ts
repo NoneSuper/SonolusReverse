@@ -2,9 +2,7 @@ import { BaseModule } from "./base-module";
 
 // Modules
 
-
 import { Logger } from "../logger/logger";
-
 
 export class ModuleManager {
     public static readonly tag = "ModuleManager";
