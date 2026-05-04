@@ -25,7 +25,7 @@ export class ThemeAction extends BaseModule {
         this.onClick = this.ImgLblBtn.method("OnClick", 1).overload("System.Action");
     }
 
-    public initHooks(): void {
+    public override initHooks(): void {
         const module = this;
 
         //@ts-ignore

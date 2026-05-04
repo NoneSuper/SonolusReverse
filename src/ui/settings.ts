@@ -25,7 +25,7 @@ export function initSettingsUI(): void {
 
     function buildCustomRouteSection(icon: Il2Cpp.Object): Il2Cpp.Object {
         const route = RouteSection.alloc();
-        // @ts-ignore I'm using invokeRaw here, cuz I'm already defined method above and allocated object
+        // @ts-ignore We are using invokeRaw here, cuz we already defined method above and allocated object
         RouteSectionCtor.invokeRaw(route, icon, buildCustomSection());
         return route;
     }

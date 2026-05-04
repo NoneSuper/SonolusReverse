@@ -85,7 +85,7 @@ export class UserInfoSpoof extends BaseModule {
             });
 
             // ---> OnLeave: call real method with our changes
-            Logger.debug(`[Spoof::.ctor] VipEndAt=${spoofedVipEndAt} (+${module.SPOOFED_VIP_DURATION_DAYS}d), Themes=[${module.SPOOFED_THEMES.join(", ")}]`);
+            Logger.debug(`[ServiceUserInfo::.ctor] VipEndAt=${spoofedVipEndAt} (+${module.SPOOFED_VIP_DURATION_DAYS}d), Themes=[${module.SPOOFED_THEMES.join(", ")}]`);
             this.method(".ctor", 5).invoke(Profile, GemCount, spoofedVipEndAt, NameChangeCount, themesArray);
         };
     }

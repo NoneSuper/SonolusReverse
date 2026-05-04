@@ -25,7 +25,7 @@ export class ModuleManager {
                 module.initHooks();
                 Logger.debug(`[${this.tag}::initAll] ${module.tag} module loaded`);
             } catch (error: any) {
-                Logger.error(`[${this.tag}::InitAll] Failed to load ${module.tag} module: ${error}`);
+                Logger.error(`[${this.tag}::initAll] Failed to load ${module.tag} module: ${error}`);
             }
         });
 
