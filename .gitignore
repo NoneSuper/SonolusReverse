@@ -1,0 +1,15 @@
+# Dependecies / Virtual Envirorements
+node_modules
+.venv
+
+# Dumps, Dumps from frida-il2cpp-bridge, APKs
+dump
+app_process64
+# exclude only from root, not from src
+/data/
+
+# Output of building
+dist
+
+# Agents
+AGENTS.md

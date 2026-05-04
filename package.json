@@ -1,0 +1,44 @@
+{
+  "name": "sonolusreverse",
+  "description": "Mod for Sonolus written using frida and frida-il2cpp-bridge",
+  "version": "1.0.0",
+  "author": "https://github.com/repinek",
+  "keywords": [
+    "frida",
+    "il2cpp",
+    "unity",
+    "sonolus",
+    "mod"
+  ],
+  "license": "GPL-3.0",
+  "homepage": "https://github.com/repinek/SonolusReverse#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/repinek/SonolusReverse.git"
+  },
+  "bugs": {
+    "url": "https://github.com/repinek/SonolusReverse/issues"
+  },
+  "main": "src/index.ts",
+  "scripts": {
+    "build": "frida-compile src/index.ts -o dist/agent.js",
+    "spawn": "frida -U Gadget -l dist/agent.js",
+    "prettier": "prettier --write \"src/**\""
+   },
+  "devDependencies": {
+    "@types/frida-gum": "^19.0.2",
+    "@types/node": "^25.6.0",
+    "frida-compile": "^19.0.5",
+    "prettier": "^3.8.3",
+    "typescript": "^6.0.3"
+  },
+  "dependencies": {
+    "frida-il2cpp-bridge": "^0.13.1"
+  },
+  "prettier": {
+    "tabWidth": 4,
+    "arrowParens": "avoid",
+    "trailingComma": "none",
+    "printWidth": 160
+  }
+}
