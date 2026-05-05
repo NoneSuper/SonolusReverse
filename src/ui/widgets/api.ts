@@ -6,6 +6,9 @@ interface WidgetApi {
     SystemBoolean: Il2Cpp.Class;
     SystemAction: Il2Cpp.Class;
 
+    Assets: Il2Cpp.Class;
+    Texture2D: Il2Cpp.Class;
+
     Widget: Il2Cpp.Class;
     Rows: Il2Cpp.Class;
     SectionBase: Il2Cpp.Class;
@@ -14,8 +17,7 @@ interface WidgetApi {
     BtnField: Il2Cpp.Class;
     ImgLblBtn: Il2Cpp.Class;
     RefBool: Il2Cpp.Class;
-    Assets: Il2Cpp.Class;
-    Texture2D: Il2Cpp.Class;
+    RefString: Il2Cpp.Class;
 
     opImplicitFromString: Il2Cpp.Method<Il2Cpp.Object>;
     opImplicitFromTexture2D: Il2Cpp.Method<Il2Cpp.Object>;
@@ -34,6 +36,7 @@ export function api(): WidgetApi {
     const SystemBoolean = Il2Cpp.corlib.class("System.Boolean");
     const SystemAction = Il2Cpp.corlib.class("System.Action");
 
+    const Assets = Asm.class("Sonolus.Assets");
     // Alternative: Assets.method<Il2Cpp.Object>("get_IconStar").returnType.class;
     const Texture2D = AssemblyHelper.CoreModule.class("UnityEngine.Texture2D");
 
@@ -50,8 +53,7 @@ export function api(): WidgetApi {
     const DepString = Asm.class("Sonolus.Reactivity.Dep`1").inflate(SystemString);
     const DepTexture2D = Asm.class("Sonolus.Reactivity.Dep`1").inflate(Texture2D);
     const RefBool = Asm.class("Sonolus.Reactivity.Ref`1").inflate(SystemBoolean);
-
-    const Assets = Asm.class("Sonolus.Assets");
+    const RefString = Asm.class("Sonolus.Reactivity.Ref`1").inflate(SystemString);
 
     // Methods
     const opImplicitFromString = DepString.method<Il2Cpp.Object>("op_Implicit").overload(SystemString);
@@ -71,6 +73,7 @@ export function api(): WidgetApi {
         BtnField,
         ImgLblBtn,
         RefBool,
+        RefString,
         Assets,
         Texture2D,
         opImplicitFromString,

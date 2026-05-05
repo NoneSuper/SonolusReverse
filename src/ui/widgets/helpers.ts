@@ -39,3 +39,11 @@ export function allocPinnedBoolRef(initialValue: boolean): Il2Cpp.Object {
     ref.ref(true); // pin it in GC
     return ref;
 }
+
+/** Allocate a `Sonolus.Reactivity.Ref<string>(initialValue)`, pinned in GC. */
+export function allocPinnedStringRef(initialValue: string): Il2Cpp.Object {
+    const ref = api().RefString.alloc();
+    ref.method<void>(".ctor", 1).invoke(Il2Cpp.string(initialValue));
+    ref.ref(true); // pin it in GC
+    return ref;
+}

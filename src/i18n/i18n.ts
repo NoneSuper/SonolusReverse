@@ -1,13 +1,24 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { Logger } from "../logger/logger";
+import { allocPinnedStringRef } from "../ui/widgets/helpers";
 
 import en from "./localization/en.json";
 import ru from "./localization/ru.json";
 
-
 /*
-It may look a little compilcated
-But what we are doing here, it's a hook NotifyUpdate to capture locale changing in-game 
+It may look a little complicated. localization is independent from Sonolus one
+
+What we are doing here?
+
+1. Hook `Sonolus.I18n.NotifyUpdate`
+    - To detect in-game locale changes and apply them for our translations too
+
+2. Creating `Sonolus.Reactivity.Ref<string>`
+    - For live updates (when locale is changed we reload our Refs)
+
+Methods to use:
+I18n.t(key: string) // plain string
+I18n.tRef(key: string) // Sonolus Ref<string>
 */
 
 const TRANSLATIONS: Record<string, any> = {
@@ -23,12 +34,15 @@ export class I18n {
     private static currentLocale: string = this.fallbackLocale;
     private static resolved: boolean = false;
 
+    // Cache: key, Ref<string>
+    private static localizedRefs: Map<string, Il2Cpp.Object> = new Map();
+
     private static SettingsUI: Il2Cpp.Class;
     private static SonolusI18n: Il2Cpp.Class;
 
     private static NotifyUpdate: Il2Cpp.Method;
 
-    static init(): void {
+    public static init(): void {
         this.SettingsUI = AssemblyHelper.AssemblyCSharp.class("Sonolus.Settings.UI");
         this.SonolusI18n = AssemblyHelper.AssemblyCSharp.class("Sonolus.I18n");
 
@@ -42,7 +56,7 @@ export class I18n {
 
     private static resolveLocale(): void {
         const gameLocale = this.readLocaleFromGame();
-        Logger.debug(`[${this.tag}::resolveLocale] readLocaleFromGame returned: ${gameLocale}`);
+        // Logger.debug(`[${this.tag}::resolveLocale] readLocaleFromGame returned: ${gameLocale}`);
 
         if (gameLocale === null) {
             this.currentLocale = this.fallbackLocale;
@@ -60,7 +74,7 @@ export class I18n {
         }
     }
 
-    // May be unavailable on startup, we are doing lazy initilization in `I18n.t()`
+    // May be unavailable on startup, we are doing lazy initialization in `I18n.t()`
     private static readLocaleFromGame(): string | null {
         try {
             // Sonolus.Reactivity.Ref<Sonolus.Core.Localization.AvailableLocalization>
@@ -82,12 +96,37 @@ export class I18n {
     }
 
     private static NotifyUpdateHook(this: Il2Cpp.Object): void {
+        Logger.hook("I18n.NotifyUpdate called")
         this.method<void>("NotifyUpdate", 0).invoke();
         I18n.resolveLocale();
-        Logger.info(`[${I18n.tag}::NotifyUpdate] refreshed locale: ${I18n.currentLocale}`);
+        I18n.refreshAllLocalizedRefs();
     }
 
-    static t(key: string, ...args: (string | number)[]): string {
+    private static refreshAllLocalizedRefs(): void {
+        for (const [key, ref] of this.localizedRefs) {
+            try {
+                ref.method<void>("set_Value", 1).invoke(Il2Cpp.string(this.t(key)));
+            } catch (e) {
+                Logger.warn(`[${this.tag}::refreshAllLocalizedRefs] failed for "${key}": ${e}`);
+            }
+        }
+    }
+
+    /**
+     * Create a localized ref for widget builders
+     * 
+     * @returns `Ref<string>`
+     */
+    public static tRef(key: string, ...args: (string | number)[]): Il2Cpp.Object {
+        const existing = this.localizedRefs.get(key);
+        if (existing) return existing;
+
+        const ref = allocPinnedStringRef(this.t(key, ...args));
+        this.localizedRefs.set(key, ref);
+        return ref;
+    }
+
+    public static t(key: string, ...args: (string | number)[]): string {
         // Lazy init
         if (!this.resolved) this.resolveLocale();
 
@@ -107,7 +146,7 @@ export class I18n {
         });
     }
 
-    // Private Helpers
+    // Private i18n Helpers
     private static isLocaleSupported(locale: string): boolean {
         return this.supportedLocales.includes(locale);
     }

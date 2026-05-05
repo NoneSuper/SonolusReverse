@@ -17,7 +17,7 @@ function getSharedRef(): Il2Cpp.Object {
 function buildThemesShortcut(): Il2Cpp.Object {
     const openButton = buildImgLblBtn({
         icon: wrapTexture2D(getAssetTexture2D("Theme")),
-        title: I18n.t("ui.theme.button_title"),
+        title: I18n.tRef("ui.theme.button_title"),
         onClick: () => {
             const action = getThemeAction();
             if (!action) {
@@ -29,17 +29,17 @@ function buildThemesShortcut(): Il2Cpp.Object {
     });
 
     return buildBtnField({
-        title: I18n.t("ui.theme.title"),
-        description: I18n.t("ui.theme.description"),
+        title: I18n.tRef("ui.theme.title"),
+        description: I18n.tRef("ui.theme.description"),
         buttons: [openButton]
     });
 }
 
 export function buildCustomSection(): Il2Cpp.Object {
-    const header = buildSectionHeader(I18n.t("ui.title"));
+    const header = buildSectionHeader(I18n.tRef("ui.title"));
     const spoofToggle = buildToggleField({
-        title: I18n.t("ui.spoof.title"),
-        description: I18n.t("ui.spoof.description"),
+        title: I18n.tRef("ui.spoof.title"),
+        description: I18n.tRef("ui.spoof.description"),
         value: getSharedRef(),
         defaultValue: true
     });
