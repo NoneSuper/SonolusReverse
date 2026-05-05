@@ -2,11 +2,12 @@
 Mostly for developers and me, so I don't forgetting things.
 
 ### Architecture
-- [ ] i18n: read locale from game
+- [x] i18n: read locale from game
 - [x] BaseModule: use it
 - [ ] ESLint integration
 - [ ] Webpack integration
 - [ ] GitHub workflow
+- [ ] Popup Sonolus System
 
 ### Features
 - [ ] Disable Background picture
@@ -22,5 +23,6 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] About tab in SonolusReverse settings
 - [ ] Modify version text in startup screen to show `Reverse` 
 - [ ] Disable Analytics
+- [ ] Alert if speed modified or autofail turned on
 
 also some todos by searching `TODO` in project files
