@@ -1,7 +1,7 @@
 import { BaseModule } from "../core/base-module";
 import { getThemeAction, setThemeAction } from "../data/state";
 import { Logger } from "../logger/logger";
-import { api } from "../ui/widgets/api";
+import { api } from "../ui/api";
 import { getAssetTexture2D } from "../ui/widgets/helpers";
 
 /*

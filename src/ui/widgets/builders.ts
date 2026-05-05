@@ -1,8 +1,9 @@
-import { api } from "./api";
+import { api } from "../api";
 import { makeAction, wrapString } from "./helpers";
 
 /*
-Builders for amazing Sonolus UI widgets.
+Builders for some amazing Sonolus UI widgets.
+Everything UI is a CompositeWidget, like in Flutter
 */
 
 export function buildRows(gap: number, children: Il2Cpp.Object[]): Il2Cpp.Object {

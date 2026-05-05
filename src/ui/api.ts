@@ -1,4 +1,4 @@
-import { AssemblyHelper } from "../../core/assembly-helper";
+import { AssemblyHelper } from "../core/assembly-helper";
 
 interface WidgetApi {
     SystemString: Il2Cpp.Class;

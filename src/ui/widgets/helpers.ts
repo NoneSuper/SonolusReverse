@@ -1,4 +1,4 @@
-import { api } from "./api";
+import { api } from "../api";
 
 /** Wraps a JS string into `Sonolus.Reactivity.Dep<string>` */
 export function wrapString(text: string): Il2Cpp.Object {
