@@ -1,8 +1,8 @@
+import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
 import { getThemeAction, setThemeAction } from "../data/state";
 import { Logger } from "../logger/logger";
-import { api } from "../ui/api";
-import { getAssetTexture2D } from "../ui/widgets/helpers";
+import { getAssetTexture2D } from "../ui/helpers";
 
 /*
 Instead creating own System.Action of opening themes, we just steal it from original one
@@ -20,7 +20,7 @@ export class ThemeAction extends BaseModule {
     private onClick!: Il2Cpp.Method;
 
     public init(): void {
-        this.ImgLblBtn = api().ImgLblBtn;
+        this.ImgLblBtn = AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.ImgLblBtn");
 
         this.onClick = this.ImgLblBtn.method("OnClick", 1).overload("System.Action");
     }

@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { Logger } from "../logger/logger";
-import { allocPinnedStringRef } from "../ui/widgets/helpers";
+import { allocPinnedStringRef } from "../ui/helpers";
 
 import en from "./localization/en.json";
 import ru from "./localization/ru.json";
@@ -96,7 +96,7 @@ export class I18n {
     }
 
     private static NotifyUpdateHook(this: Il2Cpp.Object): void {
-        Logger.hook("I18n.NotifyUpdate called")
+        Logger.hook("I18n.NotifyUpdate called");
         this.method<void>("NotifyUpdate", 0).invoke();
         I18n.resolveLocale();
         I18n.refreshAllLocalizedRefs();
@@ -114,7 +114,7 @@ export class I18n {
 
     /**
      * Create a localized ref for widget builders
-     * 
+     *
      * @returns `Ref<string>`
      */
     public static tRef(key: string, ...args: (string | number)[]): Il2Cpp.Object {

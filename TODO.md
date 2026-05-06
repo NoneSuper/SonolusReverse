@@ -8,7 +8,6 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] Webpack integration
 - [ ] GitHub workflow
 - [ ] Popup Sonolus System
-- [ ] Refactor messy structure. In some places we have BaseModule, in other we have pure init(), second we have api() for classes...
 
 ### Features
 - [ ] Disable Background picture

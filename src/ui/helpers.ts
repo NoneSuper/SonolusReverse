@@ -1,4 +1,57 @@
-import { api } from "../api";
+import { AssemblyHelper } from "../core/assembly-helper";
+
+interface Api {
+    Assets: Il2Cpp.Class;
+    CustomSection: Il2Cpp.Class;
+    SystemAction: Il2Cpp.Class;
+    RefBool: Il2Cpp.Class;
+    RefString: Il2Cpp.Class;
+    opImplicitFromString: Il2Cpp.Method<Il2Cpp.Object>;
+    opImplicitFromTexture2D: Il2Cpp.Method<Il2Cpp.Object>;
+}
+
+let _api: Api | null = null;
+
+function api(): Api {
+    if (_api) return _api;
+
+    const Asm = AssemblyHelper.AssemblyCSharp;
+
+    const SystemString = Il2Cpp.corlib.class("System.String");
+    const SystemBoolean = Il2Cpp.corlib.class("System.Boolean");
+    const SystemAction = Il2Cpp.corlib.class("System.Action");
+
+    const Texture2D = AssemblyHelper.CoreModule.class("UnityEngine.Texture2D");
+
+    const Assets = Asm.class("Sonolus.Assets");
+
+    const CustomSection = Asm.class("Sonolus.UI.Common.Sections.CustomSection");
+
+    // Dep
+    const Dep = Asm.class("Sonolus.Reactivity.Dep`1");
+    const DepString = Dep.inflate(SystemString);
+    const DepTexture2D = Dep.inflate(Texture2D);
+
+    const opImplicitFromString = DepString.method<Il2Cpp.Object>("op_Implicit").overload(SystemString);
+    const opImplicitFromTexture2D = DepTexture2D.method<Il2Cpp.Object>("op_Implicit").overload(Texture2D);
+
+    // Ref
+    const Ref = Asm.class("Sonolus.Reactivity.Ref`1");
+    const RefBool = Ref.inflate(SystemBoolean);
+    const RefString = Ref.inflate(SystemString);
+
+    _api = {
+        Assets,
+        CustomSection,
+        SystemAction,
+        RefBool,
+        RefString,
+        opImplicitFromString,
+        opImplicitFromTexture2D
+    };
+    
+    return _api;
+}
 
 /** Wraps a JS string into `Sonolus.Reactivity.Dep<string>` */
 export function wrapString(text: string): Il2Cpp.Object {

@@ -1,10 +1,56 @@
-import { api } from "../api";
 import { makeAction, wrapString } from "./helpers";
+import { AssemblyHelper } from "../core/assembly-helper";
 
 /*
 Builders for some amazing Sonolus UI widgets.
 Everything UI is a CompositeWidget, like in Flutter
 */
+
+interface Api {
+    SystemAction: Il2Cpp.Class;
+    Rows: Il2Cpp.Class;
+    Widget: Il2Cpp.Class;
+    SectionBase: Il2Cpp.Class;
+    ToggleField: Il2Cpp.Class;
+    BtnField: Il2Cpp.Class;
+    ImgLblBtn: Il2Cpp.Class;
+    widgetUtilsChildren: Il2Cpp.Method<Il2Cpp.Object>;
+}
+
+let _api: Api | null = null;
+
+function api(): Api {
+    if (_api) return _api;
+
+    const Asm = AssemblyHelper.AssemblyCSharp;
+
+    const SystemObject = Il2Cpp.corlib.class("System.Object");
+    const SystemAction = Il2Cpp.corlib.class("System.Action");
+
+    const Rows = Asm.class("Sonolus.UI.Common.Rows");
+
+    const Widget = Asm.class("Sonolus.UI.Widget")
+    const WidgetUtils = Asm.class("Sonolus.UI.WidgetUtils");;
+
+    const SectionBase = Asm.class("Sonolus.UI.Common.Sections.SectionBase");
+    const ToggleField = Asm.class("Sonolus.UI.Common.Fields.ToggleField");
+    const BtnField = Asm.class("Sonolus.UI.Common.Fields.BtnField");
+    const ImgLblBtn = Asm.class("Sonolus.UI.Common.ImgLblBtn");
+    
+    const widgetUtilsChildren = WidgetUtils.method<Il2Cpp.Object>("Children", 2).inflate(SystemObject);
+
+    _api = {
+        SystemAction,
+        Rows,
+        Widget,
+        SectionBase,
+        ToggleField,
+        BtnField,
+        ImgLblBtn,
+        widgetUtilsChildren
+    };
+    return _api;
+}
 
 export function buildRows(gap: number, children: Il2Cpp.Object[]): Il2Cpp.Object {
     const rows = api().Rows.new(); // call alloc + il2cpp_object_initialize export
