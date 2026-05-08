@@ -5,6 +5,10 @@
             "title": "VIP and Themes Spoof",
             "description": "Client-side spoof of VIP and owned Themes. You need re-open Settings to update owned Themes and VIP."
         },
+        "version_spoof": {
+            "title": "Spoof App Version",
+            "description": "Override the version used by client compatibility checks. Leave empty to disable spoof."
+        },
         "theme": {
             "title": "Theme",
             "description": "Color theme to use.",

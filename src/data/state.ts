@@ -1,10 +1,28 @@
 import { Logger } from "../logger/logger";
 
+// TODO: rewrite it for json config
 let spoofEnabledRef: Il2Cpp.Object | null = null;
+let versionSpoofRef: Il2Cpp.Object | null = null;
 let themeAction: Il2Cpp.Object | null = null;
 
-export function setSpoofEnabledRef(ref: Il2Cpp.Object): void {
-    spoofEnabledRef = ref;
+
+export function setVersionSpoofRef(ref: Il2Cpp.Object): void {
+    versionSpoofRef = ref;
+}
+
+export function getVersionSpoofRef(): Il2Cpp.Object | null {
+    return versionSpoofRef;
+}
+
+export function getVersionSpoofValue(): string {
+    if (!versionSpoofRef) return "";
+    try {
+        const s = versionSpoofRef.field<Il2Cpp.String>("_value").value;
+        return s.isNull() ? "" : (s.content ?? "");
+    } catch (e) {
+        Logger.error(`[state] getVersionSpoofValue error: ${e}`);
+        return "";
+    }
 }
 
 export function setThemeAction(action: Il2Cpp.Object): void {
@@ -13,6 +31,10 @@ export function setThemeAction(action: Il2Cpp.Object): void {
 
 export function getThemeAction(): Il2Cpp.Object | null {
     return themeAction;
+}
+
+export function setSpoofEnabledRef(ref: Il2Cpp.Object): void {
+    spoofEnabledRef = ref;
 }
 
 export function isSpoofEnabled(): boolean {
@@ -26,7 +48,7 @@ export function isSpoofEnabled(): boolean {
 }
 
 // https://rosepinetheme.com
-// idk, I thinks it's incorrect, not mine
+// idk, I think it's incorrect, not mine
 export const CUSTOM_THEME = {
     name: "sr_custom_001",
     title: "Rosé Pine",

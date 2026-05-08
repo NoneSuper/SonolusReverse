@@ -4,6 +4,7 @@ import { BaseModule } from "./base-module";
 import { ThemeAction } from "../features/theme-action";
 import { UserInfoSpoof } from "../features/userinfo-spoof";
 import { CustomTheme } from "../features/custom-theme";
+import { VersionSpoof } from "../features/version-spoof";
 
 import { Logger } from "../logger/logger";
 
@@ -15,6 +16,7 @@ export class ModuleManager {
         new ThemeAction(),
         new UserInfoSpoof(),
         new CustomTheme(),
+        new VersionSpoof(),
     ];
 
     /** Initializes all modules by calling init() and initHooks() in module */
