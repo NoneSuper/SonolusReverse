@@ -3,6 +3,7 @@ import { BaseModule } from "./base-module";
 // Modules
 import { ThemeAction } from "../features/theme-action";
 import { UserInfoSpoof } from "../features/userinfo-spoof";
+import { CustomTheme } from "../features/custom-theme";
 
 import { Logger } from "../logger/logger";
 
@@ -13,6 +14,7 @@ export class ModuleManager {
     private static modules: BaseModule[] = [
         new ThemeAction(),
         new UserInfoSpoof(),
+        new CustomTheme(),
     ];
 
     /** Initializes all modules by calling init() and initHooks() in module */
