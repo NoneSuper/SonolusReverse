@@ -8,6 +8,7 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] Webpack integration
 - [ ] GitHub workflow
 - [ ] Popup Sonolus System
+- [ ] Alert Sonolus System
 - [ ] JSON Config System
 
 ### Features
@@ -17,7 +18,7 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] Theme JSON parsing 
 - [x] Russian localization
 - [ ] UwUify across all Sonolus
-- [ ] Version Spoof
+- [x] Version Spoof
 - [ ] Export / Import Sonolus settings
 - [ ] About tab in SonolusReverse settings
 - [ ] Modify version text in startup screen to show `Reverse` 
