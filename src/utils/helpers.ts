@@ -2,6 +2,7 @@ import { AssemblyHelper } from "../core/assembly-helper";
 
 interface Api {
     SystemAction: Il2Cpp.Class;
+    SystemString: Il2Cpp.Class;
     Assets: Il2Cpp.Class;
     CustomSection: Il2Cpp.Class;
     Srl: Il2Cpp.Class;
@@ -9,6 +10,7 @@ interface Api {
     RefString: Il2Cpp.Class;
     opImplicitFromString: Il2Cpp.Method<Il2Cpp.Object>;
     opImplicitFromTexture2D: Il2Cpp.Method<Il2Cpp.Object>;
+    opImplicitFromBool: Il2Cpp.Method<Il2Cpp.Object>;
 }
 
 let _api: Api | null = null;
@@ -34,9 +36,11 @@ function api(): Api {
     const Dep = Asm.class("Sonolus.Reactivity.Dep`1");
     const DepString = Dep.inflate(SystemString);
     const DepTexture2D = Dep.inflate(Texture2D);
+    const DepBool = Dep.inflate(SystemBoolean);
 
     const opImplicitFromString = DepString.method<Il2Cpp.Object>("op_Implicit").overload(SystemString);
     const opImplicitFromTexture2D = DepTexture2D.method<Il2Cpp.Object>("op_Implicit").overload(Texture2D);
+    const opImplicitFromBool = DepBool.method<Il2Cpp.Object>("op_Implicit").overload(SystemBoolean);
 
     // Ref
     const Ref = Asm.class("Sonolus.Reactivity.Ref`1");
@@ -45,13 +49,15 @@ function api(): Api {
 
     _api = {
         SystemAction,
+        SystemString,
         Assets,
         CustomSection,
         Srl,
         RefBool,
         RefString,
         opImplicitFromString,
-        opImplicitFromTexture2D
+        opImplicitFromTexture2D,
+        opImplicitFromBool
     };
 
     return _api;
@@ -67,7 +73,15 @@ export function wrapTexture2D(texture2D: Il2Cpp.Object): Il2Cpp.Object {
     return api().opImplicitFromTexture2D.invoke(texture2D);
 }
 
-/** Wraps content in `Sonolus.UI.Common.Sections.CustomSection` */
+/** Wraps a JS boolean into `Sonolus.Reactivity.Dep<bool>` */
+export function wrapBool(value: boolean): Il2Cpp.Object {
+    return api().opImplicitFromBool.invoke(value);
+}
+
+/** Wraps a `Sonolus.UI.Widget` into `Sonolus.UI.Common.Sections.CustomSection` 
+ * 
+ * @param content `Sonolus.UI.Widget`
+*/
 export function wrapInCustomSection(content: Il2Cpp.Object): Il2Cpp.Object {
     const cs = api().CustomSection.new();
     cs.method<void>("SetContent", 1).invoke(content);
