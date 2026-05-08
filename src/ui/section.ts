@@ -1,7 +1,7 @@
 import { getThemeAction, setSpoofEnabledRef } from "../data/state";
 import { Logger } from "../logger/logger";
 import { I18n } from "../i18n/i18n";
-import { allocPinnedBoolRef, getAssetTexture2D, wrapInCustomSection, wrapTexture2D } from "./helpers";
+import { allocPinnedBoolRef, getAssetTexture2D, wrapInCustomSection, wrapTexture2D } from "../utils/helpers";
 import { buildBtnField, buildImgLblBtn, buildRows, buildSectionHeader, buildToggleField } from "./widgets";
 
 // TODO: rewrite later with config system

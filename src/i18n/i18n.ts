@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { Logger } from "../logger/logger";
-import { allocPinnedStringRef } from "../ui/helpers";
+import { allocPinnedStringRef } from "../utils/helpers";
 
 import en from "./localization/en.json";
 import ru from "./localization/ru.json";

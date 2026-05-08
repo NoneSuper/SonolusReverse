@@ -1,7 +1,7 @@
 import { Logger } from "../logger/logger";
 import { buildCustomSection } from "./section";
 import { AssemblyHelper } from "../core/assembly-helper";
-import { getAssetTexture2D, wrapTexture2D } from "./helpers";
+import { getAssetTexture2D, wrapTexture2D } from "../utils/helpers";
 
 /*
 Adds the Custom section to the Sonolus Settings page.

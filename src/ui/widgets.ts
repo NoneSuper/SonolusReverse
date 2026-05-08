@@ -1,4 +1,4 @@
-import { makeAction, wrapString } from "./helpers";
+import { makeAction, wrapString } from "../utils/helpers";
 import { AssemblyHelper } from "../core/assembly-helper";
 
 /*
@@ -29,14 +29,14 @@ function api(): Api {
 
     const Rows = Asm.class("Sonolus.UI.Common.Rows");
 
-    const Widget = Asm.class("Sonolus.UI.Widget")
-    const WidgetUtils = Asm.class("Sonolus.UI.WidgetUtils");;
+    const Widget = Asm.class("Sonolus.UI.Widget");
+    const WidgetUtils = Asm.class("Sonolus.UI.WidgetUtils");
 
     const SectionBase = Asm.class("Sonolus.UI.Common.Sections.SectionBase");
     const ToggleField = Asm.class("Sonolus.UI.Common.Fields.ToggleField");
     const BtnField = Asm.class("Sonolus.UI.Common.Fields.BtnField");
     const ImgLblBtn = Asm.class("Sonolus.UI.Common.ImgLblBtn");
-    
+
     const widgetUtilsChildren = WidgetUtils.method<Il2Cpp.Object>("Children", 2).inflate(SystemObject);
 
     _api = {

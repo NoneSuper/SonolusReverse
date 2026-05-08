@@ -2,7 +2,7 @@ import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
 import { getThemeAction, setThemeAction } from "../data/state";
 import { Logger } from "../logger/logger";
-import { getAssetTexture2D } from "../ui/helpers";
+import { getAssetTexture2D } from "../utils/helpers";
 
 /*
 Instead creating own System.Action of opening themes, we just steal it from original one

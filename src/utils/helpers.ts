@@ -1,9 +1,10 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 
 interface Api {
+    SystemAction: Il2Cpp.Class;
     Assets: Il2Cpp.Class;
     CustomSection: Il2Cpp.Class;
-    SystemAction: Il2Cpp.Class;
+    Srl: Il2Cpp.Class;
     RefBool: Il2Cpp.Class;
     RefString: Il2Cpp.Class;
     opImplicitFromString: Il2Cpp.Method<Il2Cpp.Object>;
@@ -27,6 +28,8 @@ function api(): Api {
 
     const CustomSection = Asm.class("Sonolus.UI.Common.Sections.CustomSection");
 
+    const Srl = Asm.class("Sonolus.Core.Srl");
+
     // Dep
     const Dep = Asm.class("Sonolus.Reactivity.Dep`1");
     const DepString = Dep.inflate(SystemString);
@@ -41,15 +44,16 @@ function api(): Api {
     const RefString = Ref.inflate(SystemString);
 
     _api = {
+        SystemAction,
         Assets,
         CustomSection,
-        SystemAction,
+        Srl,
         RefBool,
         RefString,
         opImplicitFromString,
         opImplicitFromTexture2D
     };
-    
+
     return _api;
 }
 
@@ -63,7 +67,7 @@ export function wrapTexture2D(texture2D: Il2Cpp.Object): Il2Cpp.Object {
     return api().opImplicitFromTexture2D.invoke(texture2D);
 }
 
-/** Allocate a `Sonolus.UI.Common.Sections.CustomSection` with content */
+/** Wraps content in `Sonolus.UI.Common.Sections.CustomSection` */
 export function wrapInCustomSection(content: Il2Cpp.Object): Il2Cpp.Object {
     const cs = api().CustomSection.new();
     cs.method<void>("SetContent", 1).invoke(content);
@@ -83,6 +87,13 @@ export function getAssetTexture2D(iconName: string): Il2Cpp.Object {
 /** Create a `System.Action` using JS callback */
 export function makeAction(callback: () => void): Il2Cpp.Object {
     return Il2Cpp.delegate(api().SystemAction, callback);
+}
+
+/** Create `Sonolus.Core.Srl` */
+export function makeSrl(hash: string, url: string): Il2Cpp.Object {
+    const srl = api().Srl.alloc();
+    srl.method<void>(".ctor", 2).invoke(Il2Cpp.string(hash), Il2Cpp.string(url));
+    return srl;
 }
 
 /** Allocate a `Sonolus.Reactivity.Ref<bool>(initialValue)`, pinned in GC */
