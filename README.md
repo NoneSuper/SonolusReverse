@@ -14,12 +14,15 @@ Tested Sonolus version `1.1.1` (`4eee014389747`) on Android. Should work on iOS 
 <img src="assets/images/screenshot1.jpg" width="700" alt="SonolusReverse section in Settings">
 <img src="assets/images/screenshot2.jpg" width="700" alt="Themes shortcut & Themes spoofing">
 
+> `Rosé Pine 2` - A custom theme  
 > `彗く星（しいたけ杯）` - An exclusive theme for tournament participants
 
 
 ## Features
 * **Custom Settings Section**
-* **VIP + Themes spoof**: Client-side unlock of VIP _(removes ad)_ and all themes (including exclusives)
+* **VIP + Themes spoof**: Client-side unlock of VIP _(removes ad)_ and all themes _(including exclusives)_
+* **Version Spoof**: Override the version used by client compatibility checks
+> WIP: **Custom Themes**: Create your own themes! Currently only hardcoded.
 
 ##### Planned:
 See our [TODO](TODO.md). If you wanna contribute: see [Contributing](#contributing)
@@ -62,7 +65,7 @@ npm install
 ```
 
 1. Patch Sonolus executable using Frida Gadget in **listen** mode _(or use frida-server)_.  
-   I'm using [fgi](https://github.com/commonuserlol/fgi) to patch (APK only).
+I'm using [fgi](https://github.com/commonuserlol/fgi) to patch (APK only).
 
 ```bash
 fgi -i <sonolus-apk>
