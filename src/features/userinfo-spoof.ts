@@ -40,7 +40,7 @@ export class UserInfoSpoof extends BaseModule {
         "000010", // Mission S
         "000011", // Exfiltration
         "100001", // 彗く星（しいたけ杯）- Exclusive theme, not available to buy
-        "sr_custom_001" // TODO
+        "sr_custom_003" // TODO
     ];
 
     // Classes
