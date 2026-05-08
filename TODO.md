@@ -8,21 +8,25 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] Webpack integration
 - [ ] GitHub workflow
 - [ ] Popup Sonolus System
+- [ ] JSON Config System
 
 ### Features
 - [ ] Disable Background picture
 - [ ] Custom color background
-- [ ] Custom Themes
+- [x] Custom Themes
+- [ ] Theme JSON parsing 
 - [x] Russian localization
-- [ ] Auto saving replay
 - [ ] UwUify across all Sonolus
 - [ ] Version Spoof
-- [ ] Information about your recent plays on map (by replays)
 - [ ] Export / Import Sonolus settings
-- [ ] Change Health value
 - [ ] About tab in SonolusReverse settings
 - [ ] Modify version text in startup screen to show `Reverse` 
 - [ ] Disable Analytics
 - [ ] Alert if speed modified or autofail turned on (use notification popup (like auto-exit TIP))
+
+### Some day idk
+- [ ] Change Health value
+- [ ] Information about your recent plays on map (by replays)
+- [ ] Auto saving replay
 
 also some todos by searching `TODO` in project files
