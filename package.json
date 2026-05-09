@@ -23,8 +23,12 @@
   "scripts": {
     "build": "frida-compile src/index.ts -o dist/agent.js",
     "spawn": "frida -U Gadget -l dist/agent.js",
-    "prettier": "prettier --ignore-path .gitignore --ignore-path .prettierignore --write \"**/*.{ts,mts,json,md}\"",
-    "lint": "eslint ."
+    "prettier": "prettier --ignore-path .gitignore --write --ignore-path .prettierignore \"**/*.{ts,mts,json,md}\"",
+    "lint": "eslint .",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "**/*.{ts,mts,json,md}": "prettier --write --ignore-unknown"
   },
   "devDependencies": {
     "@eslint/config-helpers": "^0.6.0",
@@ -36,7 +40,9 @@
     "eslint-plugin-simple-import-sort": "^13.0.0",
     "frida-compile": "^19.0.5",
     "globals": "^17.6.0",
+    "husky": "^9.1.7",
     "jiti": "^2.7.0",
+    "lint-staged": "^17.0.3",
     "prettier": "^3.8.3",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.2"

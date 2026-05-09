@@ -100,7 +100,8 @@ NOTE: You can re-build script without re-launching game
 
 `npm run build` - Build a script using [frida-compile](https://github.com/frida/frida-compile)  
 `npm run spawn` - Inject a script into the game with the Gadget _(You need patched game with Gadget in **listen** mode and `Frida` Installed)_  
-`npm run prettier` - Runs [prettier](https://prettier.io/) to format code
+`npm run prettier` - Runs [prettier](https://prettier.io/) to format code and files
+`npm run lint` Runs [ESLint](https://eslint.org/) to static analyzes code
 
 \* from package.json
 
