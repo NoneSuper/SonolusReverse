@@ -23,14 +23,23 @@
   "scripts": {
     "build": "frida-compile src/index.ts -o dist/agent.js",
     "spawn": "frida -U Gadget -l dist/agent.js",
-    "prettier": "prettier --write \"src/**\""
-   },
+    "prettier": "prettier --ignore-path .gitignore --ignore-path .prettierignore --write \"**/*.{ts,mts,json,md}\"",
+    "lint": "eslint ."
+  },
   "devDependencies": {
+    "@eslint/config-helpers": "^0.6.0",
+    "@eslint/js": "^10.0.1",
     "@types/frida-gum": "^19.0.2",
-    "@types/node": "^25.6.0",
+    "@types/node": "^25.6.2",
+    "eslint": "^10.3.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-simple-import-sort": "^13.0.0",
     "frida-compile": "^19.0.5",
+    "globals": "^17.6.0",
+    "jiti": "^2.7.0",
     "prettier": "^3.8.3",
-    "typescript": "^6.0.3"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.59.2"
   },
   "dependencies": {
     "frida-il2cpp-bridge": "^0.13.1"

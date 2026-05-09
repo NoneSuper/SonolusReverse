@@ -1,10 +1,11 @@
 import "frida-il2cpp-bridge";
+
+import { AssemblyHelper } from "./core/assembly-helper";
+import { ModuleManager } from "./core/module-manager";
 import { I18n } from "./i18n/i18n";
 import { Logger } from "./logger/logger";
 import { initSettingsUI } from "./ui/settings";
-import { AssemblyHelper } from "./core/assembly-helper";
 import { getSonolusVersion } from "./utils/version";
-import { ModuleManager } from "./core/module-manager";
 
 function init(): void {
     Logger.info("Script loaded!");

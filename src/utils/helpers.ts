@@ -78,10 +78,10 @@ export function wrapBool(value: boolean): Il2Cpp.Object {
     return api().opImplicitFromBool.invoke(value);
 }
 
-/** Wraps a `Sonolus.UI.Widget` into `Sonolus.UI.Common.Sections.CustomSection` 
- * 
+/** Wraps a `Sonolus.UI.Widget` into `Sonolus.UI.Common.Sections.CustomSection`
+ *
  * @param content `Sonolus.UI.Widget`
-*/
+ */
 export function wrapInCustomSection(content: Il2Cpp.Object): Il2Cpp.Object {
     const cs = api().CustomSection.new();
     cs.method<void>("SetContent", 1).invoke(content);

@@ -1,16 +1,9 @@
 import { getThemeAction, setSpoofEnabledRef, setVersionSpoofRef } from "../data/state";
-import { Logger } from "../logger/logger";
 import { I18n } from "../i18n/i18n";
-import {
-    allocPinnedBoolRef,
-    allocPinnedStringRef,
-    getAssetTexture2D,
-    wrapInCustomSection,
-    wrapString,
-    wrapTexture2D
-} from "../utils/helpers";
-import { buildBtnField, buildImgLblBtn, buildRows, buildSectionHeader, buildToggleField, buildTxtInputField } from "./widgets";
+import { Logger } from "../logger/logger";
+import { allocPinnedBoolRef, allocPinnedStringRef, getAssetTexture2D, wrapInCustomSection, wrapString, wrapTexture2D } from "../utils/helpers";
 import { getSonolusVersion } from "../utils/version";
+import { buildBtnField, buildImgLblBtn, buildRows, buildSectionHeader, buildToggleField, buildTxtInputField } from "./widgets";
 
 // TODO: rewrite later with config system
 let sharedRef: Il2Cpp.Object | null = null;

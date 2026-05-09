@@ -1,12 +1,9 @@
-import { BaseModule } from "./base-module";
-
-// Modules
+import { CustomTheme } from "../features/custom-theme";
 import { ThemeAction } from "../features/theme-action";
 import { UserInfoSpoof } from "../features/userinfo-spoof";
-import { CustomTheme } from "../features/custom-theme";
 import { VersionSpoof } from "../features/version-spoof";
-
 import { Logger } from "../logger/logger";
+import { BaseModule } from "./base-module";
 
 export class ModuleManager {
     public static readonly tag = "ModuleManager";

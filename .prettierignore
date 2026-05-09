@@ -1,0 +1,5 @@
+# follow .gitignore + extra excludes:
+package.json
+package-lock.json
+LICENSE
+requirements.txt

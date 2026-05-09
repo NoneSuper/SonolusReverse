@@ -5,7 +5,6 @@ let spoofEnabledRef: Il2Cpp.Object | null = null;
 let versionSpoofRef: Il2Cpp.Object | null = null;
 let themeAction: Il2Cpp.Object | null = null;
 
-
 export function setVersionSpoofRef(ref: Il2Cpp.Object): void {
     versionSpoofRef = ref;
 }
@@ -53,8 +52,8 @@ export const CUSTOM_THEME = {
     name: "sr_custom_003",
     title: "Rosé Pine 2",
     colors: {
-        mainBackground: "#191724", 
-        mainSurface: "#1f1d2e", 
+        mainBackground: "#191724",
+        mainSurface: "#1f1d2e",
         mainBackgroundAltFirst: "#21202e",
         mainBackgroundAltSecond: "#26233a",
 

@@ -1,5 +1,5 @@
-import { getAssetTexture2D, makeAction, wrapBool, wrapString, wrapTexture2D } from "../utils/helpers";
 import { AssemblyHelper } from "../core/assembly-helper";
+import { getAssetTexture2D, makeAction, wrapBool, wrapString, wrapTexture2D } from "../utils/helpers";
 
 /*
 Builders for some amazing Sonolus UI widgets.
