@@ -1,20 +1,15 @@
 {
     "compilerOptions": {
         "target": "esnext",
-        "lib": ["es2022", "DOM"],
-        "types": ["node", "frida-gum"],
-        "experimentalDecorators": true,
+        "lib": ["ESNext", "DOM"],
         "module": "NodeNext",
         "moduleResolution": "nodenext",
+        "types": ["node", "frida-gum"],
         "resolveJsonModule": true,
-        "allowJs": true,
-        "checkJs": false,
-        "allowSyntheticDefaultImports": true,
         "esModuleInterop": true,
-        "forceConsistentCasingInFileNames": true,
         "strict": true,
-        "sourceMap": true,
-        "skipLibCheck": true
+        "skipLibCheck": true,
+        "noImplicitOverride": true
     },
     "include": ["src/**/*"]
 }
