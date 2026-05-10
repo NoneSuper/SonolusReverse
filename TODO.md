@@ -24,7 +24,7 @@ Mostly for developers and me, so I don't forgetting things.
 - [x] Version Spoof
 - [ ] Export / Import Sonolus settings
 - [ ] About tab in SonolusReverse settings
-- [ ] Modify version text in startup screen to show `Reverse`
+- [x] Modify version text in startup screen to show `Reverse`
 - [ ] Disable Analytics
 - [ ] Alert if speed modified or autofail turned on (use notification popup (like auto-exit TIP))
 
