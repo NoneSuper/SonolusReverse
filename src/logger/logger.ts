@@ -27,7 +27,9 @@ export class Logger {
     }
 
     static debug(...messages: any[]) {
+        /// #if DEV
         console.debug(`${this.getTime()} ${this.Colors.CYAN}[DEBUG]${this.Colors.RESET}`, ...messages);
+        /// #endif
     }
 
     static warn(...messages: any[]) {
@@ -39,6 +41,8 @@ export class Logger {
     }
 
     static hook(...messages: any[]) {
+        /// #if DEV
         console.debug(`${this.getTime()} ${this.Colors.GRAY}[HOOK]`, ...messages, this.Colors.RESET);
+        /// #endif
     }
 }

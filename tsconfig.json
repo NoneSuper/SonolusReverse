@@ -11,5 +11,5 @@
         "skipLibCheck": true,
         "noImplicitOverride": true
     },
-    "include": ["src/**/*"]
+    "include": ["src/**/*", "webpack.config.mts", "eslint.config.mts"]
 }

@@ -77,7 +77,7 @@ fgi -i <sonolus-apk>
 2. Build Script
 
 ```bash
-npm run build
+npm run build:dev
 ```
 
 Script will be built into `dist/agent.js`
@@ -94,13 +94,21 @@ NOTE: You can re-build script without re-launching game
 
 - Typed widget builders for Sonolus UI
 - i18n ready
+- Webpack bundler with contiditional compilation _(ifdef)_
+- Pre-commit hooks
+- Auto-incrementing build version (MAJOR.MINOR.BUILD)
 - Simple, but yet enough Logger
 
 ## Scripts
 
-`npm run build` - Build a script using [frida-compile](https://github.com/frida/frida-compile)  
-`npm run spawn` - Inject a script into the game with the Gadget _(You need patched game with Gadget in **listen** mode and `Frida` Installed)_  
-`npm run prettier` - Runs [prettier](https://prettier.io/) to format code and files
+**Build the script:**  
+Compile the agent into `./dist/agent.js`  
+`npm run build` - a **RELEASE** version _(minified, optimized, no debug logs)_  
+`npm run build:dev` - a **DEV** version
+
+`npm run spawn` - Inject a script into the game with the Gadget _(You need patched game with Gadget in **listen** mode and `Frida` Installed)_
+
+`npm run prettier` - Runs [prettier](https://prettier.io/) to format code and files  
 `npm run lint` Runs [ESLint](https://eslint.org/) to static analyzes code
 
 \* from package.json

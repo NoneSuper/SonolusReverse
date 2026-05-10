@@ -11,6 +11,9 @@ app_process64
 # Output of building
 dist
 
+# Local build counter
+.build-counter
+
 # Agents
 AGENTS.md
 
