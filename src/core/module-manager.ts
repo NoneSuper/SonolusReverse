@@ -1,5 +1,6 @@
 import { CustomTheme } from "../features/custom-theme";
 import { ThemeAction } from "../features/theme-action";
+import { TitleLabel } from "../features/title-label";
 import { UserInfoSpoof } from "../features/userinfo-spoof";
 import { VersionSpoof } from "../features/version-spoof";
 import { Logger } from "../logger/logger";
@@ -12,6 +13,7 @@ export class ModuleManager {
     private static modules: BaseModule[] = [
         new ThemeAction(),
         new UserInfoSpoof(),
+        new TitleLabel(),
         new CustomTheme(),
         new VersionSpoof(),
     ];
