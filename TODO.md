@@ -7,7 +7,7 @@ Mostly for developers and me, so I don't forgetting things.
 - [x] i18n: read locale from game
 - [x] BaseModule: use it
 - [x] ESLint integration
-- [ ] Webpack integration
+- [x] Webpack integration
 - [ ] GitHub workflow
 - [ ] Popup Sonolus System
 - [ ] Alert Sonolus System
