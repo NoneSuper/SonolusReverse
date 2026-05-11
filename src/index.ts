@@ -33,7 +33,7 @@ function init(): void {
 
         // Init UI
         initSettingsUI();
-    }).catch(error => Logger.error(`Failed to init script: ${error}`));
+    }).catch(error => Logger.error(`Failed to initialize script: ${error}`));
 }
 
 init();

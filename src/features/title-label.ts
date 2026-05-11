@@ -16,7 +16,7 @@ export class TitleLabel extends BaseModule {
 
     // Methods
     private Title!: Il2Cpp.Method;
-    
+
     private gameVer: string = "";
 
     public init(): void {
@@ -31,16 +31,14 @@ export class TitleLabel extends BaseModule {
         const module = this;
 
         if (this.gameVer === "unknown") {
-            Logger.warn(
-                `[${this.tag}::initHooks] game version is unavailable (getSonolusVersion returned unknown), skipping hook`
-            )
+            Logger.warn(`[${this.tag}::initHooks] game version is unavailable (getSonolusVersion returned unknown), skipping hook`);
         }
 
         // @ts-ignore
         this.Title.implementation = function (this: Il2Cpp.Object, title: Il2Cpp.Object): Il2Cpp.Object {
             // title is Sonolus.Reactivity.Dep<System.String>
             const value = title.method<Il2Cpp.String>("get_Value").invoke();
-            
+
             // checking for null here, or we can get access violation
             if (!value.isNull() && value.content === module.gameVer) {
                 const newTitle = wrapString(`Reverse | ${module.gameVer}`);
@@ -48,6 +46,6 @@ export class TitleLabel extends BaseModule {
             }
 
             return this.method<Il2Cpp.Object>("Title", 1).invoke(title);
-        }
+        };
     }
 }

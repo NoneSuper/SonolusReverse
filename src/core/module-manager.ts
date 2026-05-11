@@ -32,7 +32,7 @@ export class ModuleManager {
             }
         });
 
-        Logger.info(`[${this.tag}::initAll] All modules Initialized`);
+        Logger.info(`[${this.tag}::initAll] All modules initialized`);
     }
 
     /**
