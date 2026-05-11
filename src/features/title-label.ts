@@ -13,16 +13,21 @@ export class TitleLabel extends BaseModule {
 
     // Classes
     private Lbl!: Il2Cpp.Class;
+    private Title!: Il2Cpp.Class;
 
     // Methods
-    private Title!: Il2Cpp.Method;
+    private LblTitle!: Il2Cpp.Method;
+    private TitleSetup!: Il2Cpp.Method;
 
     private gameVer: string = "";
+    private inTitleSetup: boolean = false;
 
     public init(): void {
         this.Lbl = AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Lbl");
+        this.Title = AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Title");
 
-        this.Title = this.Lbl.method("Title", 1);
+        this.LblTitle = this.Lbl.method<Il2Cpp.Object>("Title", 1);
+        this.TitleSetup = this.Title.method<Il2Cpp.Object>("Setup", 0);
 
         this.gameVer = getSonolusVersion();
     }
@@ -34,13 +39,22 @@ export class TitleLabel extends BaseModule {
             Logger.warn(`[${this.tag}::initHooks] game version is unavailable (getSonolusVersion returned unknown), skipping hook`);
         }
 
+        this.TitleSetup.implementation = function (): Il2Cpp.Object {
+            Logger.hook("Title::Setup called");
+            module.inTitleSetup = true; // <--- OnEnter
+            const widget = this.method<Il2Cpp.Object>("Setup", 0).invoke();
+            module.inTitleSetup = false; // ---> OnLeave
+            return widget;
+        };
+
         // @ts-ignore
-        this.Title.implementation = function (this: Il2Cpp.Object, title: Il2Cpp.Object): Il2Cpp.Object {
+        this.LblTitle.implementation = function (this: Il2Cpp.Object, title: Il2Cpp.Object): Il2Cpp.Object {
             // title is Sonolus.Reactivity.Dep<System.String>
             const value = title.method<Il2Cpp.String>("get_Value").invoke();
 
             // checking for null here, or we can get access violation
-            if (!value.isNull() && value.content === module.gameVer) {
+            // checking are we in Title::Setup
+            if (!value.isNull() && module.inTitleSetup && value.content === module.gameVer) {
                 const newTitle = wrapString(`Reverse | ${module.gameVer}`);
                 return this.method<Il2Cpp.Object>("Title", 1).invoke(newTitle);
             }
