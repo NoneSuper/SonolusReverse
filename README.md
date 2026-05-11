@@ -130,4 +130,4 @@ See the [LICENSE](LICENSE) file for details.
 
 - [Frida Documentation](https://frida.re/docs/) - General Frida API reference.
 - [frida-il2cpp-bridge Wiki](https://github.com/vfsfitvnm/frida-il2cpp-bridge/wiki) - Specific API for the IL2CPP used in this project.
-- [fallguys-frida-modmenu](https://github.com/repinek/fallguys-frida-modmenu) - Code and architecture adapted from my earlier Frida mod project.
+- [fallguys-frida-modmenu](https://github.com/repinek/fallguys-frida-modmenu) - Some Code and architecture adapted from my earlier Frida project.
