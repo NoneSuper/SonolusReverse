@@ -58,11 +58,17 @@ export class I18n {
         // Logger.debug(`[${this.tag}::resolveLocale] readLocaleFromGame returned: ${gameLocale}`);
 
         if (gameLocale === null) {
+            Logger.debug(`[${this.tag}::resolveLocale] gameLocale is null, falling back to "${this.fallbackLocale}"`);
             this.currentLocale = this.fallbackLocale;
             return;
         }
 
         this.resolved = true;
+
+        if (gameLocale === this.currentLocale) {
+            Logger.debug(`[${this.tag}::resolveLocale] gameLocale === currentLocale, skipping re-initilization with "${this.currentLocale}"`);
+            return;
+        }
 
         if (this.isLocaleSupported(gameLocale)) {
             this.currentLocale = gameLocale;
