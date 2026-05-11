@@ -20,7 +20,7 @@ I18n.t(key: string) // plain string
 I18n.tRef(key: string) // Sonolus Ref<string>
 */
 
-const TRANSLATIONS: Record<string, any> = {
+const TRANSLATIONS: Record<string, unknown> = {
     en: en,
     ru: ru
 };
@@ -94,7 +94,7 @@ export class I18n {
             // get_Title will return "English (English)", "日本語 (Japanese)" ...
             const localeName = availableLocalization.method<Il2Cpp.String>("get_Name", 0).invoke();
             return localeName.content || null;
-        } catch (error: any) {
+        } catch (error) {
             Logger.warn(`[${this.tag}::readLocaleFromGame] failed: ${error}`);
             return null;
         }
@@ -156,9 +156,11 @@ export class I18n {
         return this.supportedLocales.includes(locale);
     }
 
-    private static resolveKey(obj: any, path: string): any {
-        return path.split(".").reduce((prev, curr) => {
-            return prev ? prev[curr] : undefined;
+    private static resolveKey(obj: unknown, path: string): string | undefined {
+        const result = path.split(".").reduce<unknown>((prev, curr) => {
+            if (prev !== null && typeof prev === "object") return (prev as Record<string, unknown>)[curr];
+            return undefined;
         }, obj);
+        return typeof result === "string" ? result : undefined;
     }
 }

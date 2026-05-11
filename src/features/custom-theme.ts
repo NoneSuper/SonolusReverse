@@ -38,8 +38,8 @@ export class CustomTheme extends BaseModule {
                 if (!data.isNull()) {
                     module.injectCustomTheme(data);
                 }
-            } catch (e: any) {
-                Logger.error(`[${module.tag}] inject failed: ${e}`);
+            } catch (error) {
+                Logger.error(`[${module.tag}] inject failed: ${error}`);
             }
             this.method("SetData", 1).invoke(data);
         };

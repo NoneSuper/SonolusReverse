@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 export class Logger {
     private static readonly Colors = {
         RESET: "\x1b[0m",

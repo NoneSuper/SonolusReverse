@@ -27,7 +27,7 @@ export class ModuleManager {
                 module.init();
                 module.initHooks();
                 Logger.debug(`[${this.tag}::initAll] ${module.tag} module loaded`);
-            } catch (error: any) {
+            } catch (error) {
                 Logger.error(`[${this.tag}::initAll] Failed to load ${module.tag} module: ${error}`);
             }
         });
@@ -40,7 +40,7 @@ export class ModuleManager {
      *
      * @param moduleClass The class of the module
      */
-    static get<T extends BaseModule>(moduleClass: new (...args: any[]) => T): T | undefined {
+    static get<T extends BaseModule>(moduleClass: new (...args: unknown[]) => T): T | undefined {
         return this.modules.find(module => module instanceof moduleClass) as T | undefined;
     }
 }

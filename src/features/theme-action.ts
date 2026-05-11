@@ -60,7 +60,7 @@ export class ThemeAction extends BaseModule {
             if (texture.isNull()) return null;
             this._themeTexture = texture;
             return this._themeTexture;
-        } catch (error: any) {
+        } catch (error) {
             Logger.warn(`[${this.tag}::getThemeTexture] Sonolus.Assets.Theme not ready yet: ${error}`);
             return null;
         }
