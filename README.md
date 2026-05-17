@@ -98,6 +98,7 @@ NOTE: You can re-build script without re-launching game
 - Pre-commit hooks
 - Auto-incrementing build version (MAJOR.MINOR.BUILD)
 - Simple, but yet enough Logger
+- JSON Config system
 
 ## Scripts
 
