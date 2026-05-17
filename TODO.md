@@ -11,7 +11,7 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] GitHub workflow
 - [ ] Popup Sonolus System
 - [ ] Alert Sonolus System
-- [ ] JSON Config System
+- [x] JSON Config System
 
 ### Features
 
@@ -22,7 +22,8 @@ Mostly for developers and me, so I don't forgetting things.
 - [x] Russian localization
 - [ ] UwUify across all Sonolus
 - [x] Version Spoof
-- [ ] Export / Import Sonolus settings
+- [ ] Export / Import Sonolus Settings
+- [ ] Export / Import Sonolus Account Info
 - [ ] About tab in SonolusReverse settings
 - [x] Modify version text in startup screen to show `Reverse`
 - [ ] Disable Analytics
