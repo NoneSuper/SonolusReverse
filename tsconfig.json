@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "target": "esnext",
-        "lib": ["ESNext", "DOM"],
+        "lib": ["ESNext"],
         "module": "NodeNext",
         "moduleResolution": "nodenext",
         "types": ["node", "frida-gum"],
