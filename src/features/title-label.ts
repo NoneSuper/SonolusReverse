@@ -2,7 +2,7 @@ import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
 import { Logger } from "../logger/logger";
 import { wrapString } from "../utils/helpers";
-import { getSonolusVersion } from "../utils/version";
+import { SonolusUtils } from "../utils/version";
 
 /*
 TODO write
@@ -29,7 +29,7 @@ export class TitleLabel extends BaseModule {
         this.LblTitle = this.Lbl.method<Il2Cpp.Object>("Title", 1);
         this.TitleSetup = this.Title.method<Il2Cpp.Object>("Setup", 0);
 
-        this.gameVer = getSonolusVersion();
+        this.gameVer = SonolusUtils.getSonolusVersion();
     }
 
     public override initHooks(): void {
@@ -54,7 +54,7 @@ export class TitleLabel extends BaseModule {
 
             // checking for null here, or we can get access violation
             // checking are we in Title::Setup
-            if (!value.isNull() && module.inTitleSetup && value.content === module.gameVer) {
+            if (module.inTitleSetup && !value.isNull() && value.content === module.gameVer) {
                 const newTitle = wrapString(`Reverse | ${module.gameVer}`);
                 return this.method<Il2Cpp.Object>("Title", 1).invoke(newTitle);
             }

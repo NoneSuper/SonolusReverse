@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
-import { getVersionSpoofValue } from "../data/state";
+import { Config } from "../data/config";
 import { Logger } from "../logger/logger";
 
 /*
@@ -41,13 +41,13 @@ export class VersionSpoof extends BaseModule {
         const module = this;
 
         this.getVersion.implementation = function (): Il2Cpp.String {
-            const spoofed = getVersionSpoofValue();
+            const spoofed = Config.versionOverride;
             if (!spoofed) return module.getVersion.invoke();
             return module.resolveSpoofedString(spoofed);
         };
 
         this.getSemVer.implementation = function (): Il2Cpp.Object {
-            const spoofed = getVersionSpoofValue();
+            const spoofed = Config.versionOverride;
             if (!spoofed) return module.getSemVer.invoke();
             return module.resolveSpoofedSemVer(spoofed);
         };

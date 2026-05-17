@@ -6,13 +6,13 @@ declare const process: {
     };
 };
 
-// read by webpack
-export const MAJOR = 0;
-export const MINOR = 3;
+export class ModPreferences {
+    // read by webpack
+    static readonly MAJOR = 0;
+    static readonly MINOR = 3;
 
-export const ModPreferences = {
-    ENV: process.env.BUILD_ENV,
-    COMMIT: process.env.BUILD_COMMIT,
-    VERSION: process.env.BUILD_VERSION,
-    FOR_GAME_VERSION: "1.1.1" // should be hardcoded for many reasons
-} as const;
+    static readonly ENV = process.env.BUILD_ENV;
+    static readonly COMMIT = process.env.BUILD_COMMIT;
+    static readonly VERSION = process.env.BUILD_VERSION;
+    static readonly FOR_GAME_VERSION = "1.1.1"; // should be hardcoded
+}

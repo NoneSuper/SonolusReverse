@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
-import { CUSTOM_THEME } from "../data/state";
+import { CUSTOM_THEME } from "../data/themes";
 import { Logger } from "../logger/logger";
 import { makeSrl } from "../utils/helpers";
 

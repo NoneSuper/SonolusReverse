@@ -16,8 +16,12 @@ What we are doing here?
     - For live updates (when locale is changed we reload our Refs)
 
 Methods to use:
-I18n.t(key: string) // plain string
-I18n.tRef(key: string) // Sonolus Ref<string>
+`I18n.t(key: string)` // plain string
+`I18n.tRef(key: string)` // Sonolus Ref<string>
+
+Important!
+gameLocale may be null at game startup, so we TEMPORALY falling back to fallbackLocale
+we will lazy Initialize it later (in `t` function)
 */
 
 const TRANSLATIONS: Record<string, unknown> = {
@@ -58,7 +62,7 @@ export class I18n {
         // Logger.debug(`[${this.tag}::resolveLocale] readLocaleFromGame returned: ${gameLocale}`);
 
         if (gameLocale === null) {
-            Logger.debug(`[${this.tag}::resolveLocale] gameLocale is null, falling back to "${this.fallbackLocale}"`);
+            Logger.debug(`[${this.tag}::resolveLocale] gameLocale is null, falling back to "${this.fallbackLocale}". Will be re-initilizated`);
             this.currentLocale = this.fallbackLocale;
             return;
         }
