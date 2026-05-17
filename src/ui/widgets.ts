@@ -1,5 +1,6 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { getAssetTexture2D, makeAction, wrapBool, wrapString, wrapTexture2D } from "../utils/helpers";
+import { WidgetUtils } from "../utils/widget-utils";
 
 /*
 Builders for some amazing Sonolus UI widgets.
@@ -101,7 +102,10 @@ export interface BtnFieldOptions {
     buttons: Il2Cpp.Object[];
 }
 
-/** Wrapper over `Sonolus.UI.Common.Fields.BtnField` */
+/**
+ * Wrapper over `Sonolus.UI.Common.Fields.BtnField`
+ * Add 20 left margin to buttons (if not 1 button)
+ */
 export function buildBtnField(options: BtnFieldOptions): Il2Cpp.Object {
     const field = api().BtnField.new();
     field.method<void>("SetTitle", 1).invoke(options.title);
@@ -109,7 +113,11 @@ export function buildBtnField(options: BtnFieldOptions): Il2Cpp.Object {
     field.method<void>("SetValue", 1).invoke(options.value ?? wrapString(""));
 
     const buttonsArray = Il2Cpp.array<Il2Cpp.Object>(api().ImgLblBtn, options.buttons.length);
-    options.buttons.forEach((b, i) => buttonsArray.set(i, b));
+    options.buttons.forEach((button, index) => {
+        // if index === 0 keep button else margin button
+        const widget = index === 0 ? button : WidgetUtils.Margin(button, 20, 0, 0, 0);
+        buttonsArray.set(index, widget);
+    });
     field.method<void>("SetBtns", 1).invoke(buttonsArray);
     return field;
 }
