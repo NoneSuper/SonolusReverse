@@ -1,27 +1,14 @@
-import { getThemeAction, setSpoofEnabledRef, setVersionSpoofRef } from "../data/state";
+import { Config } from "../data/config";
+import { getThemeAction } from "../data/state";
 import { I18n } from "../i18n/i18n";
 import { Logger } from "../logger/logger";
-import { allocPinnedBoolRef, allocPinnedStringRef, getAssetTexture2D, wrapInCustomSection, wrapString, wrapTexture2D } from "../utils/helpers";
-import { getSonolusVersion } from "../utils/version";
+import { getAssetTexture2D, makeBoolRef, makeStringRef, wrapInCustomSection, wrapString, wrapTexture2D } from "../utils/helpers";
+import { SonolusUtils } from "../utils/version";
 import { buildBtnField, buildImgLblBtn, buildRows, buildSectionHeader, buildToggleField, buildTxtInputField } from "./widgets";
 
-// TODO: rewrite later with config system
-let sharedRef: Il2Cpp.Object | null = null;
-let versionRef: Il2Cpp.Object | null = null;
-
-function getSharedRef(): Il2Cpp.Object {
-    if (sharedRef) return sharedRef;
-    sharedRef = allocPinnedBoolRef(true);
-    setSpoofEnabledRef(sharedRef);
-    return sharedRef;
-}
-
-function getVersionRef(): Il2Cpp.Object {
-    if (versionRef) return versionRef;
-    versionRef = allocPinnedStringRef("");
-    setVersionSpoofRef(versionRef);
-    return versionRef;
-}
+/*
+Adds the Custom section to the Sonolus Settings page.
+*/
 
 function buildThemesShortcut(): Il2Cpp.Object {
     const openButton = buildImgLblBtn({
@@ -44,24 +31,38 @@ function buildThemesShortcut(): Il2Cpp.Object {
     });
 }
 
+function buildSpoofToggle(): Il2Cpp.Object {
+    const ref = makeBoolRef(Config.spoofEnabled, value => {
+        Config.spoofEnabled = value;
+        Config.save();
+    });
+
+    return buildToggleField({
+        title: I18n.tRef("ui.spoof.title"),
+        description: I18n.tRef("ui.spoof.description"),
+        value: ref,
+        defaultValue: true
+    });
+}
+
 function buildVersionSpoofField(): Il2Cpp.Object {
+    const ref = makeStringRef(Config.versionOverride, value => {
+        Config.versionOverride = value;
+        Config.save();
+    });
+
     return buildTxtInputField({
         title: I18n.tRef("ui.version_spoof.title"),
-        description: I18n.tRef("ui.version_spoof.description", getSonolusVersion()),
-        value: getVersionRef(),
-        placeholder: wrapString(getSonolusVersion()),
+        description: I18n.tRef("ui.version_spoof.description", SonolusUtils.getSonolusVersion()),
+        value: ref,
+        placeholder: wrapString(SonolusUtils.getSonolusVersion()),
         characterLimit: 32
     });
 }
 
 export function buildCustomSection(): Il2Cpp.Object {
     const header = buildSectionHeader(I18n.tRef("ui.title"));
-    const spoofToggle = buildToggleField({
-        title: I18n.tRef("ui.spoof.title"),
-        description: I18n.tRef("ui.spoof.description"),
-        value: getSharedRef(),
-        defaultValue: true
-    });
+    const spoofToggle = buildSpoofToggle();
     const versionField = buildVersionSpoofField();
     const themes = buildThemesShortcut();
     return wrapInCustomSection(buildRows(20, [header, spoofToggle, versionField, themes]));
