@@ -25,8 +25,8 @@ function getBaseVersion(): string {
     const prefPath = path.resolve(import.meta.dirname, "src/data/mod-preferences.ts");
     const content = fs.readFileSync(prefPath, "utf-8");
 
-    const major = content.match(/export const MAJOR = (\d+)/)?.[1] || "unknown";
-    const minor = content.match(/export const MINOR = (\d+)/)?.[1] || "unknown";
+    const major = content.match(/static readonly MAJOR = (\d+)/)?.[1] || "unknown";
+    const minor = content.match(/static readonly MINOR = (\d+)/)?.[1] || "unknown";
 
     return `${major}.${minor}`;
 }
