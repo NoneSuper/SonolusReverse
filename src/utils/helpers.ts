@@ -1,4 +1,5 @@
 import { AssemblyHelper } from "../core/assembly-helper";
+import { ConfigRef } from "../data/config-ref";
 
 interface Api {
     SystemAction: Il2Cpp.Class;
@@ -98,18 +99,6 @@ export function getAssetTexture2D(iconName: string): Il2Cpp.Object {
     return api().Assets.method<Il2Cpp.Object>(`get_${iconName}`).invoke();
 }
 
-/** Create a `System.Action` using JS callback */
-export function makeAction(callback: () => void): Il2Cpp.Object {
-    return Il2Cpp.delegate(api().SystemAction, callback);
-}
-
-/** Create `Sonolus.Core.Srl` */
-export function makeSrl(hash: string, url: string): Il2Cpp.Object {
-    const srl = api().Srl.alloc();
-    srl.method<void>(".ctor", 2).invoke(Il2Cpp.string(hash), Il2Cpp.string(url));
-    return srl;
-}
-
 /** Allocate a `Sonolus.Reactivity.Ref<bool>(initialValue)`, pinned in GC */
 export function allocPinnedBoolRef(initialValue: boolean): Il2Cpp.Object {
     const ref = api().RefBool.alloc();
@@ -124,4 +113,30 @@ export function allocPinnedStringRef(initialValue: string): Il2Cpp.Object {
     ref.method<void>(".ctor", 1).invoke(Il2Cpp.string(initialValue));
     ref.ref(true); // pin it in GC
     return ref;
+}
+
+/** Create a `Ref<bool>` that calls onChange whenever its value is set. */
+export function makeBoolRef(initialValue: boolean, onChange: (value: boolean) => void): Il2Cpp.Object {
+    const ref = allocPinnedBoolRef(initialValue);
+    ConfigRef.watchedBool.set(ref.handle.toString(), onChange);
+    return ref;
+}
+
+/** Create a `Ref<string>` that calls onChange whenever its value is set. */
+export function makeStringRef(initialValue: string, onChange: (value: string) => void): Il2Cpp.Object {
+    const ref = allocPinnedStringRef(initialValue);
+    ConfigRef.watchedString.set(ref.handle.toString(), onChange);
+    return ref;
+}
+
+/** Create a `System.Action` using JS callback */
+export function makeAction(callback: () => void): Il2Cpp.Object {
+    return Il2Cpp.delegate(api().SystemAction, callback);
+}
+
+/** Create `Sonolus.Core.Srl` */
+export function makeSrl(hash: string, url: string): Il2Cpp.Object {
+    const srl = api().Srl.alloc();
+    srl.method<void>(".ctor", 2).invoke(Il2Cpp.string(hash), Il2Cpp.string(url));
+    return srl;
 }

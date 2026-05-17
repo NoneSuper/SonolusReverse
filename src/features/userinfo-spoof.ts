@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
-import { isSpoofEnabled } from "../data/state";
+import { Config } from "../data/config";
 import { Logger } from "../logger/logger";
 
 /* 
@@ -72,7 +72,7 @@ export class UserInfoSpoof extends BaseModule {
             Logger.hook(`ServiceUserInfo::.ctor called`);
             //Logger.hook(`ServiceUserInfo::.ctor called with args:`, Profile, GemCount, VipEndAt, NameChangeCount, Themes);
 
-            if (!isSpoofEnabled()) {
+            if (!Config.spoofEnabled) {
                 this.method(".ctor", 5).invoke(Profile, GemCount, VipEndAt, NameChangeCount, Themes);
                 return;
             }
