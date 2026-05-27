@@ -60,10 +60,38 @@ function buildVersionSpoofField(): Il2Cpp.Object {
     });
 }
 
+function buildAccountField(): Il2Cpp.Object {
+    const exportButton = buildImgLblBtn({
+        icon: wrapTexture2D(getAssetTexture2D("Export")),
+        title: I18n.tRef("ui.account.export"),
+        onClick: () => {
+            Logger.debug("Button export clicked!");
+        }
+    });
+
+    const importButton = buildImgLblBtn({
+        icon: wrapTexture2D(getAssetTexture2D("Import")),
+        title: I18n.tRef("ui.account.import"),
+        onClick: () => {
+            Logger.debug("Button import clicked!");
+        }
+    });
+
+    const field = buildBtnField({
+        title: I18n.tRef("ui.account.title"),
+        description: I18n.tRef("ui.account.description"),
+        buttons: [exportButton, importButton]
+    });
+
+    return field;
+}
+
 export function buildCustomSection(): Il2Cpp.Object {
     const header = buildSectionHeader(I18n.tRef("ui.title"));
     const spoofToggle = buildSpoofToggle();
-    const versionField = buildVersionSpoofField();
     const themes = buildThemesShortcut();
-    return wrapInCustomSection(buildRows(20, [header, spoofToggle, versionField, themes]));
+    const versionField = buildVersionSpoofField();
+    const accountField = buildAccountField();
+
+    return wrapInCustomSection(buildRows(20, [header, spoofToggle, themes, versionField, accountField]));
 }
