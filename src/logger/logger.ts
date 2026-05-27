@@ -20,11 +20,11 @@ export class Logger {
     }
 
     static info(...messages: any[]) {
-        console.info(`${this.getTime()} ${this.Colors.BLUE}[INFO]${this.Colors.RESET}`, ...messages);
+        console.info(`${this.getTime()} ${this.Colors.BLUE}[INFO] ${this.Colors.RESET}`, ...messages);
     }
 
     static infoGreen(...messages: any[]) {
-        console.info(`${this.getTime()} ${this.Colors.GREEN}[INFO]`, ...messages, this.Colors.RESET);
+        console.info(`${this.getTime()} ${this.Colors.GREEN}[INFO] `, ...messages, this.Colors.RESET);
     }
 
     static debug(...messages: any[]) {
@@ -34,7 +34,7 @@ export class Logger {
     }
 
     static warn(...messages: any[]) {
-        console.warn(`${this.getTime()} ${this.Colors.YELLOW}[WARN]${this.Colors.RESET}`, ...messages);
+        console.warn(`${this.getTime()} ${this.Colors.YELLOW}[WARN] ${this.Colors.RESET}`, ...messages);
     }
 
     static error(...messages: any[]) {
@@ -43,7 +43,7 @@ export class Logger {
 
     static hook(...messages: any[]) {
         /// #if DEV
-        console.debug(`${this.getTime()} ${this.Colors.GRAY}[HOOK]`, ...messages, this.Colors.RESET);
+        console.debug(`${this.getTime()} ${this.Colors.GRAY}[HOOK] `, ...messages, this.Colors.RESET);
         /// #endif
     }
 }
