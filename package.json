@@ -22,8 +22,10 @@
     "build:dev": "webpack --env dev",
     "build:release": "webpack --env release",
     "spawn": "frida -U Gadget -l dist/agent.js",
+    "spawn:dev": "npm run build:dev && npm run spawn",
+    "spawn:release": "npm run build && npm run spawn",
     "prettier": "prettier --ignore-path .gitignore --ignore-path .prettierignore --write  \"**/*.{ts,mts,json,md}\"",
-    "lint": "eslint ."
+    "lint": "eslint . --fix"
   },
   "lint-staged": {
     "**/*.{ts,mts,json,md}": "prettier --write --ignore-unknown"
