@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
-import { CUSTOM_THEME } from "../data/themes";
+import { ThemeData, Themes } from "../data/themes";
 import { Logger } from "../logger/logger";
 import { makeSrl } from "../utils/helpers";
 
@@ -66,46 +66,46 @@ export class CustomTheme extends BaseModule {
             }
         }
 
-        const customTheme = this.buildCustomTheme();
-        const newThemes = Il2Cpp.array<Il2Cpp.Object>(this.ContentTheme, kept.length + 1);
+        const customThemes = Themes.getLoadedThemes();
+        const newThemes = Il2Cpp.array<Il2Cpp.Object>(this.ContentTheme, kept.length + customThemes.length);
         kept.forEach((t, i) => newThemes.set(i, t));
-        newThemes.set(kept.length, customTheme);
+        customThemes.forEach((theme, i) => {
+            newThemes.set(kept.length + i, this.buildCustomTheme(theme));
+        });
 
         themesField.value = newThemes;
 
-        Logger.info(
-            `[ContentSystem::SetData] applied '${CUSTOM_THEME.name}' (kept ${kept.length}, dropped ${droppedCount} stale '${CUSTOM_THEME_NAME_PREFIX}*', total ${newThemes.length})`
-        );
+        Logger.info(`[ContentSystem::SetData] kept ${kept.length}, dropped ${droppedCount} stale '${CUSTOM_THEME_NAME_PREFIX}*', total ${newThemes.length}`);
     }
 
     /** Allocate a `Sonolus.Core.Content.ContentTheme` with our colors. */
-    private buildCustomTheme(): Il2Cpp.Object {
-        const c = CUSTOM_THEME.colors;
+    private buildCustomTheme(ThemeData: ThemeData): Il2Cpp.Object {
+        const c = ThemeData.Colors;
         const empty = makeSrl("", "");
 
         const theme = this.ContentTheme.alloc();
 
         theme.method(".ctor", 26).invoke(
-            Il2Cpp.string(CUSTOM_THEME.name),
-            Il2Cpp.string(CUSTOM_THEME.title),
+            Il2Cpp.string(ThemeData.Id),
+            Il2Cpp.string(ThemeData.Title),
             0, // SingleStartAt
             0, // SingleGemPrice
             0, // BundleStartAt
             0, // BundleEndAt
             0, // BundleVipDayCount
             0, // BundleGemPrice
-            Il2Cpp.string(c.mainSurface),
-            Il2Cpp.string(c.mainBackground),
-            Il2Cpp.string(c.mainBackgroundAltFirst),
-            Il2Cpp.string(c.mainBackgroundAltSecond),
-            Il2Cpp.string(c.mainSuccess),
-            Il2Cpp.string(c.mainWarning),
-            Il2Cpp.string(c.textNormal),
-            Il2Cpp.string(c.textDisabled),
-            Il2Cpp.string(c.buttonNormal),
-            Il2Cpp.string(c.buttonHighlighted),
-            Il2Cpp.string(c.buttonPressed),
-            Il2Cpp.string(c.buttonDisabled),
+            Il2Cpp.string(c.MainSurface),
+            Il2Cpp.string(c.MainBackground),
+            Il2Cpp.string(c.MainBackgroundAltFirst),
+            Il2Cpp.string(c.MainBackgroundAltSecond),
+            Il2Cpp.string(c.MainSuccess),
+            Il2Cpp.string(c.MainWarning),
+            Il2Cpp.string(c.TextNormal),
+            Il2Cpp.string(c.TextDisabled),
+            Il2Cpp.string(c.ButtonNormal),
+            Il2Cpp.string(c.ButtonHighlighted),
+            Il2Cpp.string(c.ButtonPressed),
+            Il2Cpp.string(c.ButtonDisabled),
             empty, // Thumbnail
             empty, // Background
             empty, // Avatar

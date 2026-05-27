@@ -1,24 +1,62 @@
-// https://rosepinetheme.com (maybe incorrect not mine)
-export const CUSTOM_THEME = {
-    name: "sr_custom_003",
-    title: "Rosé Pine 2",
-    colors: {
-        mainBackground: "#191724",
-        mainSurface: "#1f1d2e",
-        mainBackgroundAltFirst: "#21202e",
-        mainBackgroundAltSecond: "#26233a",
+import { Logger } from "../logger/logger";
+import { Path } from "../utils/path";
 
-        buttonNormal: "#c4a7e740",
-        buttonHighlighted: "#c4a7e780",
-        buttonPressed: "#c4a7e720",
-        buttonDisabled: "#c4a7e710",
+export interface ThemeData {
+    Id: string;
+    Title: string;
+    Colors: {
+        MainSurface: string;
+        MainBackground: string;
+        MainBackgroundAltFirst: string;
+        MainBackgroundAltSecond: string;
 
-        mainSuccess: "#9ccfd8",
-        mainWarning: "#eb6f92",
+        MainSuccess: string;
+        MainWarning: string;
 
-        textNormal: "#e0def4",
-        textDisabled: "#e0def440"
+        TextNormal: string;
+        TextDisabled: string;
+
+        ButtonNormal: string;
+        ButtonHighlighted: string;
+        ButtonPressed: string;
+        ButtonDisabled: string;
+
+        Thumbnail: number;
+        Background: number;
+        Banner: number;
+        MultiplayerBanner: number;
+    };
+}
+
+export class Themes {
+    private static _loadedThemes: ThemeData[] = [];
+
+    public static load(): void {
+        const path = Path.getDataPath() + "CustomThemes/";
+        Path.createDirectory(path);
+
+        const themeFiles = Path.getFiles(path, "*.json");
+
+        const themes: ThemeData[] = [];
+
+        for (const filePath of themeFiles) {
+            try {
+                Logger.debug(`[Themes::load] Loading custom theme ${filePath.split("/").at(-1)}`);
+
+                const theme = JSON.parse(File.readAllText(filePath)) as ThemeData;
+                theme.Id = `sr_custom_${theme.Id}`;
+                themes.push(theme);
+            } catch (error) {
+                Logger.warn(`[Themes::load] Failed to parse custom theme ${filePath}: ${error}`);
+            }
+        }
+
+        Logger.info(`[Themes::load] Loaded ${themes.length} custom themes`);
+
+        this._loadedThemes = themes;
     }
-};
 
-// TODO
+    public static getLoadedThemes(): ThemeData[] {
+        return this._loadedThemes;
+    }
+}

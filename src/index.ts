@@ -5,6 +5,7 @@ import { ModuleManager } from "./core/module-manager";
 import { Config } from "./data/config";
 import { ConfigRef } from "./data/config-ref";
 import { ModPreferences } from "./data/mod-preferences";
+import { Themes } from "./data/themes";
 import { I18n } from "./i18n/i18n";
 import { Logger } from "./logger/logger";
 import { initSettingsUI } from "./ui/settings";
@@ -31,9 +32,10 @@ function init(): void {
 
         logBanner();
 
-        // Init Config
+        // Init Config & Themes
         Config.load();
         ConfigRef.init();
+        Themes.load();
 
         I18n.init(); // Read locale from game, should init after Assemblies
         ModuleManager.initAll();

@@ -1,6 +1,7 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
 import { Config } from "../data/config";
+import { Themes } from "../data/themes";
 import { Logger } from "../logger/logger";
 
 /* 
@@ -39,8 +40,7 @@ export class UserInfoSpoof extends BaseModule {
         "000009", // Spring Festival
         "000010", // Mission S
         "000011", // Exfiltration
-        "100001", // 彗く星（しいたけ杯）- Exclusive theme, not available to buy
-        "sr_custom_003" // TODO
+        "100001" // 彗く星（しいたけ杯）- Exclusive theme, not available to buy
     ];
 
     // Classes
@@ -66,24 +66,28 @@ export class UserInfoSpoof extends BaseModule {
             GemCount: number,
             VipEndAt: number,
             NameChangeCount: number,
-            Themes: Il2Cpp.Array<Il2Cpp.String>
+            Themes_arg: Il2Cpp.Array<Il2Cpp.String>
         ): void {
             // <--- OnEnter
             Logger.hook(`ServiceUserInfo::.ctor called`);
             //Logger.hook(`ServiceUserInfo::.ctor called with args:`, Profile, GemCount, VipEndAt, NameChangeCount, Themes);
 
             if (!Config.spoofEnabled) {
-                this.method(".ctor", 5).invoke(Profile, GemCount, VipEndAt, NameChangeCount, Themes);
+                this.method(".ctor", 5).invoke(Profile, GemCount, VipEndAt, NameChangeCount, Themes_arg);
                 return;
             }
 
             // Spoof VipEndAt
             const spoofedVipEndAt = Date.now() + module.SPOOFED_VIP_DURATION_DAYS * module.MS_PER_DAY;
 
-            // Spoof Themes. Allocate a new Il2cpp Array with Il2cpp Strings (string[])
-            const themesArray = Il2Cpp.array<Il2Cpp.String>(module.SystemString, module.SPOOFED_THEMES.length);
+            // Spoof Themes + add out custom themes. Allocate a new Il2cpp Array with Il2cpp Strings (string[])
+            const customThemes = Themes.getLoadedThemes();
+            const themesArray = Il2Cpp.array<Il2Cpp.String>(module.SystemString, module.SPOOFED_THEMES.length + customThemes.length);
             module.SPOOFED_THEMES.forEach((name, i) => {
                 themesArray.set(i, Il2Cpp.string(name));
+            });
+            customThemes.forEach((theme, i) => {
+                themesArray.set(module.SPOOFED_THEMES.length + i, Il2Cpp.string(theme.Id));
             });
 
             // ---> OnLeave: call real method with our changes
