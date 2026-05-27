@@ -26,11 +26,16 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] Export / Import Sonolus Account Info
 - [ ] About tab in SonolusReverse settings
 - [x] Modify version text in startup screen to show `Reverse`
-- [ ] Disable Analytics
 - [ ] Alert if speed modified or autofail turned on (use notification popup (like auto-exit TIP))
+- [ ] Sonolus_UI_Title\_\_GetTitleTheme (`0x28173C4`) maybe something do with that
+
+### Fixes
+
+- [ ] Set arrow button lower in Settings menu
 
 ### Some day idk
 
+- [ ] Disable Analytics
 - [ ] Change Health value
 - [ ] Information about your recent plays on map (by replays)
 - [ ] Auto saving replay
