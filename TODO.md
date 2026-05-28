@@ -18,7 +18,7 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] Disable Background picture
 - [ ] Custom color background
 - [x] Custom Themes
-- [ ] Theme JSON parsing
+- [x] Theme JSON parsing
 - [x] Russian localization
 - [ ] UwUify across all Sonolus
 - [x] Version Spoof
