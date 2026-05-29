@@ -1,7 +1,8 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { Logger } from "../logger/logger";
 
-/* Wrapper over https://github.com/yasirkula/UnityNativeFilePicker
+/*
+ * Wrapper over https://github.com/yasirkula/UnityNativeFilePicker
  * But there's no ConvertExtensionToFileType (why? omg Sonolus)
  */
 
@@ -36,6 +37,11 @@ export class FilePicker {
         return this._api;
     }
 
+    /**
+     * Prompts the user to pick a file from the available document providers
+     *
+     * Wrapper over `NativeFilePicker.PickFile(FilePickedCallback callback, System.String[] allowedFileTypes)`
+     */
     static pickFile(callback: (path: Il2Cpp.String) => void, allowedFileTypes: string[]): void {
         if (this.isFilePickerBusy()) {
             Logger.warn(`[${this.tag}::pickFile] FilePicker is busy`);
@@ -49,17 +55,32 @@ export class FilePicker {
         FilePicker.api().NativeFilePicker.method<void>("PickFile", 2).invoke(delegate, typesArray);
     }
 
-    static exportFile(filePath: string, callback: (success: boolean) => void): void {
+    /**
+     * Prompts the user to export a file to the available document providers
+     *
+     * Wrapper over `NativeFilePicker.ExportFile(System.String filePath, FilesExportedCallback callback = null)`
+     */
+    static exportFile(filePath: string, callback?: ((success: boolean) => void) | undefined): void {
         if (this.isFilePickerBusy()) {
             Logger.warn(`[${this.tag}::exportFile] FilePicker is busy`);
             return;
         }
 
-        const delegate = Il2Cpp.delegate(FilePicker.api().FilesExportedCallback, callback);
+        const method = FilePicker.api().NativeFilePicker.method<void>("ExportFile", 2);
 
-        FilePicker.api().NativeFilePicker.method<void>("ExportFile", 2).invoke(Il2Cpp.string(filePath), delegate);
+        if (callback) {
+            const delegate = Il2Cpp.delegate(FilePicker.api().FilesExportedCallback, callback);
+            method.invoke(Il2Cpp.string(filePath), delegate);
+        } else {
+            method.invoke(Il2Cpp.string(filePath), NULL);
+        }
     }
 
+    /**
+     * if `true` another PickFile, PickMultipleFiles, ExportFile or ExportMultipleFiles request will simply be ignored
+     *
+     * @returns `true` if the user is currently importing/exporting files
+     */
     private static isFilePickerBusy(): boolean {
         return FilePicker.api().NativeFilePicker.method<boolean>("IsFilePickerBusy", 0).invoke();
     }
