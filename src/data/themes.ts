@@ -20,11 +20,10 @@ export interface ThemeData {
         ButtonHighlighted: string;
         ButtonPressed: string;
         ButtonDisabled: string;
-
-        Thumbnail: number;
-        Background: number;
-        Banner: number;
-        MultiplayerBanner: number;
+    };
+    ImagesUrl: {
+        Thumbnail: string;
+        Background: string;
     };
 }
 

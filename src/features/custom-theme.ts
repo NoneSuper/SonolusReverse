@@ -81,11 +81,12 @@ export class CustomTheme extends BaseModule {
     /** Allocate a `Sonolus.Core.Content.ContentTheme` with our colors. */
     private buildCustomTheme(ThemeData: ThemeData): Il2Cpp.Object {
         const c = ThemeData.Colors;
+        const i = ThemeData.ImagesUrl;
         const empty = makeSrl("", "");
 
         const theme = this.ContentTheme.alloc();
 
-        theme.method(".ctor", 26).invoke(
+        theme.method<void>(".ctor", 26).invoke(
             Il2Cpp.string(ThemeData.Id),
             Il2Cpp.string(ThemeData.Title),
             0, // SingleStartAt
@@ -106,8 +107,9 @@ export class CustomTheme extends BaseModule {
             Il2Cpp.string(c.ButtonHighlighted),
             Il2Cpp.string(c.ButtonPressed),
             Il2Cpp.string(c.ButtonDisabled),
-            empty, // Thumbnail
-            empty, // Background
+            // If "" "" you won't be able to use theme from Shop (TODO)
+            makeSrl("", i.Thumbnail), // Thumbnail
+            makeSrl("", i.Background), // Background
             empty, // Avatar
             empty, // AvatarBackground
             empty, // Banner
