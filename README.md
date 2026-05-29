@@ -99,6 +99,8 @@ NOTE: You can re-build script without re-launching game
 - Auto-incrementing build version (MAJOR.MINOR.BUILD)
 - Simple, but yet enough Logger
 - JSON Config system
+- File Picker and Path Utils
+- Pretty documented code
 
 ## Scripts
 
