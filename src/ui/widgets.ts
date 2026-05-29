@@ -5,7 +5,6 @@ import { WidgetUtils } from "../utils/widget-utils";
 /*
 Builders for some amazing Sonolus UI widgets.
 Everything UI is a CompositeWidget, like in Flutter
-TODO: document this more (types)
 */
 
 interface Api {

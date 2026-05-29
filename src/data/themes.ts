@@ -4,6 +4,7 @@ import { Path } from "../utils/path";
 export interface ThemeData {
     Id: string;
     Title: string;
+    /** HEX color codes */
     Colors: {
         MainSurface: string;
         MainBackground: string;

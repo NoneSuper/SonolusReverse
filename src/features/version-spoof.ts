@@ -4,7 +4,12 @@ import { Config } from "../data/config";
 import { Logger } from "../logger/logger";
 
 /*
-TODO
+We just hooking main version functions
+On any server there's Sonolus-Version header, client check's it:
+https://wiki.sonolus.com/custom-server-specs/headers/sonolus-version
+
+TODO: I just checked, we can hook op_GreaterThan and op_LessThan
+so check is always will be false => popup never was triggered
 */
 
 export class VersionSpoof extends BaseModule {
