@@ -1,5 +1,6 @@
 import { AssemblyHelper } from "../../core/assembly-helper";
 import { Logger } from "../../logger/logger";
+import { Platform } from "./platform";
 
 /*
  * Wrapper over https://github.com/yasirkula/UnityNativeFilePicker
@@ -15,6 +16,14 @@ interface Api {
 
 export class FilePicker {
     private static tag = "FilePicker";
+
+    private static readonly MIME_MAP: Record<string, string> = {
+        json: "application/json"
+    };
+
+    private static readonly UTI_MAP: Record<string, string> = {
+        json: "public.json"
+    };
 
     private static _api: Api;
 
@@ -49,8 +58,11 @@ export class FilePicker {
         }
 
         const delegate = Il2Cpp.delegate(FilePicker.api().FilePickedCallback, callback);
+
         const typesArray = Il2Cpp.array(FilePicker.api().SystemString, allowedFileTypes.length);
-        allowedFileTypes.forEach((string, index) => typesArray.set(index, Il2Cpp.string(string)));
+        allowedFileTypes
+            .map(extension => FilePicker.getFileTypeFromExtension(extension))
+            .forEach((string, index) => typesArray.set(index, Il2Cpp.string(string)));
 
         FilePicker.api().NativeFilePicker.method<void>("PickFile", 2).invoke(delegate, typesArray);
     }
@@ -73,6 +85,19 @@ export class FilePicker {
             method.invoke(Il2Cpp.string(filePath), delegate);
         } else {
             method.invoke(Il2Cpp.string(filePath), NULL);
+        }
+    }
+
+    /**
+     * Converts a file extension to its corresponding MIME on Android and UTI on iOS
+     * @param extension don't include the period in extension, i.e. use `png` instead of `.png`
+     *
+     */
+    private static getFileTypeFromExtension(extension: string): string {
+        if (Platform.isPlatformAndroid()) {
+            return this.MIME_MAP[extension] ?? "";
+        } else {
+            return this.UTI_MAP[extension] ?? "";
         }
     }
 
