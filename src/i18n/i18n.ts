@@ -105,7 +105,7 @@ export class I18n {
     }
 
     private static NotifyUpdateHook(this: Il2Cpp.Object): void {
-        Logger.hook("I18n.NotifyUpdate called");
+        Logger.hook("I18n::NotifyUpdate called");
         this.method<void>("NotifyUpdate", 0).invoke();
         I18n.resolveLocale();
         I18n.refreshAllLocalizedRefs();
