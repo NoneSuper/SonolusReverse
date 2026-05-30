@@ -2,6 +2,11 @@ import { AssemblyHelper } from "../../core/assembly-helper";
 import { Logger } from "../../logger/logger";
 
 export class Path {
+    private static readonly tag = "Path";
+
+    private static readonly CONFIG_FILE = "config.json";
+    private static readonly CUSTOM_THEMES_DIRECTORY: string = "CustomThemes/";
+
     private static _dataPath: string | null = null;
 
     /** Wrapper over `UnityEngine.Application.get_persistentDataPath` */
@@ -11,18 +16,18 @@ export class Path {
         // Il2Cpp.application.identifier returns "app_process64" on android which is not true
         const raw = AssemblyHelper.CoreModule.class("UnityEngine.Application").method<Il2Cpp.String>("get_persistentDataPath").invoke();
         if (raw.isNull()) {
-            Logger.error("[Path::getDataPath] persistentDataPath returned null");
+            Logger.error(`[${this.tag}::getDataPath] persistentDataPath returned null`);
             return "";
         }
 
         const rawString = raw.content;
         if (!rawString) {
-            Logger.error("[Path::getDataPath] persistentDataPath content is null");
+            Logger.error(`[${this.tag}::getDataPath] persistentDataPath content is null`);
             return "";
         }
 
         this._dataPath = rawString.endsWith("/") ? rawString : rawString + "/";
-        Logger.debug(`[Path::getDataPath] ${this._dataPath}`);
+        Logger.debug(`[${this.tag}::getDataPath] ${this._dataPath}`);
         return this._dataPath;
     }
 
@@ -32,7 +37,7 @@ export class Path {
      * Wrapper over `System.IO.Directory.CreateDirectory(path)`
      */
     static createDirectory(path: string): void {
-        Logger.debug(`[Path::createDirectory] ${path}`);
+        Logger.debug(`[${this.tag}::createDirectory] ${path}`);
         Il2Cpp.corlib.class("System.IO.Directory").method("CreateDirectory").invoke(Il2Cpp.string(path));
     }
 
@@ -42,7 +47,7 @@ export class Path {
      * Wrapper over `System.IO.Directory.GetFiles(path, searchPattern)`
      */
     static getFiles(path: string, searchPattern: string): string[] {
-        Logger.debug(`[Path::getFiles] ${path} pattern: ${searchPattern}`);
+        Logger.debug(`[${this.tag}::getFiles] ${path} pattern: ${searchPattern}`);
         const il2cppArray = Il2Cpp.corlib
             .class("System.IO.Directory")
             .method<Il2Cpp.Array<Il2Cpp.String>>("GetFiles", 2)
@@ -56,5 +61,13 @@ export class Path {
         }
 
         return result;
+    }
+
+    static getConfigFilePath(): string {
+        return this.getDataPath() + this.CONFIG_FILE;
+    }
+
+    static getCustomThemesPath(): string {
+        return this.getDataPath() + this.CUSTOM_THEMES_DIRECTORY;
     }
 }

@@ -13,7 +13,7 @@ export class Config {
     static versionOverride: string = "";
 
     static load(): void {
-        const path = Path.getDataPath() + "config.json";
+        const path = Path.getConfigFilePath();
         try {
             Object.assign(this, JSON.parse(File.readAllText(path)) as ConfigData);
         } catch {
@@ -23,7 +23,7 @@ export class Config {
     }
 
     static save(): void {
-        const path = Path.getDataPath() + "config.json";
+        const path = Path.getConfigFilePath();
         try {
             const file = new File(path, "w");
             file.write(this.toJSON());

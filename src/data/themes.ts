@@ -32,7 +32,7 @@ export class Themes {
     private static _loadedThemes: ThemeData[] = [];
 
     public static load(): void {
-        const path = Path.getDataPath() + "CustomThemes/";
+        const path = Path.getCustomThemesPath();
         Path.createDirectory(path);
 
         const themeFiles = Path.getFiles(path, "*.json");
