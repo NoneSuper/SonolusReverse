@@ -4,6 +4,7 @@ import { Themes } from "../data/themes";
 import { I18n } from "../i18n/i18n";
 import { Logger } from "../logger/logger";
 import { getAssetTexture2D, makeBoolRef, makeStringRef, wrapInCustomSection, wrapString, wrapTexture2D } from "../utils/helpers";
+import { FilePicker } from "../utils/native/file-picker";
 import { SonolusUtils } from "../utils/version";
 import { buildBtnField, buildImgLblBtn, buildRows, buildSectionHeader, buildToggleField, buildTxtInputField } from "./widgets";
 
@@ -26,9 +27,25 @@ function buildSpoofToggle(): Il2Cpp.Object {
 }
 
 function buildThemesShortcut(): Il2Cpp.Object {
-    const openButton = buildImgLblBtn({
+    const importButton = buildImgLblBtn({
+        icon: wrapTexture2D(getAssetTexture2D("Import")),
+        title: I18n.tRef("ui.theme.import_button"),
+        onClick: () => {
+            FilePicker.pickFile(
+                (path: Il2Cpp.String) => {
+                    if (!path.isNull()) {
+                        Logger.debug(`[section] Custom theme selected: ${path.content}`);
+                        // TODO: re-load themes
+                    }
+                },
+                ["json"]
+            );
+        }
+    });
+
+    const selectButton = buildImgLblBtn({
         icon: wrapTexture2D(getAssetTexture2D("Theme")),
-        title: I18n.tRef("ui.theme.button_title"),
+        title: I18n.tRef("ui.theme.select_button"),
         onClick: () => {
             const action = getThemeAction();
             if (!action) {
@@ -42,7 +59,7 @@ function buildThemesShortcut(): Il2Cpp.Object {
     return buildBtnField({
         title: I18n.tRef("ui.theme.title"),
         description: I18n.tRef("ui.theme.description", Themes.getLoadedThemes().length),
-        buttons: [openButton]
+        buttons: [importButton, selectButton]
     });
 }
 
