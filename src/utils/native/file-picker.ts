@@ -1,5 +1,5 @@
-import { AssemblyHelper } from "../core/assembly-helper";
-import { Logger } from "../logger/logger";
+import { AssemblyHelper } from "../../core/assembly-helper";
+import { Logger } from "../../logger/logger";
 
 /*
  * Wrapper over https://github.com/yasirkula/UnityNativeFilePicker

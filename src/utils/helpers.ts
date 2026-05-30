@@ -1,5 +1,5 @@
 import { AssemblyHelper } from "../core/assembly-helper";
-import { ConfigRef } from "../data/config-ref";
+import { ConfigRef } from "./config-ref";
 
 interface Api {
     SystemAction: Il2Cpp.Class;

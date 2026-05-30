@@ -1,5 +1,5 @@
 import { Logger } from "../logger/logger";
-import { Path } from "../utils/path";
+import { Path } from "../utils/native/path";
 
 export interface ThemeData {
     Id: string;
