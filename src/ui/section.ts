@@ -5,6 +5,7 @@ import { I18n } from "../i18n/i18n";
 import { Logger } from "../logger/logger";
 import { getAssetTexture2D, makeBoolRef, makeStringRef, wrapInCustomSection, wrapString, wrapTexture2D } from "../utils/helpers";
 import { FilePicker } from "../utils/native/file-picker";
+import { Path } from "../utils/native/path";
 import { SonolusUtils } from "../utils/version";
 import { buildBtnField, buildImgLblBtn, buildRows, buildSectionHeader, buildToggleField, buildTxtInputField } from "./widgets";
 
@@ -58,7 +59,7 @@ function buildThemesShortcut(): Il2Cpp.Object {
 
     return buildBtnField({
         title: I18n.tRef("ui.theme.title"),
-        description: I18n.tRef("ui.theme.description", Themes.getLoadedThemes().length),
+        description: I18n.tRef("ui.theme.description", Themes.getLoadedThemes().length, Path.getCustomThemesPath()),
         buttons: [importButton, selectButton]
     });
 }
