@@ -1,5 +1,6 @@
 import { Config } from "../data/config";
 import { getThemeAction } from "../data/state";
+import { Themes } from "../data/themes";
 import { I18n } from "../i18n/i18n";
 import { Logger } from "../logger/logger";
 import { getAssetTexture2D, makeBoolRef, makeStringRef, wrapInCustomSection, wrapString, wrapTexture2D } from "../utils/helpers";
@@ -7,8 +8,22 @@ import { SonolusUtils } from "../utils/version";
 import { buildBtnField, buildImgLblBtn, buildRows, buildSectionHeader, buildToggleField, buildTxtInputField } from "./widgets";
 
 /*
-Adds the Custom section to the Sonolus Settings page.
+Building our custom section here.
 */
+
+function buildSpoofToggle(): Il2Cpp.Object {
+    const ref = makeBoolRef(Config.spoofEnabled, value => {
+        Config.spoofEnabled = value;
+        Config.save();
+    });
+
+    return buildToggleField({
+        title: I18n.tRef("ui.spoof.title"),
+        description: I18n.tRef("ui.spoof.description"),
+        value: ref,
+        defaultValue: true
+    });
+}
 
 function buildThemesShortcut(): Il2Cpp.Object {
     const openButton = buildImgLblBtn({
@@ -26,22 +41,8 @@ function buildThemesShortcut(): Il2Cpp.Object {
 
     return buildBtnField({
         title: I18n.tRef("ui.theme.title"),
-        description: I18n.tRef("ui.theme.description"),
+        description: I18n.tRef("ui.theme.description", Themes.getLoadedThemes().length),
         buttons: [openButton]
-    });
-}
-
-function buildSpoofToggle(): Il2Cpp.Object {
-    const ref = makeBoolRef(Config.spoofEnabled, value => {
-        Config.spoofEnabled = value;
-        Config.save();
-    });
-
-    return buildToggleField({
-        title: I18n.tRef("ui.spoof.title"),
-        description: I18n.tRef("ui.spoof.description"),
-        value: ref,
-        defaultValue: true
     });
 }
 

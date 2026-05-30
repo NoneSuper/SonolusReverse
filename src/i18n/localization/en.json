@@ -11,7 +11,7 @@
         },
         "theme": {
             "title": "Theme",
-            "description": "Color theme to use.",
+            "description": "Color theme to use. You have loaded {0} custom themes.",
             "button_title": "Select"
         }
     }
