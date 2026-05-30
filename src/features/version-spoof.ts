@@ -4,12 +4,12 @@ import { Config } from "../data/config";
 import { Logger } from "../logger/logger";
 
 /*
-We just hooking main version functions
-On any server there's Sonolus-Version header, client check's it:
+We just hooking the main version functions
+On any server there's Sonolus-Version header, client checks it:
 https://wiki.sonolus.com/custom-server-specs/headers/sonolus-version
 
 TODO: I just checked, we can hook op_GreaterThan and op_LessThan
-so check is always will be false => popup never was triggered
+so check always will be false => the popup will never be triggered
 */
 
 export class VersionSpoof extends BaseModule {
@@ -63,9 +63,7 @@ export class VersionSpoof extends BaseModule {
 
         const managed = Il2Cpp.string(input);
         managed.object.ref(true);
-        if (this.cachedVersionString) {
-            this.cachedVersionString.managed.object.ref(false);
-        }
+        if (this.cachedVersionString) this.cachedVersionString.managed.object.ref(false);
 
         this.cachedVersionString = { input, managed };
         Logger.info(`[${this.tag}] Application.version: ${input}`);
