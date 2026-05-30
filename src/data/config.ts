@@ -7,6 +7,8 @@ interface ConfigData {
 }
 
 export class Config {
+    private static readonly tag = "Config";
+
     static spoofEnabled: boolean = true;
     static versionOverride: string = "";
 
@@ -15,9 +17,9 @@ export class Config {
         try {
             Object.assign(this, JSON.parse(File.readAllText(path)) as ConfigData);
         } catch {
-            Logger.warn("[Config::load] No config file found, using defaults");
+            Logger.warn(`[${this.tag}::load] No config file found, using defaults`);
         }
-        Logger.info(`[Config::load] Config loaded with ${Object.keys(this).length} values`);
+        Logger.info(`[${this.tag}::load] Config loaded with ${Object.keys(this).length} values`);
     }
 
     static save(): void {
@@ -26,9 +28,9 @@ export class Config {
             const file = new File(path, "w");
             file.write(this.toJSON());
             file.close();
-            Logger.debug(`[Config::save] Config saved`);
+            Logger.debug(`[${this.tag}::save] Config saved`);
         } catch (error) {
-            Logger.error(`[Config::save] Failed to save: ${error}`);
+            Logger.error(`[${this.tag}::save] Failed to save config: ${error}`);
         }
     }
 
