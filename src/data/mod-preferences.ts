@@ -6,8 +6,6 @@ declare const process: {
     };
 };
 
-// TODO: add platform
-
 export class ModPreferences {
     // read by webpack
     static readonly MAJOR = 0;
