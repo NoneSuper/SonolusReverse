@@ -40,6 +40,7 @@ function bumpBuildNumber(): number {
 }
 
 export default function (env: WebpackEnv): Configuration {
+    console.log(""); // indent one line after prettier
     let targetEnv = "release";
     if (env.dev) targetEnv = "dev";
 
