@@ -63,6 +63,10 @@ export class Path {
         return result;
     }
 
+    static Move(sourcePath: string, distPath: string): void {
+        Il2Cpp.corlib.class("System.IO.File").method("Move", 2).invoke(Il2Cpp.string(sourcePath), Il2Cpp.string(distPath));
+    }
+
     static getConfigFilePath(): string {
         return this.getDataPath() + this.CONFIG_FILE;
     }
