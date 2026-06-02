@@ -1,6 +1,7 @@
 import { Logger } from "../logger/logger";
 import { Path } from "../utils/native/path";
 
+/** Wrapper over `Sonolus.Core.Content.ContentTheme` */
 export interface ThemeData {
     Id: string;
     Title: string;
@@ -28,7 +29,7 @@ export interface ThemeData {
     };
 }
 
-export class Themes {
+export class ThemeLoader {
     private static _loadedThemes: ThemeData[] = [];
 
     public static load(): void {

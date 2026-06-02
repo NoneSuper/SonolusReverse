@@ -1,17 +1,17 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
-import { ThemeData, Themes } from "../data/themes";
+import { ThemeData, ThemeLoader } from "../data/theme-loader";
 import { Logger } from "../logger/logger";
 import { makeSrl } from "../utils/helpers";
 
 /*
-TODO write header here and rewrite some parts 
+TODO write header here
 */
 
-const CUSTOM_THEME_NAME_PREFIX = "sr_custom_";
+export class ThemeInjector extends BaseModule {
+    public readonly tag = "ThemeInjector";
 
-export class CustomTheme extends BaseModule {
-    public readonly tag = "CustomTheme";
+    private readonly CUSTOM_THEME_NAME_PREFIX = "sr_custom_";
 
     // Classes
     private ContentSystem!: Il2Cpp.Class;
@@ -26,7 +26,7 @@ export class CustomTheme extends BaseModule {
         this.ContentSystem = Asm.class("Sonolus.Content.ContentSystem");
         this.ContentTheme = Asm.class("Sonolus.Core.Content.ContentTheme");
 
-        this.SetData = this.ContentSystem.method("SetData", 1);
+        this.SetData = this.ContentSystem.method<void>("SetData", 1);
     }
 
     public override initHooks(): void {
@@ -34,17 +34,14 @@ export class CustomTheme extends BaseModule {
 
         // @ts-ignore
         this.SetData.implementation = function (data: Il2Cpp.Object): void {
-            try {
-                if (!data.isNull()) {
-                    module.injectCustomTheme(data);
-                }
-            } catch (error) {
-                Logger.error(`[${module.tag}] inject failed: ${error}`);
-            }
-            this.method("SetData", 1).invoke(data);
+            // data is ContentSystem.ContentCache object
+            if (!data.isNull()) module.injectCustomTheme(data);
+
+            this.method<void>("SetData", 1).invoke(data);
         };
     }
 
+    // Modified data
     private injectCustomTheme(data: Il2Cpp.Object): void {
         const info = data.field<Il2Cpp.Object>("<Info>k__BackingField").value;
         if (info.isNull()) return;
@@ -52,30 +49,31 @@ export class CustomTheme extends BaseModule {
         const themesField = info.field<Il2Cpp.Array<Il2Cpp.Object>>("<Themes>k__BackingField");
         const oldThemes = themesField.value;
 
-        // REWRITE: we also removing here our old themes
-        const kept: Il2Cpp.Object[] = [];
-        let droppedCount = 0;
+        const keptThemes: Il2Cpp.Object[] = [];
+
+        // Everything is not sr_custom_ we kept, it's original sonolus themes
         for (let i = 0; i < oldThemes.length; i++) {
             const theme = oldThemes.get(i);
-            const name = theme.field<Il2Cpp.String>("<Name>k__BackingField").value;
-            const nameStr = name.isNull() ? "" : (name.content ?? "");
-            if (nameStr.startsWith(CUSTOM_THEME_NAME_PREFIX)) {
-                droppedCount++;
-            } else {
-                kept.push(theme);
+            const name = theme.field<Il2Cpp.String>("<Name>k__BackingField").value.content ?? "";
+            if (!name.startsWith(this.CUSTOM_THEME_NAME_PREFIX)) {
+                keptThemes.push(theme);
             }
         }
+        const droppedCount = oldThemes.length - keptThemes.length;
 
-        const customThemes = Themes.getLoadedThemes();
-        const newThemes = Il2Cpp.array<Il2Cpp.Object>(this.ContentTheme, kept.length + customThemes.length);
-        kept.forEach((t, i) => newThemes.set(i, t));
+        const customThemes = ThemeLoader.getLoadedThemes();
+        const newThemes = Il2Cpp.array<Il2Cpp.Object>(this.ContentTheme, keptThemes.length + customThemes.length);
+        keptThemes.forEach((t, i) => newThemes.set(i, t)); // back our kept themes in new Il2cpp Array
+        // Add our new custom themes (and build it)
         customThemes.forEach((theme, i) => {
-            newThemes.set(kept.length + i, this.buildCustomTheme(theme));
+            newThemes.set(keptThemes.length + i, this.buildCustomTheme(theme));
         });
 
         themesField.value = newThemes;
 
-        Logger.info(`[ContentSystem::SetData] kept ${kept.length}, dropped ${droppedCount} stale '${CUSTOM_THEME_NAME_PREFIX}*', total ${newThemes.length}`);
+        Logger.info(
+            `[ContentSystem::SetData] kept ${keptThemes.length}, dropped ${droppedCount} stale '${this.CUSTOM_THEME_NAME_PREFIX}*', total ${newThemes.length}`
+        );
     }
 
     /** Allocate a `Sonolus.Core.Content.ContentTheme` with our colors. */

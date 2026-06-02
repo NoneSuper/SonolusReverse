@@ -3,12 +3,12 @@ import "frida-il2cpp-bridge";
 import { AssemblyHelper } from "./core/assembly-helper";
 import { ModuleManager } from "./core/module-manager";
 import { Config } from "./data/config";
-import { ConfigRef } from "./utils/config-ref";
 import { ModPreferences } from "./data/mod-preferences";
-import { Themes } from "./data/themes";
+import { ThemeLoader } from "./data/theme-loader";
 import { I18n } from "./i18n/i18n";
 import { Logger } from "./logger/logger";
 import { initSettingsUI } from "./ui/settings";
+import { ConfigRef } from "./utils/config-ref";
 import { SonolusUtils } from "./utils/version";
 
 function logBanner(): void {
@@ -27,6 +27,10 @@ function init(): void {
     Logger.info("Script loaded!");
 
     Il2Cpp.perform(() => {
+        /// #if DEV
+        Il2Cpp.installExceptionListener("all");
+        /// #endif
+
         Logger.info("Il2cpp loaded!");
         AssemblyHelper.init();
 
@@ -35,7 +39,7 @@ function init(): void {
         // Init Config & Themes
         Config.load();
         ConfigRef.init();
-        Themes.load();
+        ThemeLoader.load();
 
         I18n.init(); // Read locale from game, should init after Assemblies
         ModuleManager.initAll();

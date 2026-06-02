@@ -1,7 +1,7 @@
 import { AssemblyHelper } from "../core/assembly-helper";
 import { BaseModule } from "../core/base-module";
 import { Config } from "../data/config";
-import { Themes } from "../data/themes";
+import { ThemeLoader } from "../data/theme-loader";
 import { Logger } from "../logger/logger";
 
 /* 
@@ -82,7 +82,7 @@ export class UserInfoSpoof extends BaseModule {
             const spoofedVipEndAt = Date.now() + module.SPOOFED_VIP_DURATION_DAYS * module.MS_PER_DAY;
 
             // Spoof Themes + add out custom themes. Allocate a new Il2cpp Array with Il2cpp Strings (string[])
-            const customThemes = Themes.getLoadedThemes();
+            const customThemes = ThemeLoader.getLoadedThemes();
             const themesArray = Il2Cpp.array<Il2Cpp.String>(module.SystemString, module.SPOOFED_THEMES.length + customThemes.length);
             module.SPOOFED_THEMES.forEach((name, i) => {
                 themesArray.set(i, Il2Cpp.string(name));

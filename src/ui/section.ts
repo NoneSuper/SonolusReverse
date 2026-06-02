@@ -1,6 +1,8 @@
+import { ModuleManager } from "../core/module-manager";
 import { Config } from "../data/config";
 import { getThemeAction } from "../data/state";
-import { Themes } from "../data/themes";
+import { ThemeLoader } from "../data/theme-loader";
+import { ThemeInjector } from "../features/theme-injector";
 import { I18n } from "../i18n/i18n";
 import { Logger } from "../logger/logger";
 import { getAssetTexture2D, makeBoolRef, makeStringRef, wrapInCustomSection, wrapString, wrapTexture2D } from "../utils/helpers";
@@ -34,9 +36,9 @@ function buildThemesShortcut(): Il2Cpp.Object {
         onClick: () => {
             FilePicker.pickFile(
                 (path: Il2Cpp.String) => {
-                    if (!path.isNull()) {
+                    if (!path.isNull() && path.content) {
                         Logger.debug(`[section] Custom theme selected: ${path.content}`);
-                        // TODO: re-load themes
+                        Path.Move(path.content, Path.getCustomThemesPath() + path.content.split("/").at(-1));
                     }
                 },
                 ["json"]
@@ -59,7 +61,7 @@ function buildThemesShortcut(): Il2Cpp.Object {
 
     return buildBtnField({
         title: I18n.tRef("ui.theme.title"),
-        description: I18n.tRef("ui.theme.description", Themes.getLoadedThemes().length, Path.getCustomThemesPath()),
+        description: I18n.tRef("ui.theme.description", ThemeLoader.getLoadedThemes().length, Path.getCustomThemesPath()),
         buttons: [importButton, selectButton]
     });
 }

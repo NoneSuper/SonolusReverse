@@ -1,4 +1,4 @@
-import { CustomTheme } from "../features/custom-theme";
+import { ThemeInjector } from "../features/theme-injector";
 import { ThemeAction } from "../features/theme-action";
 import { TitleLabel } from "../features/title-label";
 import { UserInfoSpoof } from "../features/userinfo-spoof";
@@ -14,7 +14,7 @@ export class ModuleManager {
         new ThemeAction(),
         new UserInfoSpoof(),
         new TitleLabel(),
-        new CustomTheme(),
+        new ThemeInjector(),
         new VersionSpoof(),
     ];
 
