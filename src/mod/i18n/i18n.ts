@@ -1,6 +1,5 @@
-import { AssemblyHelper } from "../core/assembly-helper";
-import { Logger } from "../logger/logger";
-import { allocPinnedStringRef } from "../utils/helpers";
+import { AssemblyHelper } from "../../engine/assembly-helper";
+import { Logger } from "../../utils/logger";
 import en from "./localization/en.json";
 import ru from "./localization/ru.json";
 
@@ -29,6 +28,7 @@ const TRANSLATIONS: Record<string, unknown> = {
     ru: ru
 };
 
+/*
 export class I18n {
     private static readonly tag = "I18n";
 
@@ -126,6 +126,7 @@ export class I18n {
      *
      * @returns `Ref<string>`
      */
+/*
     public static tRef(key: string, ...args: (string | number)[]): Il2Cpp.Object {
         const existing = this.localizedRefs.get(key);
         if (existing) return existing;
@@ -146,6 +147,7 @@ export class I18n {
     }
 
     /** Replaces {0}, {1} placeholders with provided arguments */
+/*
     public static format(text: string, ...args: (string | number)[]): string {
         if (args.length === 0) return text;
 
@@ -168,3 +170,4 @@ export class I18n {
         return typeof result === "string" ? result : undefined;
     }
 }
+*/

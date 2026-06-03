@@ -1,4 +1,4 @@
-import { Logger } from "../logger/logger";
+import { Logger } from "../utils/logger";
 
 export class AssemblyHelper {
     private static readonly tag = "AssemblyHelper";

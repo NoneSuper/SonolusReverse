@@ -1,4 +1,4 @@
-import { AssemblyHelper } from "../core/assembly-helper";
+import { AssemblyHelper } from "../../../engine/assembly-helper";
 
 interface Api {
     Margin: Il2Cpp.Method<Il2Cpp.Object>;

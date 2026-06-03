@@ -1,6 +1,7 @@
-import { AssemblyHelper } from "../../core/assembly-helper";
-import { Logger } from "../../logger/logger";
-import { Platform } from "./platform";
+import { Logger } from "../../utils/logger";
+import { AssemblyHelper } from "../assembly-helper";
+import { System } from "../system";
+import { Platform } from "../../utils/platform";
 
 /*
  * Wrapper over https://github.com/yasirkula/UnityNativeFilePicker
@@ -8,7 +9,6 @@ import { Platform } from "./platform";
  */
 
 interface Api {
-    SystemString: Il2Cpp.Class;
     NativeFilePicker: Il2Cpp.Class;
     FilePickedCallback: Il2Cpp.Class;
     FilesExportedCallback: Il2Cpp.Class;
@@ -30,14 +30,11 @@ export class FilePicker {
     private static api(): Api {
         if (this._api) return this._api;
 
-        const SystemString = Il2Cpp.corlib.class("System.String");
-
         const NativeFilePicker = AssemblyHelper.NativeFilePicker.class("NativeFilePicker");
         const FilePickedCallback = NativeFilePicker.nested("FilePickedCallback");
         const FilesExportedCallback = NativeFilePicker.nested("FilesExportedCallback");
 
         this._api = {
-            SystemString,
             NativeFilePicker,
             FilePickedCallback,
             FilesExportedCallback
@@ -59,7 +56,7 @@ export class FilePicker {
 
         const delegate = Il2Cpp.delegate(FilePicker.api().FilePickedCallback, callback);
 
-        const typesArray = Il2Cpp.array(FilePicker.api().SystemString, allowedFileTypes.length);
+        const typesArray = Il2Cpp.array(System.String, allowedFileTypes.length);
         allowedFileTypes
             .map(extension => FilePicker.getFileTypeFromExtension(extension))
             .forEach((string, index) => typesArray.set(index, Il2Cpp.string(string)));
