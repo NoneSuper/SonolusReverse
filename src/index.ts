@@ -4,6 +4,7 @@ import { AssemblyHelper } from "./engine/assembly-helper";
 import { ModPreferences } from "./mod/data/mod-preferences";
 import { TitleLabel } from "./mod/features/title-label";
 import { VersionSpoof } from "./mod/features/version-spoof";
+import { SonolusRoutesSettings } from "./sonolus/routes/settings";
 import { SonolusUITitle } from "./sonolus/ui/title";
 import { SonolusApp } from "./sonolus/wrappers/app";
 import { Logger } from "./utils/logger";
@@ -33,6 +34,7 @@ function initEngine(): void {
 
 function initGame(): void {
     SonolusUITitle.init();
+    SonolusRoutesSettings.init();
 }
 
 function initMod(): void {

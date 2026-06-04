@@ -10,7 +10,7 @@ export class TitleLabel {
         // Sonolus.UI.Common.Lbl Title(Sonolus.Reactivity.Dep<string> title);
         const LblTitle = Lbl.method<Il2Cpp.Object>("Title", 1);
 
-        //@ts-ignore
+        // @ts-ignore
         LblTitle.implementation = this.LblTitleHook;
     }
 

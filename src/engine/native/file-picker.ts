@@ -1,7 +1,7 @@
 import { Logger } from "../../utils/logger";
+import { Platform } from "../../utils/platform";
 import { AssemblyHelper } from "../assembly-helper";
 import { System } from "../system";
-import { Platform } from "../../utils/platform";
 
 /*
  * Wrapper over https://github.com/yasirkula/UnityNativeFilePicker

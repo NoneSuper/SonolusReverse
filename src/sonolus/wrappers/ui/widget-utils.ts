@@ -1,10 +1,12 @@
 import { AssemblyHelper } from "../../../engine/assembly-helper";
+import { SonolusWidget } from "./widget";
 
 interface Api {
     Margin: Il2Cpp.Method<Il2Cpp.Object>;
+    Children: Il2Cpp.Method<Il2Cpp.Object>;
 }
 
-/** Wrapper over `Sonolus.UI.WidgetUtils` */
+/** Wrapper over `Sonolus.UI.WidgetUtils` class */
 export class WidgetUtils {
     private static _api: Api | null = null;
 
@@ -17,9 +19,11 @@ export class WidgetUtils {
         const WidgetUtils = Asm.class("Sonolus.UI.WidgetUtils");
 
         const Margin = WidgetUtils.method<Il2Cpp.Object>("Margin", 5).inflate(Widget);
+        const Children = WidgetUtils.method<Il2Cpp.Object>("Children", 2).inflate(Widget);
 
         this._api = {
-            Margin
+            Margin,
+            Children
         };
 
         return this._api;
@@ -31,7 +35,14 @@ export class WidgetUtils {
      *
      * @returns `Sonolus.UI.Widget`
      */
-    static Margin(Widget: Il2Cpp.Object, left: number, top: number, right: number, bottom: number): Il2Cpp.Object {
-        return WidgetUtils.api().Margin.invoke(Widget, left, top, right, bottom);
+    static Margin<T extends SonolusWidget>(widget: T, left: number, top: number, right: number, bottom: number): Il2Cpp.Object {
+        return WidgetUtils.api().Margin.invoke(widget, left, top, right, bottom);
+    }
+
+    static Children<T extends SonolusWidget>(widget: T, children: SonolusWidget[]): Il2Cpp.Object {
+        const childrenArray = Il2Cpp.array<SonolusWidget>(widget.class, children.length);
+        children.forEach((c, i) => childrenArray.set(i, c));
+
+        return WidgetUtils.api().Children.invoke(widget, childrenArray);
     }
 }

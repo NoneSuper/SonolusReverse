@@ -98,7 +98,7 @@ export class Dep<T> extends DepBase {
                 break;
             }
             default:
-                if (!(value instanceof Texture2D)) throw new Error(`Dep<T>.opImplicit: unsuppoerted type ${typeof value}. Use overload`);
+                if (!(value instanceof Texture2D)) throw new Error(`Dep<T>.opImplicit: unsupported type ${typeof value}. Use overload`);
                 // if (!(value instanceof Il2Cpp.Object)) throw new Error(`Dep<T>.opImplicit: unsupported type ${typeof value}`);
                 // if (!(value.class.name === "UnityEngine.Texture2D")) throw new Error(`Dep<T>.opImplicit: only Texture2D is supported`);
                 obj = api.opImplicitFromTexture2D.invoke(value as Il2Cpp.Object);
