@@ -1,6 +1,6 @@
-import { AssemblyHelper } from "../../engine/assembly-helper";
-import { Ref } from "../../sonolus/wrappers/reactivity/ref";
-import { Logger } from "../../utils/logger";
+import { AssemblyHelper } from "../../engine/AssemblyHelper";
+import { Ref } from "../../sonolus/wrappers/reactivity/Ref";
+import { Logger } from "../../utils/Logger";
 import en from "./localization/en.json";
 import ru from "./localization/ru.json";
 

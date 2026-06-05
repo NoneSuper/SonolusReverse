@@ -1,15 +1,15 @@
 import "frida-il2cpp-bridge";
 
-import { AssemblyHelper } from "./engine/assembly-helper";
-import { ModPreferences } from "./mod/data/mod-preferences";
-import { TitleLabel } from "./mod/features/title-label";
-import { VersionSpoof } from "./mod/features/version-spoof";
-import { I18n } from "./mod/i18n/i18n";
-import { SonolusI18n } from "./sonolus/i18n";
-import { SonolusRoutesSettings } from "./sonolus/routes/settings";
-import { SonolusUITitle } from "./sonolus/ui/title";
-import { SonolusApp } from "./sonolus/wrappers/app";
-import { Logger } from "./utils/logger";
+import { AssemblyHelper } from "./engine/AssemblyHelper";
+import { ModPreferences } from "./mod/data/ModPreferences";
+import { TitleLabel } from "./mod/features/TitleLabel";
+import { VersionSpoof } from "./mod/features/VersionSpoof";
+import { I18n } from "./mod/i18n/I18n";
+import { SonolusI18n } from "./sonolus/I18n";
+import { SonolusRoutesSettings } from "./sonolus/routes/Settings";
+import { SonolusUITitle } from "./sonolus/ui/Title";
+import { SonolusApp } from "./sonolus/wrappers/App";
+import { Logger } from "./utils/Logger";
 
 function logBanner(): void {
     const { VERSION, ENV, COMMIT, FOR_GAME_VERSION } = ModPreferences;

@@ -1,10 +1,10 @@
-import { SonolusAssets } from "../../sonolus/wrappers/assets";
-import { Dep } from "../../sonolus/wrappers/reactivity/dep";
-import { SonolusRouteSection } from "../../sonolus/wrappers/routing/route-section";
-import { SonolusRows } from "../../sonolus/wrappers/ui/common/rows";
-import { SonolusBaseSection } from "../../sonolus/wrappers/ui/common/sections/base-section";
-import { SonolusCustomSection } from "../../sonolus/wrappers/ui/common/sections/custom-section";
-import { I18n } from "../i18n/i18n";
+import { SonolusAssets } from "../../sonolus/wrappers/Assets";
+import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
+import { SonolusRouteSection } from "../../sonolus/wrappers/routing/RouteSection";
+import { SonolusRows } from "../../sonolus/wrappers/ui/common/Rows";
+import { SonolusBaseSection } from "../../sonolus/wrappers/ui/common/sections/BaseSection";
+import { SonolusCustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
+import { I18n } from "../i18n/I18n";
 
 export class CustomSection {
     private static readonly SECTION_ICON_NAME: string = "IconStar";

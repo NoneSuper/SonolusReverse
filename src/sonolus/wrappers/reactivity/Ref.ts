@@ -1,6 +1,6 @@
-import { AssemblyHelper } from "../../../engine/assembly-helper";
-import { System } from "../../../engine/system";
-import { Dep } from "./dep";
+import { AssemblyHelper } from "../../../engine/AssemblyHelper";
+import { System } from "../../../engine/System";
+import { Dep } from "./Dep";
 
 interface RefApi {
     RefString: Il2Cpp.Class;

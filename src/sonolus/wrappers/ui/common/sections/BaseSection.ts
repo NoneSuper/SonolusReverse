@@ -1,7 +1,7 @@
-import { AssemblyHelper } from "../../../../../engine/assembly-helper";
-import { Dep } from "../../../reactivity/dep";
-import { SonolusCompositeWidget } from "../../composite-widget";
-import { SonolusWidget } from "../../widget";
+import { AssemblyHelper } from "../../../../../engine/AssemblyHelper";
+import { Dep } from "../../../reactivity/Dep";
+import { SonolusCompositeWidget } from "../../CompositeWidget";
+import { SonolusWidget } from "../../Widget";
 
 interface Api {
     SectionBase: Il2Cpp.Class;

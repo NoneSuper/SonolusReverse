@@ -1,5 +1,5 @@
-import { Path } from "../../engine/native/path";
-import { Logger } from "../../utils/logger";
+import { Path } from "../../engine/native/Path";
+import { Logger } from "../../utils/Logger";
 
 /** Wrapper over `Sonolus.Core.Content.ContentTheme` */
 export interface ThemeData {

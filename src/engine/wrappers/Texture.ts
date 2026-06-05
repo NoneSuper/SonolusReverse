@@ -1,4 +1,4 @@
-import { AssemblyHelper } from "../assembly-helper";
+import { AssemblyHelper } from "../AssemblyHelper";
 
 export class Texture extends Il2Cpp.Object {}
 

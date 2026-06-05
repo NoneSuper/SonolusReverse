@@ -1,6 +1,6 @@
-import { AssemblyHelper } from "../../../engine/assembly-helper";
-import { Texture2D } from "../../../engine/wrappers/texture";
-import { Dep } from "../reactivity/dep";
+import { AssemblyHelper } from "../../../engine/AssemblyHelper";
+import { Texture2D } from "../../../engine/wrappers/Texture";
+import { Dep } from "../reactivity/Dep";
 
 interface Api {
     RouteSection: Il2Cpp.Class;

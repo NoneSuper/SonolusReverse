@@ -1,9 +1,8 @@
-import { AssemblyHelper } from "../../../../engine/assembly-helper";
-import { System } from "../../../../engine/system";
-import { Texture2D } from "../../../../engine/wrappers/texture";
-import { Dep } from "../../reactivity/dep";
-import { SonolusCompositeWidget } from "../composite-widget";
-import { SonolusWidget } from "../widget";
+import { AssemblyHelper } from "../../../../engine/AssemblyHelper";
+import { System } from "../../../../engine/System";
+import { Texture2D } from "../../../../engine/wrappers/Texture";
+import { Dep } from "../../reactivity/Dep";
+import { SonolusCompositeWidget } from "../CompositeWidget";
 
 interface Api {
     ImgLblBtn: Il2Cpp.Class;

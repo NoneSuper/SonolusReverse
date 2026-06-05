@@ -1,7 +1,7 @@
-import { AssemblyHelper } from "../../../../engine/assembly-helper";
-import { SonolusNativeWidget } from "../native-widget";
-import { SonolusWidget } from "../widget";
-import { WidgetUtils } from "../widget-utils";
+import { AssemblyHelper } from "../../../../engine/AssemblyHelper";
+import { SonolusNativeWidget } from "../NativeWidget";
+import { SonolusWidget } from "../Widget";
+import { WidgetUtils } from "../WidgetUtils";
 
 interface Api {
     Rows: Il2Cpp.Class;

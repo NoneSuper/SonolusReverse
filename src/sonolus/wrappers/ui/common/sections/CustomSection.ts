@@ -1,6 +1,6 @@
-import { AssemblyHelper } from "../../../../../engine/assembly-helper";
-import { SonolusWidget } from "../../widget";
-import { SonolusBaseSection } from "./base-section";
+import { AssemblyHelper } from "../../../../../engine/AssemblyHelper";
+import { SonolusWidget } from "../../Widget";
+import { SonolusBaseSection } from "./BaseSection";
 
 interface Api {
     CustomSection: Il2Cpp.Class;

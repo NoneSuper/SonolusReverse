@@ -1,6 +1,6 @@
-import { AssemblyHelper } from "../engine/assembly-helper";
-import { I18n } from "../mod/i18n/i18n";
-import { Logger } from "../utils/logger";
+import { AssemblyHelper } from "../engine/AssemblyHelper";
+import { I18n } from "../mod/i18n/I18n";
+import { Logger } from "../utils/Logger";
 
 export class SonolusI18n {
     static init(): void {

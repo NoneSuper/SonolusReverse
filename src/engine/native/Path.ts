@@ -1,5 +1,5 @@
-import { Logger } from "../../utils/logger";
-import { AssemblyHelper } from "../assembly-helper";
+import { Logger } from "../../utils/Logger";
+import { AssemblyHelper } from "../AssemblyHelper";
 
 export class Path {
     private static readonly tag = "Path";

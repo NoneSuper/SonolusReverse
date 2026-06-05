@@ -1,6 +1,6 @@
-import { AssemblyHelper } from "../../engine/assembly-helper";
-import { CustomSection } from "../../mod/ui/section";
-import { SonolusRouteSection } from "../wrappers/routing/route-section";
+import { AssemblyHelper } from "../../engine/AssemblyHelper";
+import { CustomSection } from "../../mod/ui/Section";
+import { SonolusRouteSection } from "../wrappers/routing/RouteSection";
 
 export class SonolusRoutesSettings {
     private static _routeSection: Il2Cpp.Class;

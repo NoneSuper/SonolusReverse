@@ -1,4 +1,4 @@
-import { AssemblyHelper } from "../../engine/assembly-helper";
+import { AssemblyHelper } from "../../engine/AssemblyHelper";
 
 /** Wrapper over `Sonolus.App` class */
 export class SonolusApp {

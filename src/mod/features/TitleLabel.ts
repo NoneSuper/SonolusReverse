@@ -1,7 +1,7 @@
-import { AssemblyHelper } from "../../engine/assembly-helper";
-import { SonolusUITitle } from "../../sonolus/ui/title";
-import { SonolusApp } from "../../sonolus/wrappers/app";
-import { Dep } from "../../sonolus/wrappers/reactivity/dep";
+import { AssemblyHelper } from "../../engine/AssemblyHelper";
+import { SonolusUITitle } from "../../sonolus/ui/Title";
+import { SonolusApp } from "../../sonolus/wrappers/App";
+import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
 
 export class TitleLabel {
     static init(): void {

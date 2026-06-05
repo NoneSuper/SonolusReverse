@@ -1,5 +1,5 @@
-import { AssemblyHelper } from "../../engine/assembly-helper";
-import { Logger } from "../../utils/logger";
+import { AssemblyHelper } from "../../engine/AssemblyHelper";
+import { Logger } from "../../utils/Logger";
 
 export class SonolusUITitle {
     /*

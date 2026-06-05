@@ -1,5 +1,5 @@
-import { AssemblyHelper } from "../../../engine/assembly-helper";
-import { SonolusWidget } from "./widget";
+import { AssemblyHelper } from "../../../engine/AssemblyHelper";
+import { SonolusWidget } from "./Widget";
 
 interface Api {
     Margin: Il2Cpp.Method<Il2Cpp.Object>;

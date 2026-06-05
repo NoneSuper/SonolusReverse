@@ -1,5 +1,5 @@
-import { AssemblyHelper } from "../../engine/assembly-helper";
-import { Texture2D } from "../../engine/wrappers/texture";
+import { AssemblyHelper } from "../../engine/AssemblyHelper";
+import { Texture2D } from "../../engine/wrappers/Texture";
 
 interface Api {
     Assets: Il2Cpp.Class;

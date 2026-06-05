@@ -1,4 +1,4 @@
-import { AssemblyHelper } from "../../../engine/assembly-helper";
+import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 
 interface Api {
     Srl: Il2Cpp.Class;

@@ -1,6 +1,6 @@
-import { AssemblyHelper } from "../../../engine/assembly-helper";
-import { System } from "../../../engine/system";
-import { Texture2D } from "../../../engine/wrappers/texture";
+import { AssemblyHelper } from "../../../engine/AssemblyHelper";
+import { System } from "../../../engine/System";
+import { Texture2D } from "../../../engine/wrappers/Texture";
 
 /** Wrapper over `Sonolus.Reactivity.Dep` class extends `Il2Cpp.Object` */
 class DepBase extends Il2Cpp.Object {
