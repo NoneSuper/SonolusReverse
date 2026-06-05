@@ -4,6 +4,7 @@ import { SonolusCompositeWidget } from "../../CompositeWidget";
 export class SonolusField extends SonolusCompositeWidget {
     Title(title: Dep<Il2Cpp.String>): this {
         this.method<this>("SetTitle").invoke(title);
+        this.setMark("Title");
         return this;
     }
 

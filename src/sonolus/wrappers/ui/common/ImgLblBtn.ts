@@ -24,16 +24,20 @@ export class SonolusImgLblBtn extends SonolusCompositeWidget {
     }
 
     static new(): SonolusImgLblBtn {
-        return SonolusImgLblBtn._new<SonolusImgLblBtn>(this.api().ImgLblBtn);
-    }
-
-    Icon(icon: Dep<Texture2D>): this {
-        this.method<Il2Cpp.Object>("SetIcon").invoke(icon);
-        return this;
+        const obj = SonolusImgLblBtn._new<SonolusImgLblBtn>(this.api().ImgLblBtn);
+        obj.setRequired(["Title", "Icon"]);
+        return obj;
     }
 
     Title(title: Dep<Il2Cpp.String>): this {
         this.method<Il2Cpp.Object>("SetTitle").invoke(title);
+        this.setMark("Title");
+        return this;
+    }
+
+    Icon(icon: Dep<Texture2D>): this {
+        this.method<Il2Cpp.Object>("SetIcon").invoke(icon);
+        this.setMark("Icon");
         return this;
     }
 

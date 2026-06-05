@@ -22,11 +22,14 @@ export class SonolusCustomSection extends SonolusBaseSection {
     }
 
     static new(): SonolusCustomSection {
-        return SonolusCustomSection._new<SonolusCustomSection>(this.api().CustomSection);
+        const obj = SonolusCustomSection._new<SonolusCustomSection>(this.api().CustomSection);
+        obj.setRequired(["Content"]);
+        return obj;
     }
 
     Content(content: SonolusWidget): this {
         this.method<void>("SetContent", 1).invoke(content);
+        this.setMark("Content");
         return this;
     }
 }
