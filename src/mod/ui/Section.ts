@@ -9,12 +9,15 @@ import { SonolusImgLblBtn } from "../../sonolus/wrappers/ui/common/ImgLblBtn";
 import { SonolusRows } from "../../sonolus/wrappers/ui/common/Rows";
 import { SonolusBaseSection } from "../../sonolus/wrappers/ui/common/sections/BaseSection";
 import { SonolusCustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
+import { SonolusWidget } from "../../sonolus/wrappers/ui/Widget";
 import { Logger } from "../../utils/Logger";
+import { Config } from "../data/Config";
 import { I18n } from "../i18n/I18n";
 
 export class CustomSection {
     private static readonly SECTION_ICON_NAME: string = "IconStar";
 
+    /*
     private static buildTestBtnField(): SonolusBtnField {
         const btn = SonolusImgLblBtn.new()
             .Title(I18n.tRef("button"))
@@ -45,18 +48,50 @@ export class CustomSection {
             .CharacterLimit(12)
             .validate();
     }
+    */
+
+    private static _versionChecksRef: Ref<boolean> | null = null;
 
     static buildCustomSection(): SonolusRouteSection {
-        const Title = SonolusBaseSection.CreateTitle(I18n.tRef("ui.title"));
+        const title = this.title();
+        const spoofField = this.spoofField();
+        const versionField = this.versionField();
 
-        const rows = SonolusRows.new()
-            .Gap(20)
-            .Children([Title, CustomSection.buildTestBtnField(), CustomSection.buildTestToggleField(), CustomSection.buildTestTxtInputField()]);
+        const rows = SonolusRows.new().Gap(20).Children([title, spoofField, versionField]);
 
         const section = SonolusCustomSection.new().Content(rows).validate();
 
         const icon = Dep.opImplicit(SonolusAssets.getAsset(this.SECTION_ICON_NAME));
         const route = SonolusRouteSection.new(icon, section);
         return route;
+    }
+
+    private static title(): SonolusWidget {
+        return SonolusBaseSection.CreateTitle(I18n.tRef("ui.title"));
+    }
+
+    private static spoofField(): SonolusToggleField {
+        return SonolusToggleField.new()
+            .Title(I18n.tRef("ui.spoof.title"))
+            .Description(I18n.tRef("ui.spoof.title"))
+            .Enabled(Dep.opImplicit(false))
+            .Value(Dep.opImplicit(false))
+            .validate();
+    }
+
+    private static versionField(): SonolusToggleField {
+        if (!this._versionChecksRef) {
+            this._versionChecksRef = Ref.create(Config.versionChecks);
+            this._versionChecksRef.hook(() => {
+                Config.versionChecks = this._versionChecksRef!.value;
+                Config.save();
+            });
+        }
+
+        return SonolusToggleField.new()
+            .Title(I18n.tRef("ui.version_checks.title"))
+            .Description(I18n.tRef("ui.version_checks.description"))
+            .Value(this._versionChecksRef)
+            .validate();
     }
 }

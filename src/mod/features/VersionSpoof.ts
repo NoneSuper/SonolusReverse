@@ -1,10 +1,17 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
+import { Config } from "../data/Config";
 
-export class VersionSpoof {
+// TODO rename
+export class VersionCheck {
     static init(): void {
-        const SemVer = AssemblyHelper.AssemblyCSharp.class("Sonolus.SemVer");
+        const UnityWebRequest = AssemblyHelper.UnityWebRequestModule.class("UnityEngine.Networking.UnityWebRequest");
 
-        SemVer.method<boolean>("op_GreaterThan", 2).implementation = () => false;
-        SemVer.method<boolean>("op_LessThan", 2).implementation = () => false;
+        // @ts-ignore
+        UnityWebRequest.method<Il2Cpp.String>("GetResponseHeader", 1).implementation = function (name: Il2Cpp.String): Il2Cpp.String | NativePointer {
+            if (Config.versionChecks && !name.isNull() && name.content === "Sonolus-Version") {
+                return ptr(0); // or Il2Cpp.string(""); but it's useless allocate new System.String object for that
+            }
+            return this.method<Il2Cpp.String>("GetResponseHeader", 1).invoke(name);
+        };
     }
 }

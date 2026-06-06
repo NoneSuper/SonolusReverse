@@ -5,9 +5,9 @@
             "title": "VIP and Themes Spoof",
             "description": "Client-side spoof of VIP and owned Themes. You need re-open Settings to update owned Themes and VIP."
         },
-        "version_spoof": {
-            "title": "Spoof App Version",
-            "description": "Override the version used by client compatibility checks. Leave empty to disable spoof."
+        "version_checks": {
+            "title": "Disable App Version checks",
+            "description": "Disables client compatibility checks while connecting in Custom Servers"
         },
         "theme": {
             "title": "Theme",

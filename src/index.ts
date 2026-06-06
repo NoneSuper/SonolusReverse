@@ -1,9 +1,10 @@
 import "frida-il2cpp-bridge";
 
 import { AssemblyHelper } from "./engine/AssemblyHelper";
+import { Config } from "./mod/data/Config";
 import { ModPreferences } from "./mod/data/ModPreferences";
 import { TitleLabel } from "./mod/features/TitleLabel";
-import { VersionSpoof } from "./mod/features/VersionSpoof";
+import { VersionCheck } from "./mod/features/VersionSpoof";
 import { I18n } from "./mod/i18n/I18n";
 import { SonolusI18n } from "./sonolus/I18n";
 import { SonolusRoutesSettings } from "./sonolus/routes/Settings";
@@ -41,8 +42,9 @@ function initGame(): void {
 }
 
 function initMod(): void {
+    Config.load();
     TitleLabel.init();
-    VersionSpoof.init();
+    VersionCheck.init();
     I18n.init();
 }
 

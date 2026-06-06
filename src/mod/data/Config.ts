@@ -3,23 +3,23 @@ import { Logger } from "../../utils/Logger";
 
 interface ConfigData {
     spoofEnabled?: boolean;
-    versionOverride?: string;
+    versionChecks?: boolean;
 }
 
 export class Config {
     private static readonly tag = "Config";
 
     static spoofEnabled: boolean = true;
-    static versionOverride: string = "";
+    static versionChecks: boolean = false;
 
     static load(): void {
         const path = Path.getConfigFilePath();
         try {
-            Object.assign(this, JSON.parse(File.readAllText(path)) as ConfigData);
+            Object.assign(this.fields, JSON.parse(File.readAllText(path)) as ConfigData);
         } catch {
             Logger.warn(`[${this.tag}::load] No config file found, using defaults`);
         }
-        Logger.info(`[${this.tag}::load] Config loaded with ${Object.keys(this).length} values`);
+        Logger.info(`[${this.tag}::load] Config loaded with ${Object.keys(this.fields).length} values`);
     }
 
     static save(): void {
@@ -35,10 +35,14 @@ export class Config {
     }
 
     private static toJSON(): string {
-        const data: Record<string, unknown> = {};
-        for (const key of Object.keys(this)) {
-            data[key] = (this as unknown as Record<string, unknown>)[key];
-        }
+        const data = this.fields;
         return JSON.stringify(data, null, 4);
+    }
+
+    private static get fields(): Record<string, unknown> {
+        return {
+            spoofEnabled: this.spoofEnabled,
+            versionChecks: this.versionChecks
+        };
     }
 }
