@@ -18,7 +18,10 @@ export class Config {
     static load(): void {
         const path = Path.getConfigFilePath();
         try {
-            Object.assign(this.fields, JSON.parse(File.readAllText(path)) as ConfigData);
+            const data = JSON.parse(File.readAllText(path)) as ConfigData;
+            for (const key of Object.keys(data) as (keyof ConfigData)[]) {
+                Config[key] = data[key];
+            }
         } catch {
             Logger.warn(`[${this.tag}::load] No config file found, using defaults`);
         }
