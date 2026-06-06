@@ -1,13 +1,16 @@
 import { Path } from "../../engine/native/Path";
+import { Ref } from "../../sonolus/wrappers/reactivity/Ref";
 import { Logger } from "../../utils/Logger";
 
 interface ConfigData {
-    spoofEnabled?: boolean;
-    versionChecks?: boolean;
+    spoofEnabled: boolean;
+    versionChecks: boolean;
 }
 
 export class Config {
     private static readonly tag = "Config";
+
+    private static _refs = new Map<string, Ref<unknown>>();
 
     static spoofEnabled: boolean = true;
     static versionChecks: boolean = false;
@@ -32,6 +35,20 @@ export class Config {
         } catch (error) {
             Logger.error(`[${this.tag}::save] Failed to save config: ${error}`);
         }
+    }
+
+    static registerOrGet<K extends keyof ConfigData>(key: K, initialValue: ConfigData[K]): Ref<ConfigData[K]> {
+        let ref = this._refs.get(key) as Ref<ConfigData[K]> | undefined;
+        if (!ref) {
+            const r = Ref.create(initialValue) as Ref<ConfigData[K]>; // r is temp ref var. TS moment???
+            r.hook(() => {
+                (Config as unknown as Record<string, unknown>)[key] = r.value;
+                Config.save();
+            });
+            this._refs.set(key, r);
+            ref = r;
+        }
+        return ref;
     }
 
     private static toJSON(): string {

@@ -1,16 +1,11 @@
 import { SonolusAssets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
-import { Ref } from "../../sonolus/wrappers/reactivity/Ref";
 import { SonolusRouteSection } from "../../sonolus/wrappers/routing/RouteSection";
-import { SonolusBtnField } from "../../sonolus/wrappers/ui/common/fields/BtnField";
 import { SonolusToggleField } from "../../sonolus/wrappers/ui/common/fields/ToggleField";
-import { SonolusTxtInputField } from "../../sonolus/wrappers/ui/common/fields/TxtInputField";
-import { SonolusImgLblBtn } from "../../sonolus/wrappers/ui/common/ImgLblBtn";
 import { SonolusRows } from "../../sonolus/wrappers/ui/common/Rows";
 import { SonolusBaseSection } from "../../sonolus/wrappers/ui/common/sections/BaseSection";
 import { SonolusCustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
 import { SonolusWidget } from "../../sonolus/wrappers/ui/Widget";
-import { Logger } from "../../utils/Logger";
 import { Config } from "../data/Config";
 import { I18n } from "../i18n/I18n";
 
@@ -50,8 +45,6 @@ export class CustomSection {
     }
     */
 
-    private static _versionChecksRef: Ref<boolean> | null = null;
-
     static buildCustomSection(): SonolusRouteSection {
         const title = this.title();
         const spoofField = this.spoofField();
@@ -80,18 +73,12 @@ export class CustomSection {
     }
 
     private static versionField(): SonolusToggleField {
-        if (!this._versionChecksRef) {
-            this._versionChecksRef = Ref.create(Config.versionChecks);
-            this._versionChecksRef.hook(() => {
-                Config.versionChecks = this._versionChecksRef!.value;
-                Config.save();
-            });
-        }
+        const valueRef = Config.registerOrGet("versionChecks", Config.versionChecks);
 
         return SonolusToggleField.new()
             .Title(I18n.tRef("ui.version_checks.title"))
             .Description(I18n.tRef("ui.version_checks.description"))
-            .Value(this._versionChecksRef)
+            .Value(valueRef)
             .validate();
     }
 }

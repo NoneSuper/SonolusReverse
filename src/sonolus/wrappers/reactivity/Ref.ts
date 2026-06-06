@@ -40,6 +40,7 @@ export class Ref<T> extends Dep<T> {
 
     static create(initialValue: boolean): Ref<boolean>;
     static create(initialValue: string): Ref<Il2Cpp.String>;
+    static create(initialValue: unknown): Ref<unknown>;
     static create(initialValue: unknown): Ref<unknown> {
         const api = Ref.refApi();
 
