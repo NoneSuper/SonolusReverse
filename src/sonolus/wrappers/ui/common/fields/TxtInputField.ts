@@ -3,19 +3,19 @@ import { System } from "../../../../../engine/System";
 import { Texture2D } from "../../../../../engine/wrappers/Texture";
 import { Dep } from "../../../reactivity/Dep";
 import { Ref } from "../../../reactivity/Ref";
-import { SonolusField } from "./Field";
+import { Field } from "./Field";
 
 // TODO correct types
 
-export class SonolusTxtInputField extends SonolusField {
+export class TxtInputField extends Field {
     protected static override _class: Il2Cpp.Class | null = null;
 
     static override get class(): Il2Cpp.Class {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Fields.TxtInputField"));
     }
 
-    static new(): SonolusTxtInputField {
-        const obj = this._new<SonolusTxtInputField>();
+    static new(): TxtInputField {
+        const obj = this._new<TxtInputField>();
         obj.setRequired(["Title", "Icon", "Value", "DefaultValue", "Placeholder"]);
         return obj;
     }

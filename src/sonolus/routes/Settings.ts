@@ -1,8 +1,8 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
-import { CustomSection } from "../../mod/ui/Section";
-import { SonolusRouteSection } from "../wrappers/routing/RouteSection";
+import { CustomSectionMod } from "../../mod/ui/Section";
+import { RouteSection } from "../wrappers/routing/RouteSection";
 
-export class SonolusRoutesSettings {
+export class RoutesSettings {
     private static _routeSection: Il2Cpp.Class;
     private static _settingsRoute: Il2Cpp.Class;
 
@@ -17,15 +17,15 @@ export class SonolusRoutesSettings {
         Route.method<Il2Cpp.Object>("Sections", 1).implementation = this.sectionHook;
     }
 
-    private static sectionHook(this: Il2Cpp.Object, sections: Il2Cpp.Array<SonolusRouteSection>): Il2Cpp.Object {
+    private static sectionHook(this: Il2Cpp.Object, sections: Il2Cpp.Array<RouteSection>): Il2Cpp.Object {
         const route = this;
 
         // If this is not Settings Route return original sections
-        if (route.class !== SonolusRoutesSettings._settingsRoute) return this.method<Il2Cpp.Object>("Sections", 1).invoke(sections);
+        if (route.class !== RoutesSettings._settingsRoute) return this.method<Il2Cpp.Object>("Sections", 1).invoke(sections);
 
-        const newSection: SonolusRouteSection = CustomSection.buildCustomSection();
+        const newSection: RouteSection = CustomSectionMod.buildCustomSection();
 
-        const newSectionsArray = Il2Cpp.array<SonolusRouteSection>(SonolusRoutesSettings._routeSection, sections.length + 1);
+        const newSectionsArray = Il2Cpp.array<RouteSection>(RoutesSettings._routeSection, sections.length + 1);
         newSectionsArray.set(0, newSection);
 
         for (let i = 0; i < sections.length; i++) {

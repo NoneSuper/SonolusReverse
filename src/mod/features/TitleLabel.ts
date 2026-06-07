@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
-import { SonolusUITitle } from "../../sonolus/ui/Title";
-import { SonolusApp } from "../../sonolus/wrappers/App";
+import { Title } from "../../sonolus/ui/Title";
+import { App } from "../../sonolus/wrappers/App";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
 
 export class TitleLabel {
@@ -15,13 +15,13 @@ export class TitleLabel {
     }
 
     private static LblTitleHook(this: Il2Cpp.Object, title: Il2Cpp.Object): Il2Cpp.Object {
-        if (SonolusUITitle.inTitleSetup) {
+        if (Title.inTitleSetup) {
             Object.setPrototypeOf(title, Dep.prototype);
             const value: Il2Cpp.String = (title as Dep<Il2Cpp.String>).value;
 
-            if (!value.isNull() && value.content === SonolusApp.version) {
+            if (!value.isNull() && value.content === App.version) {
                 // or we can re-use value.content
-                const newTitle: Dep<Il2Cpp.String> = Dep.opImplicit(`Reverse | ${SonolusApp.version}`);
+                const newTitle: Dep<Il2Cpp.String> = Dep.opImplicit(`Reverse | ${App.version}`);
                 return this.method<Il2Cpp.Object>("Title", 1).invoke(newTitle);
             }
         }

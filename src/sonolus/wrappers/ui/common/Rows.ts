@@ -1,17 +1,17 @@
 import { AssemblyHelper } from "../../../../engine/AssemblyHelper";
-import { SonolusNativeWidget } from "../NativeWidget";
-import { SonolusWidget } from "../Widget";
+import { NativeWidget } from "../NativeWidget";
+import { Widget } from "../Widget";
 import { WidgetUtils } from "../WidgetUtils";
 
-export class SonolusRows extends SonolusNativeWidget {
+export class Rows extends NativeWidget {
     protected static override _class: Il2Cpp.Class | null = null;
 
     static override get class(): Il2Cpp.Class {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Rows"));
     }
 
-    static new(): SonolusRows {
-        return this._new<SonolusRows>();
+    static new(): Rows {
+        return this._new<Rows>();
     }
 
     Gap(gap: number): this {
@@ -19,7 +19,7 @@ export class SonolusRows extends SonolusNativeWidget {
         return this;
     }
 
-    Children(children: SonolusWidget[]): this {
+    Children(children: Widget[]): this {
         return WidgetUtils.Children(this, children) as this;
     }
 }

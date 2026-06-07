@@ -1,7 +1,7 @@
 import { AssemblyHelper } from "../../../../engine/AssemblyHelper";
-import { SonolusSrl } from "../Srl";
+import { Srl } from "../Srl";
 
-export class SonolusContentTheme extends Il2Cpp.Object {
+export class ContentTheme extends Il2Cpp.Object {
     protected static _class: Il2Cpp.Class | null = null;
 
     static get class(): Il2Cpp.Class {
@@ -34,13 +34,13 @@ export class SonolusContentTheme extends Il2Cpp.Object {
         buttonHighlighted: string,
         buttonPressed: string,
         buttonDisabled: string,
-        thumbnail: SonolusSrl,
-        background: SonolusSrl,
-        avatar: SonolusSrl,
-        avatarBackground: SonolusSrl,
-        banner: SonolusSrl,
-        multiplayerBanner: SonolusSrl
-    ): SonolusContentTheme {
+        thumbnail: Srl,
+        background: Srl,
+        avatar: Srl,
+        avatarBackground: Srl,
+        banner: Srl,
+        multiplayerBanner: Srl
+    ): ContentTheme {
         const obj = this.class.alloc();
         obj.method<void>(".ctor", 26).invoke(
             Il2Cpp.string(name),
@@ -70,7 +70,7 @@ export class SonolusContentTheme extends Il2Cpp.Object {
             banner,
             multiplayerBanner
         );
-        return Object.setPrototypeOf(obj, SonolusContentTheme.prototype) as SonolusContentTheme;
+        return Object.setPrototypeOf(obj, ContentTheme.prototype) as ContentTheme;
     }
 
     get name(): string {
@@ -153,28 +153,28 @@ export class SonolusContentTheme extends Il2Cpp.Object {
         return this.method<Il2Cpp.String>("get_ButtonDisabled", 0).invoke().content ?? "";
     }
 
-    get thumbnail(): SonolusSrl {
-        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Thumbnail", 0).invoke(), SonolusSrl.prototype);
+    get thumbnail(): Srl {
+        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Thumbnail", 0).invoke(), Srl.prototype);
     }
 
-    get background(): SonolusSrl {
-        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Background", 0).invoke(), SonolusSrl.prototype);
+    get background(): Srl {
+        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Background", 0).invoke(), Srl.prototype);
     }
 
-    get avatar(): SonolusSrl {
-        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Avatar", 0).invoke(), SonolusSrl.prototype);
+    get avatar(): Srl {
+        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Avatar", 0).invoke(), Srl.prototype);
     }
 
-    get avatarBackground(): SonolusSrl {
-        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_AvatarBackground", 0).invoke(), SonolusSrl.prototype);
+    get avatarBackground(): Srl {
+        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_AvatarBackground", 0).invoke(), Srl.prototype);
     }
 
-    get banner(): SonolusSrl {
-        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Banner", 0).invoke(), SonolusSrl.prototype);
+    get banner(): Srl {
+        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Banner", 0).invoke(), Srl.prototype);
     }
 
-    get multiplayerBanner(): SonolusSrl {
-        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_MultiplayerBanner", 0).invoke(), SonolusSrl.prototype);
+    get multiplayerBanner(): Srl {
+        return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_MultiplayerBanner", 0).invoke(), Srl.prototype);
     }
 
     get isSingleAvailable(): boolean {

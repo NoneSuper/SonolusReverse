@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 
-export class SonolusWidget extends Il2Cpp.Object {
+export class Widget extends Il2Cpp.Object {
     protected static _class: Il2Cpp.Class | null = null;
 
     private _setFields = new Set<string>();
@@ -26,7 +26,7 @@ export class SonolusWidget extends Il2Cpp.Object {
         return this;
     }
 
-    protected static _new<T extends SonolusWidget>(): T {
+    protected static _new<T extends Widget>(): T {
         const obj = this.class.new(); // call alloc + il2cpp_object_initialize export
         Object.setPrototypeOf(obj, this.prototype);
         (obj as unknown as Record<string, unknown>)._setFields = new Set<string>();

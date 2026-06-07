@@ -1,17 +1,17 @@
 import { AssemblyHelper } from "../../../../../engine/AssemblyHelper";
 import { Dep } from "../../../reactivity/Dep";
 import { Ref } from "../../../reactivity/Ref";
-import { SonolusField } from "./Field";
+import { Field } from "./Field";
 
-export class SonolusToggleField extends SonolusField {
+export class ToggleField extends Field {
     protected static override _class: Il2Cpp.Class | null;
 
     static override get class(): Il2Cpp.Class {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Fields.ToggleField"));
     }
 
-    static new(): SonolusToggleField {
-        const obj = this._new<SonolusToggleField>();
+    static new(): ToggleField {
+        const obj = this._new<ToggleField>();
         obj.setRequired(["Title", "Value"]);
         return obj;
     }

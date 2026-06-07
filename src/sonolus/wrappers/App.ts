@@ -1,7 +1,7 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
 
 /** Wrapper over `Sonolus.App` class */
-export class SonolusApp {
+export class App {
     private static _class: Il2Cpp.Class | null = null;
 
     private static _version: string | undefined;

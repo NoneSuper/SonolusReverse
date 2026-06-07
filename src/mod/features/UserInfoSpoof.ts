@@ -1,7 +1,7 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
 import { System } from "../../engine/System";
-import { SonolusContentSystem } from "../../sonolus/wrappers/content/ContentSystem";
-import { SonolusContentTheme } from "../../sonolus/wrappers/core/content/ContentTheme";
+import { ContentSystem } from "../../sonolus/wrappers/content/ContentSystem";
+import { ContentTheme } from "../../sonolus/wrappers/core/content/ContentTheme";
 import { Logger } from "../../utils/Logger";
 import { Config } from "../data/Config";
 
@@ -55,7 +55,7 @@ export class UserInfoSpoof {
     }
 
     private static get spoofedThemes(): Il2Cpp.Array<Il2Cpp.String> {
-        const themes: SonolusContentTheme[] | null = SonolusContentSystem.themes;
+        const themes: ContentTheme[] | null = ContentSystem.themes;
         if (!themes) {
             const themesArray: Il2Cpp.Array<Il2Cpp.String> = Il2Cpp.array(System.String, this.FALLBACK_THEMES.length);
             this.FALLBACK_THEMES.forEach((name, index) => {

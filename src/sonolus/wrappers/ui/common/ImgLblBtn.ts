@@ -2,17 +2,17 @@ import { AssemblyHelper } from "../../../../engine/AssemblyHelper";
 import { System } from "../../../../engine/System";
 import { Texture2D } from "../../../../engine/wrappers/Texture";
 import { Dep } from "../../reactivity/Dep";
-import { SonolusCompositeWidget } from "../CompositeWidget";
+import { CompositeWidget } from "../CompositeWidget";
 
-export class SonolusImgLblBtn extends SonolusCompositeWidget {
+export class ImgLblBtn extends CompositeWidget {
     protected static override _class: Il2Cpp.Class | null = null;
 
     static override get class(): Il2Cpp.Class {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.ImgLblBtn"));
     }
 
-    static new(): SonolusImgLblBtn {
-        const obj = this._new<SonolusImgLblBtn>();
+    static new(): ImgLblBtn {
+        const obj = this._new<ImgLblBtn>();
         obj.setRequired(["Title", "Icon"]);
         return obj;
     }

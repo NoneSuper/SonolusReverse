@@ -1,7 +1,7 @@
 import { Dep } from "../../../reactivity/Dep";
-import { SonolusCompositeWidget } from "../../CompositeWidget";
+import { CompositeWidget } from "../../CompositeWidget";
 
-export class SonolusField extends SonolusCompositeWidget {
+export class Field extends CompositeWidget {
     Title(title: Dep<Il2Cpp.String>): this {
         this.method<void>("SetTitle").invoke(title);
         this.setMark("Title");

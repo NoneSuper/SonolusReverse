@@ -2,7 +2,7 @@ import { AssemblyHelper } from "../../engine/AssemblyHelper";
 import { Texture2D } from "../../engine/wrappers/Texture";
 
 /** Wrapper over `Sonolus.Assets` class */
-export class SonolusAssets {
+export class Assets {
     private static _class: Il2Cpp.Class | null = null;
 
     static get class(): Il2Cpp.Class {

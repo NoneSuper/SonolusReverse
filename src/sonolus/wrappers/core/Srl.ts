@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 
-export class SonolusSrl extends Il2Cpp.Object {
+export class Srl extends Il2Cpp.Object {
     private static _class: Il2Cpp.Class | null = null;
 
     static get class(): Il2Cpp.Class {
@@ -13,10 +13,10 @@ export class SonolusSrl extends Il2Cpp.Object {
         super(handle);
     }
 
-    static create(hash: string, url: string): SonolusSrl {
+    static create(hash: string, url: string): Srl {
         const obj = this.class.alloc();
         obj.method<void>(".ctor", 2).invoke(Il2Cpp.string(hash), Il2Cpp.string(url));
-        return Object.setPrototypeOf(obj, SonolusSrl.prototype) as SonolusSrl;
+        return Object.setPrototypeOf(obj, Srl.prototype) as Srl;
     }
 
     get hash(): string {

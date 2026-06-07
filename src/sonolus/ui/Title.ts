@@ -1,7 +1,7 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
 import { Logger } from "../../utils/Logger";
 
-export class SonolusUITitle {
+export class Title {
     private static _inTitleSetup: boolean = false;
 
     static init(): void {

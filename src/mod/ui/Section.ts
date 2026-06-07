@@ -1,37 +1,37 @@
-import { SonolusAssets } from "../../sonolus/wrappers/Assets";
+import { Assets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
-import { SonolusRouteSection } from "../../sonolus/wrappers/routing/RouteSection";
-import { SonolusToggleField } from "../../sonolus/wrappers/ui/common/fields/ToggleField";
-import { SonolusRows } from "../../sonolus/wrappers/ui/common/Rows";
-import { SonolusCustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
-import { SonolusSectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
-import { SonolusWidget } from "../../sonolus/wrappers/ui/Widget";
+import { RouteSection } from "../../sonolus/wrappers/routing/RouteSection";
+import { ToggleField } from "../../sonolus/wrappers/ui/common/fields/ToggleField";
+import { Rows } from "../../sonolus/wrappers/ui/common/Rows";
+import { CustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
+import { SectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
+import { Widget } from "../../sonolus/wrappers/ui/Widget";
 import { Config } from "../data/Config";
 import { I18n } from "../i18n/I18n";
 
-export class CustomSection {
+export class CustomSectionMod {
     private static readonly SECTION_ICON_NAME: string = "IconStar";
 
-    static buildCustomSection(): SonolusRouteSection {
+    static buildCustomSection(): RouteSection {
         const title = this.title();
         const spoofField = this.spoofField();
         const versionField = this.versionField();
 
-        const rows = SonolusRows.new().Gap(20).Children([title, spoofField, versionField]);
+        const rows = Rows.new().Gap(20).Children([title, spoofField, versionField]);
 
-        const section = SonolusCustomSection.new().Content(rows).validate();
+        const section = CustomSection.new().Content(rows).validate();
 
-        const icon = Dep.opImplicit(SonolusAssets.getAsset(this.SECTION_ICON_NAME));
-        const route = SonolusRouteSection.new(icon, section);
+        const icon = Dep.opImplicit(Assets.getAsset(this.SECTION_ICON_NAME));
+        const route = RouteSection.new(icon, section);
         return route;
     }
 
-    private static title(): SonolusWidget {
-        return SonolusSectionBase.CreateTitle(I18n.tRef("ui.title"));
+    private static title(): Widget {
+        return SectionBase.CreateTitle(I18n.tRef("ui.title"));
     }
 
-    private static spoofField(): SonolusToggleField {
-        return SonolusToggleField.new()
+    private static spoofField(): ToggleField {
+        return ToggleField.new()
             .Title(I18n.tRef("ui.spoof.title"))
             .Description(I18n.tRef("ui.spoof.title"))
             .Enabled(Dep.opImplicit(false))
@@ -39,13 +39,9 @@ export class CustomSection {
             .validate();
     }
 
-    private static versionField(): SonolusToggleField {
+    private static versionField(): ToggleField {
         const valueRef = Config.registerOrGet("versionCheck", Config.versionCheck);
 
-        return SonolusToggleField.new()
-            .Title(I18n.tRef("ui.version_check.title"))
-            .Description(I18n.tRef("ui.version_check.description"))
-            .Value(valueRef)
-            .validate();
+        return ToggleField.new().Title(I18n.tRef("ui.version_check.title")).Description(I18n.tRef("ui.version_check.description")).Value(valueRef).validate();
     }
 }

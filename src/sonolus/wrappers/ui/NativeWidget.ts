@@ -1,3 +1,3 @@
-import { SonolusWidget } from "./Widget";
+import { Widget } from "./Widget";
 
-export class SonolusNativeWidget extends SonolusWidget {}
+export class NativeWidget extends Widget {}
