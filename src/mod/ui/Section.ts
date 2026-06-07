@@ -31,12 +31,9 @@ export class CustomSectionMod {
     }
 
     private static spoofField(): ToggleField {
-        return ToggleField.new()
-            .Title(I18n.tRef("ui.spoof.title"))
-            .Description(I18n.tRef("ui.spoof.title"))
-            .Enabled(Dep.opImplicit(false))
-            .Value(Dep.opImplicit(false))
-            .validate();
+        const valueRef = Config.registerOrGet("spoofEnabled", Config.spoofEnabled);
+
+        return ToggleField.new().Title(I18n.tRef("ui.spoof.title")).Description(I18n.tRef("ui.spoof.description")).Value(valueRef).validate();
     }
 
     private static versionField(): ToggleField {
