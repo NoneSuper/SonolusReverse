@@ -16,67 +16,67 @@ export class TxtInputField extends Field {
 
     static new(): TxtInputField {
         const obj = this._new<TxtInputField>();
-        obj.setRequired(["Title", "Icon", "Value", "DefaultValue", "Placeholder"]);
+        obj.setRequired(["title", "icon", "value", "defaultValue", "placeholder"]);
         return obj;
     }
 
-    Value(value: Ref<Il2Cpp.String>): this {
+    value(value: Ref<Il2Cpp.String>): this {
         this.method<void>("SetValue", 1).invoke(value);
-        this.setMark("Value");
+        this.setMark("value");
         return this;
     }
 
-    DefaultValue(defaultValue: Dep<Il2Cpp.String>): this {
+    defaultValue(defaultValue: Dep<Il2Cpp.String>): this {
         this.method<void>("SetDefaultValue", 1).invoke(defaultValue);
-        this.setMark("DefaultValue");
+        this.setMark("defaultValue");
         return this;
     }
 
-    Icon(icon: Dep<Texture2D>): this {
+    icon(icon: Dep<Texture2D>): this {
         this.method<void>("SetIcon", 1).invoke(icon);
-        this.setMark("Icon");
+        this.setMark("icon");
         return this;
     }
 
-    Placeholder(placeholder: Dep<Il2Cpp.String>): this {
+    placeholder(placeholder: Dep<Il2Cpp.String>): this {
         this.method<void>("SetPlaceholder", 1).invoke(placeholder);
-        this.setMark("Placeholder");
+        this.setMark("placeholder");
         return this;
     }
 
-    Suffix(suffix: Dep<Il2Cpp.String>): this {
+    suffix(suffix: Dep<Il2Cpp.String>): this {
         this.method<void>("SetSuffix", 1).invoke(suffix);
         return this;
     }
 
-    CharacterLimit(characterLimit: number): this {
+    characterLimit(characterLimit: number): this {
         this.method<void>("SetCharacterLimit", 1).invoke(characterLimit);
         return this;
     }
 
-    InputType(inputType: number): this {
+    inputType(inputType: number): this {
         this.method<void>("SetInputType", 1).invoke(inputType);
         return this;
     }
 
-    KeyboardType(keyboardType: number): this {
+    keyboardType(keyboardType: number): this {
         this.method<void>("SetKeyboardType", 1).invoke(keyboardType);
         return this;
     }
 
-    CharacterValidation(characterValidation: number): this {
+    characterValidation(characterValidation: number): this {
         this.method<void>("SetCharacterValidation", 1).invoke(characterValidation);
         return this;
     }
 
-    Shortcuts(shortcuts: string[]): this {
+    shortcuts(shortcuts: string[]): this {
         const shortcutsArray = Il2Cpp.array(System.String, shortcuts.length);
         shortcuts.forEach((value: string, index: number) => shortcutsArray.set(index, Il2Cpp.string(value)));
         this.method<void>("SetShortcuts", 1).invoke(shortcutsArray);
         return this;
     }
 
-    Enabled(enabled: Dep<boolean>): this {
+    enabled(enabled: Dep<boolean>): this {
         this.method<void>("SetEnabled", 1).invoke(enabled);
         return this;
     }

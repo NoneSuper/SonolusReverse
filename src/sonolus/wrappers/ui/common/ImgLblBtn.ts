@@ -13,23 +13,23 @@ export class ImgLblBtn extends CompositeWidget {
 
     static new(): ImgLblBtn {
         const obj = this._new<ImgLblBtn>();
-        obj.setRequired(["Title", "Icon"]);
+        obj.setRequired(["title", "icon"]);
         return obj;
     }
 
-    Title(title: Dep<Il2Cpp.String>): this {
+    title(title: Dep<Il2Cpp.String>): this {
         this.method<Il2Cpp.Object>("SetTitle").invoke(title);
-        this.setMark("Title");
+        this.setMark("title");
         return this;
     }
 
-    Icon(icon: Dep<Texture2D>): this {
+    icon(icon: Dep<Texture2D>): this {
         this.method<Il2Cpp.Object>("SetIcon").invoke(icon);
-        this.setMark("Icon");
+        this.setMark("icon");
         return this;
     }
 
-    OnClick(onClick: () => void): this {
+    onClick(onClick: () => void): this {
         this.method<Il2Cpp.Object>("SetOnClick").invoke(Il2Cpp.delegate(System.Action, onClick));
         return this;
     }

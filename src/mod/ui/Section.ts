@@ -17,9 +17,9 @@ export class CustomSectionMod {
         const spoofField = this.spoofField();
         const versionField = this.versionField();
 
-        const rows = Rows.new().Gap(20).Children([title, spoofField, versionField]);
+        const rows = Rows.new().gap(20).children([title, spoofField, versionField]);
 
-        const section = CustomSection.new().Content(rows).validate();
+        const section = CustomSection.new().content(rows).validate();
 
         const icon = Dep.opImplicit(Assets.getAsset(this.SECTION_ICON_NAME));
         const route = RouteSection.new(icon, section);
@@ -27,18 +27,18 @@ export class CustomSectionMod {
     }
 
     private static title(): Widget {
-        return SectionBase.CreateTitle(I18n.tRef("ui.title"));
+        return SectionBase.createTitle(I18n.tRef("ui.title"));
     }
 
     private static spoofField(): ToggleField {
         const valueRef = Config.registerOrGet("spoofEnabled", Config.spoofEnabled);
 
-        return ToggleField.new().Title(I18n.tRef("ui.spoof.title")).Description(I18n.tRef("ui.spoof.description")).Value(valueRef).validate();
+        return ToggleField.new().title(I18n.tRef("ui.spoof.title")).description(I18n.tRef("ui.spoof.description")).value(valueRef).validate();
     }
 
     private static versionField(): ToggleField {
         const valueRef = Config.registerOrGet("versionCheck", Config.versionCheck);
 
-        return ToggleField.new().Title(I18n.tRef("ui.version_check.title")).Description(I18n.tRef("ui.version_check.description")).Value(valueRef).validate();
+        return ToggleField.new().title(I18n.tRef("ui.version_check.title")).description(I18n.tRef("ui.version_check.description")).value(valueRef).validate();
     }
 }

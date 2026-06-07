@@ -11,13 +11,13 @@ export class CustomSection extends SectionBase {
 
     static new(): CustomSection {
         const obj = this._new<CustomSection>();
-        obj.setRequired(["Content"]);
+        obj.setRequired(["content"]);
         return obj;
     }
 
-    Content(content: Widget): this {
+    content(content: Widget): this {
         this.method<void>("SetContent", 1).invoke(content);
-        this.setMark("Content");
+        this.setMark("content");
         return this;
     }
 }

@@ -10,7 +10,7 @@ export class SectionBase extends CompositeWidget {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Sections.SectionBase"));
     }
 
-    static CreateTitle(text: Dep<Il2Cpp.String>): Widget {
+    static createTitle(text: Dep<Il2Cpp.String>): Widget {
         return this.class.method<Widget>("CreateTitle", 1).invoke(text);
     }
 }

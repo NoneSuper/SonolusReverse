@@ -12,21 +12,21 @@ export class BtnField extends Field {
 
     static new(): BtnField {
         const obj = this._new<BtnField>();
-        obj.setRequired(["Title", "Value", "Btns"]);
+        obj.setRequired(["title", "value", "btns"]);
         return obj;
     }
 
-    Value(value: Dep<Il2Cpp.String>): this {
+    value(value: Dep<Il2Cpp.String>): this {
         this.method<void>("SetValue", 1).invoke(value);
-        this.setMark("Value");
+        this.setMark("value");
         return this;
     }
 
-    Btns(btns: ImgLblBtn[]): this {
+    btns(btns: ImgLblBtn[]): this {
         const buttonsArray = Il2Cpp.array<ImgLblBtn>(btns[0].class, btns.length);
         btns.forEach((btn, i) => buttonsArray.set(i, btn));
         this.method<void>("SetBtns", 1).invoke(buttonsArray);
-        this.setMark("Btns");
+        this.setMark("btns");
         return this;
     }
 }

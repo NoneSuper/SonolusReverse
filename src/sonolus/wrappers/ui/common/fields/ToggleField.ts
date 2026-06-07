@@ -12,22 +12,22 @@ export class ToggleField extends Field {
 
     static new(): ToggleField {
         const obj = this._new<ToggleField>();
-        obj.setRequired(["Title", "Value"]);
+        obj.setRequired(["title", "value"]);
         return obj;
     }
 
-    Value(value: Ref<boolean>): this {
+    value(value: Ref<boolean>): this {
         this.method<void>("SetValue", 1).invoke(value);
-        this.setMark("Value");
+        this.setMark("value");
         return this;
     }
 
-    DefaultValue(defaultValue: boolean): this {
+    defaultValue(defaultValue: boolean): this {
         this.method<void>("SetDefaultValue", 1).invoke(defaultValue);
         return this;
     }
 
-    Enabled(enabled: Dep<boolean>): this {
+    enabled(enabled: Dep<boolean>): this {
         this.method<void>("SetEnabled", 1).invoke(enabled);
         return this;
     }

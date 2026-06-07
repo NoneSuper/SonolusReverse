@@ -15,11 +15,11 @@ export class WidgetUtils {
      *
      * @returns `Sonolus.UI.Widget`
      */
-    static Margin<T extends Widget>(widget: T, left: number, top: number, right: number, bottom: number): Widget {
+    static margin<T extends Widget>(widget: T, left: number, top: number, right: number, bottom: number): Widget {
         return this.class.method<Widget>("Margin", 5).inflate(Widget.class).invoke(widget, left, top, right, bottom);
     }
 
-    static Children<T extends Widget>(widget: T, children: Widget[]): Widget {
+    static children<T extends Widget>(widget: T, children: Widget[]): Widget {
         const childrenArray = Il2Cpp.array<Widget>(widget.class, children.length);
         children.forEach((c, i) => childrenArray.set(i, c));
 

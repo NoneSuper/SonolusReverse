@@ -14,12 +14,12 @@ export class Rows extends NativeWidget {
         return this._new<Rows>();
     }
 
-    Gap(gap: number): this {
+    gap(gap: number): this {
         this.method<void>("SetGap", 1).invoke(gap);
         return this;
     }
 
-    Children(children: Widget[]): this {
-        return WidgetUtils.Children(this, children) as this;
+    children(children: Widget[]): this {
+        return WidgetUtils.children(this, children) as this;
     }
 }
