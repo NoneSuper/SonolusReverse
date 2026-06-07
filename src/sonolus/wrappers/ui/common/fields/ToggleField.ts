@@ -4,7 +4,7 @@ import { Ref } from "../../../reactivity/Ref";
 import { Field } from "./Field";
 
 export class ToggleField extends Field {
-    protected static override _class: Il2Cpp.Class | null;
+    protected static override _class: Il2Cpp.Class | null = null;
 
     static override get class(): Il2Cpp.Class {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Fields.ToggleField"));
