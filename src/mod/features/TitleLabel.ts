@@ -19,9 +19,9 @@ export class TitleLabel {
             Object.setPrototypeOf(title, Dep.prototype);
             const value: Il2Cpp.String = (title as Dep<Il2Cpp.String>).value;
 
-            if (!value.isNull() && value.content === SonolusApp.getSonolusVersion()) {
+            if (!value.isNull() && value.content === SonolusApp.version) {
                 // or we can re-use value.content
-                const newTitle: Dep<Il2Cpp.String> = Dep.opImplicit(`Reverse | ${SonolusApp.getSonolusVersion()}`);
+                const newTitle: Dep<Il2Cpp.String> = Dep.opImplicit(`Reverse | ${SonolusApp.version}`);
                 return this.method<Il2Cpp.Object>("Title", 1).invoke(newTitle);
             }
         }
