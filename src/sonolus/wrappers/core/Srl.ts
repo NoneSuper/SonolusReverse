@@ -1,23 +1,11 @@
 import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 
-interface Api {
-    Srl: Il2Cpp.Class;
-}
-
 export class SonolusSrl extends Il2Cpp.Object {
-    private static _api: Api | null = null;
+    private static _class: Il2Cpp.Class | null = null;
 
-    private static api(): Api {
-        if (this._api) return this._api;
-
-        const Asm = AssemblyHelper.AssemblyCSharp;
-        const Srl = Asm.class("Sonolus.Core.Srl");
-
-        this._api = {
-            Srl
-        };
-
-        return this._api;
+    static get class(): Il2Cpp.Class {
+        if (!this._class) this._class = AssemblyHelper.AssemblyCSharp.class("Sonolus.Core.Srl");
+        return this._class;
     }
 
     /** Use `create` instead */
@@ -26,8 +14,7 @@ export class SonolusSrl extends Il2Cpp.Object {
     }
 
     static create(hash: string, url: string): SonolusSrl {
-        const api = this.api();
-        const obj = api.Srl.alloc();
+        const obj = this.class.alloc();
         obj.method<void>(".ctor", 2).invoke(Il2Cpp.string(hash), Il2Cpp.string(url));
         return Object.setPrototypeOf(obj, SonolusSrl.prototype) as SonolusSrl;
     }

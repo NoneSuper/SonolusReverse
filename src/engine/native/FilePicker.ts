@@ -8,12 +8,6 @@ import { System } from "../System";
  * But there's no ConvertExtensionToFileType (why? omg Sonolus)
  */
 
-interface Api {
-    NativeFilePicker: Il2Cpp.Class;
-    FilePickedCallback: Il2Cpp.Class;
-    FilesExportedCallback: Il2Cpp.Class;
-}
-
 export class FilePicker {
     private static tag = "FilePicker";
 
@@ -25,22 +19,10 @@ export class FilePicker {
         json: "public.json"
     };
 
-    private static _api: Api;
+    protected static _class: Il2Cpp.Class | null = null;
 
-    private static api(): Api {
-        if (this._api) return this._api;
-
-        const NativeFilePicker = AssemblyHelper.NativeFilePicker.class("NativeFilePicker");
-        const FilePickedCallback = NativeFilePicker.nested("FilePickedCallback");
-        const FilesExportedCallback = NativeFilePicker.nested("FilesExportedCallback");
-
-        this._api = {
-            NativeFilePicker,
-            FilePickedCallback,
-            FilesExportedCallback
-        };
-
-        return this._api;
+    static get class(): Il2Cpp.Class {
+        return (this._class ??= AssemblyHelper.NativeFilePicker.class("NativeFilePicker"));
     }
 
     /**
@@ -54,14 +36,15 @@ export class FilePicker {
             return;
         }
 
-        const delegate = Il2Cpp.delegate(FilePicker.api().FilePickedCallback, callback);
+        const callbackClass = FilePicker.class.nested("FilePickedCallback");
+        const delegate = Il2Cpp.delegate(callbackClass, callback);
 
         const typesArray = Il2Cpp.array(System.String, allowedFileTypes.length);
         allowedFileTypes
             .map(extension => FilePicker.getFileTypeFromExtension(extension))
             .forEach((string, index) => typesArray.set(index, Il2Cpp.string(string)));
 
-        FilePicker.api().NativeFilePicker.method<void>("PickFile", 2).invoke(delegate, typesArray);
+        FilePicker.class.method<void>("PickFile", 2).invoke(delegate, typesArray);
     }
 
     /**
@@ -75,10 +58,11 @@ export class FilePicker {
             return;
         }
 
-        const method = FilePicker.api().NativeFilePicker.method<void>("ExportFile", 2);
+        const method = FilePicker.class.method<void>("ExportFile", 2);
 
         if (callback) {
-            const delegate = Il2Cpp.delegate(FilePicker.api().FilesExportedCallback, callback);
+            const callbackClass = FilePicker.class.nested("FilesExportedCallback");
+            const delegate = Il2Cpp.delegate(callbackClass, callback);
             method.invoke(Il2Cpp.string(filePath), delegate);
         } else {
             method.invoke(Il2Cpp.string(filePath), NULL);
@@ -104,6 +88,6 @@ export class FilePicker {
      * @returns `true` if the user is currently importing/exporting files
      */
     private static isFilePickerBusy(): boolean {
-        return FilePicker.api().NativeFilePicker.method<boolean>("IsFilePickerBusy", 0).invoke();
+        return FilePicker.class.method<boolean>("IsFilePickerBusy", 0).invoke();
     }
 }

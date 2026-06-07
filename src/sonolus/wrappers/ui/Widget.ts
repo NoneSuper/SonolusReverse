@@ -1,6 +1,14 @@
+import { AssemblyHelper } from "../../../engine/AssemblyHelper";
+
 export class SonolusWidget extends Il2Cpp.Object {
+    protected static _class: Il2Cpp.Class | null = null;
+
     private _setFields = new Set<string>();
     private _requiredFields: string[] = [];
+
+    static get class(): Il2Cpp.Class {
+        return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Widget"));
+    }
 
     protected setMark(field: string): void {
         this._setFields.add(field);
@@ -18,8 +26,8 @@ export class SonolusWidget extends Il2Cpp.Object {
         return this;
     }
 
-    protected static _new<T extends SonolusWidget>(klass: Il2Cpp.Class): T {
-        const obj = klass.new(); // call alloc + il2cpp_object_initialize export
+    protected static _new<T extends SonolusWidget>(): T {
+        const obj = this.class.new(); // call alloc + il2cpp_object_initialize export
         Object.setPrototypeOf(obj, this.prototype);
         (obj as unknown as Record<string, unknown>)._setFields = new Set<string>();
         (obj as unknown as Record<string, unknown>)._requiredFields = [];

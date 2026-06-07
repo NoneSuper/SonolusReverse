@@ -1,24 +1,12 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
 import { Texture2D } from "../../engine/wrappers/Texture";
 
-interface Api {
-    Assets: Il2Cpp.Class;
-}
-
 /** Wrapper over `Sonolus.Assets` class */
 export class SonolusAssets {
-    private static _api: Api | null = null;
+    private static _class: Il2Cpp.Class | null = null;
 
-    private static api(): Api {
-        if (this._api) return this._api;
-
-        const Assets = AssemblyHelper.AssemblyCSharp.class("Sonolus.Assets");
-
-        this._api = {
-            Assets
-        };
-
-        return this._api;
+    static get class(): Il2Cpp.Class {
+        return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.Assets"));
     }
 
     /**
@@ -28,7 +16,7 @@ export class SonolusAssets {
      * @deprecated Use `getAsset` instead
      */
     static getIcon(iconName: string): Il2Cpp.Object {
-        return this.api().Assets.method<Il2Cpp.Object>("GetIcon", 1).invoke(Il2Cpp.string(iconName));
+        return this.class.method<Il2Cpp.Object>("GetIcon", 1).invoke(Il2Cpp.string(iconName));
     }
 
     /**
@@ -38,7 +26,7 @@ export class SonolusAssets {
      */
     // not returning null if not exist cuz I'm too lazy for check every time for null
     static getAsset(assetName: string): Texture2D | Il2Cpp.Object {
-        const asset = this.api().Assets.method<Il2Cpp.Object>(`get_${assetName}`, 0).invoke();
+        const asset = this.class.method<Il2Cpp.Object>(`get_${assetName}`, 0).invoke();
         if (asset.class == Texture2D.class) {
             Object.setPrototypeOf(asset, Texture2D.prototype);
             return asset as Texture2D;

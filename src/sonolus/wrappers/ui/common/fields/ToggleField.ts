@@ -3,44 +3,32 @@ import { Dep } from "../../../reactivity/Dep";
 import { Ref } from "../../../reactivity/Ref";
 import { SonolusField } from "./Field";
 
-interface Api {
-    ToggleField: Il2Cpp.Class;
-}
-
 export class SonolusToggleField extends SonolusField {
-    private static _api: Api | null = null;
+    protected static override _class: Il2Cpp.Class | null;
 
-    private static api(): Api {
-        if (this._api) return this._api;
-
-        const ToggleField = AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Fields.ToggleField");
-
-        this._api = {
-            ToggleField
-        };
-
-        return this._api;
+    static override get class(): Il2Cpp.Class {
+        return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Fields.ToggleField"));
     }
 
     static new(): SonolusToggleField {
-        const obj = SonolusToggleField._new<SonolusToggleField>(this.api().ToggleField);
+        const obj = this._new<SonolusToggleField>();
         obj.setRequired(["Title", "Value"]);
         return obj;
     }
 
     Value(value: Ref<boolean>): this {
-        this.method<SonolusToggleField>("SetValue", 1).invoke(value);
+        this.method<void>("SetValue", 1).invoke(value);
         this.setMark("Value");
         return this;
     }
 
     DefaultValue(defaultValue: boolean): this {
-        this.method<SonolusToggleField>("SetDefaultValue", 1).invoke(defaultValue);
+        this.method<void>("SetDefaultValue", 1).invoke(defaultValue);
         return this;
     }
 
     Enabled(enabled: Dep<boolean>): this {
-        this.method<SonolusToggleField>("SetEnabled", 1).invoke(enabled);
+        this.method<void>("SetEnabled", 1).invoke(enabled);
         return this;
     }
 }

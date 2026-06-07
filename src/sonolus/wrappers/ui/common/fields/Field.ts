@@ -3,32 +3,32 @@ import { SonolusCompositeWidget } from "../../CompositeWidget";
 
 export class SonolusField extends SonolusCompositeWidget {
     Title(title: Dep<Il2Cpp.String>): this {
-        this.method<this>("SetTitle").invoke(title);
+        this.method<void>("SetTitle").invoke(title);
         this.setMark("Title");
         return this;
     }
 
     Description(description: Dep<Il2Cpp.String>): this {
-        this.method<this>("SetDescription").invoke(description);
+        this.method<void>("SetDescription").invoke(description);
         return this;
     }
 
     IsRequired(isRequired: boolean): this {
-        this.method<this>("SetIsRequired").invoke(isRequired);
+        this.method<void>("SetIsRequired").invoke(isRequired);
         return this;
     }
 
     IsStandard(isStandard: boolean): this {
-        this.method<this>("SetIsStandard").invoke(isStandard);
+        this.method<void>("SetIsStandard").invoke(isStandard);
         return this;
     }
 
     IsAdvanced(isAdvanced: boolean): this {
-        this.method<this>("SetIsAdvanced").invoke(isAdvanced);
+        this.method<void>("SetIsAdvanced").invoke(isAdvanced);
         return this;
     }
     Expanded(expanded: boolean): this {
-        this.method<this>("SetExpanded").invoke(expanded);
+        this.method<void>("SetExpanded").invoke(expanded);
         return this;
     }
 }

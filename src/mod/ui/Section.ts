@@ -3,8 +3,8 @@ import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
 import { SonolusRouteSection } from "../../sonolus/wrappers/routing/RouteSection";
 import { SonolusToggleField } from "../../sonolus/wrappers/ui/common/fields/ToggleField";
 import { SonolusRows } from "../../sonolus/wrappers/ui/common/Rows";
-import { SonolusBaseSection } from "../../sonolus/wrappers/ui/common/sections/BaseSection";
 import { SonolusCustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
+import { SonolusSectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
 import { SonolusWidget } from "../../sonolus/wrappers/ui/Widget";
 import { Config } from "../data/Config";
 import { I18n } from "../i18n/I18n";
@@ -27,7 +27,7 @@ export class CustomSection {
     }
 
     private static title(): SonolusWidget {
-        return SonolusBaseSection.CreateTitle(I18n.tRef("ui.title"));
+        return SonolusSectionBase.CreateTitle(I18n.tRef("ui.title"));
     }
 
     private static spoofField(): SonolusToggleField {

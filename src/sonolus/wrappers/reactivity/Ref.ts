@@ -2,35 +2,16 @@ import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 import { System } from "../../../engine/System";
 import { Dep } from "./Dep";
 
-interface RefApi {
-    RefString: Il2Cpp.Class;
-    RefBoolean: Il2Cpp.Class;
-}
-
 /**
  * Wrapper over `Sonolus.Reactivity.Ref<T>` class extends `Dep<T>`
  *
  * Read-Write reactive value
  */
 export class Ref<T> extends Dep<T> {
-    protected static _refApi: RefApi | null = null;
+    protected static override _class: Il2Cpp.Class | null = null;
 
-    protected static refApi(): RefApi {
-        if (this._refApi) return this._refApi;
-
-        const Asm = AssemblyHelper.AssemblyCSharp;
-
-        const Ref = Asm.class("Sonolus.Reactivity.Ref`1");
-
-        const RefString = Ref.inflate(System.String);
-        const RefBoolean = Ref.inflate(System.Boolean);
-
-        this._refApi = {
-            RefString,
-            RefBoolean
-        };
-
-        return this._refApi;
+    static override get class(): Il2Cpp.Class {
+        return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.Reactivity.Ref`1"));
     }
 
     /** use `create` instead */
@@ -42,18 +23,16 @@ export class Ref<T> extends Dep<T> {
     static create(initialValue: string): Ref<Il2Cpp.String>;
     static create(initialValue: unknown): Ref<unknown>;
     static create(initialValue: unknown): Ref<unknown> {
-        const api = Ref.refApi();
-
         let obj: Il2Cpp.Object | null = null;
 
         switch (typeof initialValue) {
             case "boolean": {
-                obj = api.RefBoolean.alloc();
+                obj = this.class.inflate(System.Boolean).alloc();
                 obj.method<void>(".ctor", 1).invoke(initialValue);
                 break;
             }
             case "string": {
-                obj = api.RefString.alloc();
+                obj = this.class.inflate(System.String).alloc();
                 obj.method<void>(".ctor", 1).invoke(Il2Cpp.string(initialValue));
                 break;
             }

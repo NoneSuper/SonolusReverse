@@ -4,27 +4,15 @@ import { Texture2D } from "../../../../engine/wrappers/Texture";
 import { Dep } from "../../reactivity/Dep";
 import { SonolusCompositeWidget } from "../CompositeWidget";
 
-interface Api {
-    ImgLblBtn: Il2Cpp.Class;
-}
-
 export class SonolusImgLblBtn extends SonolusCompositeWidget {
-    private static _api: Api | null = null;
+    protected static override _class: Il2Cpp.Class | null = null;
 
-    private static api(): Api {
-        if (this._api) return this._api;
-
-        const ImgLblBtn = AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.ImgLblBtn");
-
-        this._api = {
-            ImgLblBtn
-        };
-
-        return this._api;
+    static override get class(): Il2Cpp.Class {
+        return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.ImgLblBtn"));
     }
 
     static new(): SonolusImgLblBtn {
-        const obj = SonolusImgLblBtn._new<SonolusImgLblBtn>(this.api().ImgLblBtn);
+        const obj = this._new<SonolusImgLblBtn>();
         obj.setRequired(["Title", "Icon"]);
         return obj;
     }

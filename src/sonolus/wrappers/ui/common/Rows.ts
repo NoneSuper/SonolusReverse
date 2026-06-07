@@ -3,27 +3,15 @@ import { SonolusNativeWidget } from "../NativeWidget";
 import { SonolusWidget } from "../Widget";
 import { WidgetUtils } from "../WidgetUtils";
 
-interface Api {
-    Rows: Il2Cpp.Class;
-}
-
 export class SonolusRows extends SonolusNativeWidget {
-    private static _api: Api | null = null;
+    protected static override _class: Il2Cpp.Class | null = null;
 
-    private static api(): Api {
-        if (this._api) return this._api;
-
-        const Rows = AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Rows");
-
-        this._api = {
-            Rows
-        };
-
-        return this._api;
+    static override get class(): Il2Cpp.Class {
+        return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.Common.Rows"));
     }
 
     static new(): SonolusRows {
-        return SonolusRows._new<SonolusRows>(this.api().Rows);
+        return this._new<SonolusRows>();
     }
 
     Gap(gap: number): this {
