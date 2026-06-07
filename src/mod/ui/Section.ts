@@ -73,11 +73,11 @@ export class CustomSection {
     }
 
     private static versionField(): SonolusToggleField {
-        const valueRef = Config.registerOrGet("versionChecks", Config.versionChecks);
+        const valueRef = Config.registerOrGet("versionCheck", Config.versionCheck);
 
         return SonolusToggleField.new()
-            .Title(I18n.tRef("ui.version_checks.title"))
-            .Description(I18n.tRef("ui.version_checks.description"))
+            .Title(I18n.tRef("ui.version_check.title"))
+            .Description(I18n.tRef("ui.version_check.description"))
             .Value(valueRef)
             .validate();
     }

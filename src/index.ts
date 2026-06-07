@@ -4,7 +4,7 @@ import { AssemblyHelper } from "./engine/AssemblyHelper";
 import { Config } from "./mod/data/Config";
 import { ModPreferences } from "./mod/data/ModPreferences";
 import { TitleLabel } from "./mod/features/TitleLabel";
-import { VersionCheck } from "./mod/features/VersionSpoof";
+import { VersionCheck } from "./mod/features/VersionCheck";
 import { I18n } from "./mod/i18n/I18n";
 import { SonolusI18n } from "./sonolus/I18n";
 import { SonolusRoutesSettings } from "./sonolus/routes/Settings";

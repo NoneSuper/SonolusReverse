@@ -4,7 +4,7 @@ import { Logger } from "../../utils/Logger";
 
 interface ConfigData {
     spoofEnabled: boolean;
-    versionChecks: boolean;
+    versionCheck: boolean;
 }
 
 export class Config {
@@ -13,7 +13,7 @@ export class Config {
     private static _refs = new Map<string, Ref<unknown>>();
 
     static spoofEnabled: boolean = true;
-    static versionChecks: boolean = false;
+    static versionCheck: boolean = false;
 
     static load(): void {
         const path = Path.getConfigFilePath();
@@ -62,7 +62,7 @@ export class Config {
     private static get fields(): Record<string, unknown> {
         return {
             spoofEnabled: this.spoofEnabled,
-            versionChecks: this.versionChecks
+            versionCheck: this.versionCheck
         };
     }
 }
