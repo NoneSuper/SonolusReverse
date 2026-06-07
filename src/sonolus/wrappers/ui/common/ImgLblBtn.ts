@@ -29,7 +29,7 @@ export class ImgLblBtn extends CompositeWidget {
         return this;
     }
 
-    OnClick(onClick: () => void) {
+    OnClick(onClick: () => void): this {
         this.method<Il2Cpp.Object>("SetOnClick").invoke(Il2Cpp.delegate(System.Action, onClick));
         return this;
     }
