@@ -1,8 +1,7 @@
 import { Path } from "../../engine/native/Path";
 import { Logger } from "../../utils/Logger";
 
-/** Wrapper over `Sonolus.Core.Content.ContentTheme` */
-export interface ThemeData {
+export interface CustomThemeData {
     Id: string;
     Title: string;
     /** HEX color codes */
@@ -30,7 +29,7 @@ export interface ThemeData {
 }
 
 export class ThemeLoader {
-    private static _loadedThemes: ThemeData[] = [];
+    private static _loadedThemes: CustomThemeData[] = [];
 
     public static load(): void {
         const path = Path.getCustomThemesPath();
@@ -38,13 +37,13 @@ export class ThemeLoader {
 
         const themeFiles = Path.getFiles(path, "*.json");
 
-        const themes: ThemeData[] = [];
+        const themes: CustomThemeData[] = [];
 
         for (const filePath of themeFiles) {
             try {
                 Logger.debug(`[Themes::load] Loading custom theme ${filePath.split("/").at(-1)}`);
 
-                const theme = JSON.parse(File.readAllText(filePath)) as ThemeData;
+                const theme = JSON.parse(File.readAllText(filePath)) as CustomThemeData;
                 theme.Id = `sr_custom_${theme.Id}`;
                 themes.push(theme);
             } catch (error) {
@@ -57,7 +56,7 @@ export class ThemeLoader {
         this._loadedThemes = themes;
     }
 
-    public static getLoadedThemes(): ThemeData[] {
+    public static getLoadedThemes(): CustomThemeData[] {
         return this._loadedThemes;
     }
 }
