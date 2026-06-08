@@ -31,6 +31,8 @@ export interface CustomThemeData {
 export class ThemeLoader {
     private static _loadedThemes: CustomThemeData[] = [];
 
+    static readonly CUSTOM_THEME_NAME_PREFIX = "sr_custom_";
+
     public static load(): void {
         const path = Path.getCustomThemesPath();
         Path.createDirectory(path);

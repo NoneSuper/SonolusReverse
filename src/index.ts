@@ -12,6 +12,8 @@ import { RoutesSettings } from "./sonolus/routes/Settings";
 import { Title } from "./sonolus/ui/Title";
 import { App } from "./sonolus/wrappers/App";
 import { Logger } from "./utils/Logger";
+import { ThemeLoader } from "./mod/data/ThemeLoader";
+import { CustomThemes } from "./mod/features/CustomThemes";
 
 function logBanner(): void {
     const { VERSION, ENV, COMMIT, FOR_GAME_VERSION } = ModPreferences;
@@ -44,10 +46,12 @@ function initGame(): void {
 
 function initMod(): void {
     Config.load();
+    ThemeLoader.load();
     TitleLabel.init();
     VersionCheck.init();
     I18n.init();
     UserInfoSpoof.init();
+    CustomThemes.init();
 }
 
 function init(): void {
