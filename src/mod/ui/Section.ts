@@ -1,3 +1,4 @@
+import { Path } from "../../engine/native/Path";
 import { Assets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
 import { Ref } from "../../sonolus/wrappers/reactivity/Ref";
@@ -11,7 +12,10 @@ import { Rows } from "../../sonolus/wrappers/ui/common/Rows";
 import { CustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
 import { SectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
 import { Widget } from "../../sonolus/wrappers/ui/Widget";
+import { Logger } from "../../utils/Logger";
 import { Config } from "../data/Config";
+import { ModPreferences } from "../data/ModPreferences";
+import { ThemeLoader } from "../data/ThemeLoader";
 import { I18n } from "../i18n/I18n";
 
 export class CustomSectionMod {
@@ -33,7 +37,15 @@ export class CustomSectionMod {
     }
 
     private static title(): Widget {
-        return SectionBase.createTitle(I18n.tRef("ui.title"));
+        // later this information will be in About Tab
+        return SectionBase.createTitle(
+            /// #if DEV
+            I18n.tRef("ui.title_dev", ModPreferences.VERSION, ModPreferences.COMMIT, ModPreferences.ENV),
+            /// #else
+            // @ts-ignore
+            I18n.tRef("ui.title", ModPreferences.VERSION)
+            /// #endif
+        );
     }
 
     private static spoofField(): ToggleField {
@@ -68,6 +80,11 @@ export class CustomSectionMod {
             valueRef.value = theme.title.value;
         });
 
-        return BtnField.new().title(I18n.tRef("ui.theme.title")).description(I18n.tRef("ui.theme.description")).value(valueRef).btns([themesBtn]).validate();
+        return BtnField.new()
+            .title(I18n.tRef("ui.theme.title"))
+            .description(I18n.tRef("ui.theme.description", ThemeLoader.getLoadedThemes().length, Path.getCustomThemesPath()))
+            .value(valueRef)
+            .btns([themesBtn])
+            .validate();
     }
 }

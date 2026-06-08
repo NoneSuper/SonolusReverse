@@ -1,18 +1,18 @@
 {
     "ui": {
-        "title": "SonolusReverse",
+        "title": "SonolusReverse v{0}",
+        "title_dev": "SonolusReverse v{0} - #{1} ({2})",
         "spoof": {
             "title": "VIP and Themes Spoof",
-            "description": "Client-side spoof of VIP and owned Themes. You need re-open Settings to update owned Themes and VIP."
+            "description": "Client-side spoof of VIP and owned Themes. You need to re-open Settings to update owned Themes and VIP."
         },
         "version_check": {
             "title": "Disable App Version check",
-            "description": "Disables client compatibility check while connecting in Custom Servers"
+            "description": "Disables client compatibility check when connecting in Custom Servers"
         },
         "theme": {
             "title": "Theme",
-            "description": "Color theme to use. You have loaded {0} custom themes.\n\nTheme files are located at: {1}",
-            "import_button": "Import",
+            "description": "Button is under maintenance.\nColor theme to use. You have loaded {0} custom themes.\n\nTheme files are located at: {1}",
             "select_button": "Select"
         }
     }

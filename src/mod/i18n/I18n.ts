@@ -39,7 +39,7 @@ export class I18n {
         const existing = this.localizedRefs.get(cacheKey);
         if (existing) return existing;
 
-        return Ref.create(this.t(cacheKey, ...args));
+        return Ref.create(this.t(key, ...args));
     }
 
     static t(key: string, ...args: (string | number)[]): string {
