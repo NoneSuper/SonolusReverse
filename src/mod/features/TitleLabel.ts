@@ -11,10 +11,10 @@ export class TitleLabel {
         const LblTitle = Lbl.method<Il2Cpp.Object>("Title", 1);
 
         // @ts-ignore
-        LblTitle.implementation = this.LblTitleHook;
+        LblTitle.implementation = this.lblTitleHook;
     }
 
-    private static LblTitleHook(this: Il2Cpp.Object, title: Il2Cpp.Object): Il2Cpp.Object {
+    private static lblTitleHook(this: Il2Cpp.Object, title: Il2Cpp.Object): Il2Cpp.Object {
         if (Title.inTitleSetup) {
             Object.setPrototypeOf(title, Dep.prototype);
             const value: Il2Cpp.String = (title as Dep<Il2Cpp.String>).value;
