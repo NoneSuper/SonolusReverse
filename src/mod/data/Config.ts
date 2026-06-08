@@ -40,6 +40,7 @@ export class Config {
         }
     }
 
+    // Maybe we don't need here il2cpp logic (?)
     static registerOrGet<K extends keyof ConfigData>(key: K, initialValue: ConfigData[K]): Ref<ConfigData[K]> {
         let ref = this._refs.get(key) as Ref<ConfigData[K]> | undefined;
         if (!ref) {
