@@ -11,7 +11,6 @@ import { Rows } from "../../sonolus/wrappers/ui/common/Rows";
 import { CustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
 import { SectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
 import { Widget } from "../../sonolus/wrappers/ui/Widget";
-import { Logger } from "../../utils/Logger";
 import { Config } from "../data/Config";
 import { I18n } from "../i18n/I18n";
 

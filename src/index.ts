@@ -3,6 +3,8 @@ import "frida-il2cpp-bridge";
 import { AssemblyHelper } from "./engine/AssemblyHelper";
 import { Config } from "./mod/data/Config";
 import { ModPreferences } from "./mod/data/ModPreferences";
+import { ThemeLoader } from "./mod/data/ThemeLoader";
+import { CustomThemes } from "./mod/features/CustomThemes";
 import { TitleLabel } from "./mod/features/TitleLabel";
 import { UserInfoSpoof } from "./mod/features/UserInfoSpoof";
 import { VersionCheck } from "./mod/features/VersionCheck";
@@ -12,8 +14,6 @@ import { RoutesSettings } from "./sonolus/routes/Settings";
 import { Title } from "./sonolus/ui/Title";
 import { App } from "./sonolus/wrappers/App";
 import { Logger } from "./utils/Logger";
-import { ThemeLoader } from "./mod/data/ThemeLoader";
-import { CustomThemes } from "./mod/features/CustomThemes";
 
 function logBanner(): void {
     const { VERSION, ENV, COMMIT, FOR_GAME_VERSION } = ModPreferences;
