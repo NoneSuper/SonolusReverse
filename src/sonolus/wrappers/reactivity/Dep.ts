@@ -33,6 +33,8 @@ class DepBase extends Il2Cpp.Object {
 export class Dep<T> extends DepBase {
     protected static override _class: Il2Cpp.Class | null = null;
 
+    private _valueProto: object | null = null;
+
     static override get class(): Il2Cpp.Class {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.Reactivity.Dep`1"));
     }
@@ -77,8 +79,15 @@ export class Dep<T> extends DepBase {
         return Object.setPrototypeOf(obj, Dep.prototype) as Dep<unknown>;
     }
 
+    bindProto(prototype: object): this {
+        this._valueProto = prototype;
+        return this;
+    }
+
     /** Wrapper over `Sonolus.Reactivity.Dep.get_Value` */
     get value(): T {
-        return this.method<Il2Cpp.Object>("get_Value", 0).invoke() as T;
+        //return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Value", 0).invoke(), T.prototype);
+        const value = this.method<Il2Cpp.Field.Type>("get_Value", 0).invoke();
+        return this._valueProto ? (Object.setPrototypeOf(value, this._valueProto) as T) : (value as T);
     }
 }

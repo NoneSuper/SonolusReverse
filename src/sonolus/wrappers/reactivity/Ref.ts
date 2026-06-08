@@ -45,6 +45,7 @@ export class Ref<T> extends Dep<T> {
     override set value(value: T) {
         this.method<void>("set_Value", 1).invoke(value as never);
     }
+
     override get value(): T {
         return super.value;
     }
