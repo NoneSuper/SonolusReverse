@@ -18,9 +18,16 @@ export class CustomThemes {
         if (info.isNull()) return this.method<void>("SetData", 1).invoke(data);
 
         const oldThemes = info.method<Il2Cpp.Array<Il2Cpp.Object>>("get_Themes", 0).invoke();
+        const newThemes = CustomThemes.buildMergedThemes(oldThemes);
 
+        info.method<void>("set_Themes", 1).invoke(newThemes);
+        this.method<void>("SetData", 1).invoke(data);
+    }
+
+    private static buildMergedThemes(oldThemes: Il2Cpp.Array<Il2Cpp.Object>): Il2Cpp.Array<ContentTheme> {
         const keptThemes: ContentTheme[] = [];
 
+        // Drop all old custom themes from cache
         for (let i = 0; i < oldThemes.length; i++) {
             const theme = Object.setPrototypeOf(oldThemes.get(i), ContentTheme.prototype) as ContentTheme;
             if (!theme.name.startsWith(ThemeLoader.CUSTOM_THEME_NAME_PREFIX)) {
@@ -33,8 +40,7 @@ export class CustomThemes {
         keptThemes.forEach((theme, index) => newThemes.set(index, theme));
         customThemes.forEach((theme, index) => newThemes.set(keptThemes.length + index, CustomThemes.buildCustomTheme(theme)));
 
-        info.method<void>("set_Themes", 1).invoke(newThemes);
-        this.method<void>("SetData", 1).invoke(data);
+        return newThemes;
     }
 
     private static buildCustomTheme(themeData: CustomThemeData): ContentTheme {
