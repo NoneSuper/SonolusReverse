@@ -18,24 +18,24 @@ export class ImgLblBtn extends CompositeWidget {
     }
 
     title(title: Dep<Il2Cpp.String>): this {
-        this.method<void>("SetTitle").invoke(title);
+        this.method<void>("SetTitle", 1).invoke(title);
         this.setMark("title");
         return this;
     }
 
     icon(icon: Dep<Texture2D>): this {
-        this.method<void>("SetIcon").invoke(icon);
+        this.method<void>("SetIcon", 1).invoke(icon);
         this.setMark("icon");
         return this;
     }
 
     enabled(enabled: boolean): this {
-        this.method<void>("SetEnabled").invoke(Dep.opImplicit(enabled));
+        this.method<void>("SetEnabled", 1).invoke(Dep.opImplicit(enabled));
         return this;
     }
 
     onClick(onClick: () => void): this {
-        this.method<void>("SetOnClick").invoke(Il2Cpp.delegate(System.Action, onClick));
+        this.method<void>("SetOnClick", 1).invoke(Il2Cpp.delegate(System.Action, onClick));
         return this;
     }
 }

@@ -23,7 +23,7 @@ export class BtnField extends Field {
     }
 
     btns(btns: ImgLblBtn[]): this {
-        const buttonsArray = Il2Cpp.array<ImgLblBtn>(btns[0].class, btns.length);
+        const buttonsArray = Il2Cpp.array<ImgLblBtn>(ImgLblBtn.class, btns.length);
         btns.forEach((btn, i) => buttonsArray.set(i, btn));
         this.method<void>("SetBtns", 1).invoke(buttonsArray);
         this.setMark("btns");

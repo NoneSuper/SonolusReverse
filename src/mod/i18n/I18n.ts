@@ -4,10 +4,21 @@ import { Logger } from "../../utils/Logger";
 import en from "./localization/en.json";
 import ru from "./localization/ru.json";
 
+// Own I18n system, updates from In-game I18n hook
+// We can probably use a Sonolus I18n System
+// But I already has implemented it
+// And there's no reason to use Sonolus one
+
 const TRANSLATIONS: Record<string, unknown> = {
     en: en,
     ru: ru
 };
+
+interface CacheEntry {
+    ref: Ref<Il2Cpp.String>;
+    key: string;
+    args: (string | number)[];
+}
 
 export class I18n {
     private static readonly tag = "I18n";
@@ -19,7 +30,7 @@ export class I18n {
     private static resolved: boolean = false;
 
     // Cache
-    private static localizedRefs: Map<string, Ref<Il2Cpp.String>> = new Map();
+    private static localizedRefs: Map<string, CacheEntry> = new Map();
 
     private static SettingsUI: Il2Cpp.Class;
 
@@ -37,9 +48,11 @@ export class I18n {
     static tRef(key: string, ...args: (string | number)[]): Ref<Il2Cpp.String> {
         const cacheKey = args.length > 0 ? `${key}:${args.join(",")}` : key; // key.X:arg1,arg2
         const existing = this.localizedRefs.get(cacheKey);
-        if (existing) return existing;
+        if (existing) return existing.ref;
 
-        return Ref.create(this.t(key, ...args));
+        const ref = Ref.create(this.t(key, ...args));
+        this.localizedRefs.set(cacheKey, { ref, key, args });
+        return ref;
     }
 
     static t(key: string, ...args: (string | number)[]): string {
@@ -75,8 +88,8 @@ export class I18n {
     }
 
     private static refreshAllLocalizedRefs(): void {
-        this.localizedRefs.forEach((ref: Ref<Il2Cpp.String>, key: string) => {
-            ref.value = Il2Cpp.string(this.t(key));
+        this.localizedRefs.forEach(entry => {
+            entry.ref.value = Il2Cpp.string(this.t(entry.key, ...entry.args));
         });
     }
 
@@ -84,7 +97,7 @@ export class I18n {
         const gameLocale = this.readLocaleFromGame();
 
         if (gameLocale === null) {
-            Logger.debug(`[${this.tag}::resolveLocale] gameLocale is null, falling back to "${this.fallbackLocale}". Will be re-initilizated`);
+            Logger.warn(`[${this.tag}::resolveLocale] gameLocale is null, falling back to "${this.fallbackLocale}". Will be re-initilizated`);
             this.currentLocale = this.fallbackLocale;
             return;
         }
@@ -92,7 +105,7 @@ export class I18n {
         this.resolved = true;
 
         if (gameLocale === this.currentLocale) {
-            Logger.debug(`[${this.tag}::resolveLocale] gameLocale == currentLocale, skipping re-initilization with "${this.currentLocale}"`);
+            Logger.info(`[${this.tag}::resolveLocale] gameLocale == currentLocale, skipping re-initilization with "${this.currentLocale}"`);
             return;
         }
 
@@ -111,8 +124,7 @@ export class I18n {
             const ref = this.SettingsUI.method<Ref<Il2Cpp.Object>>("get_UILocalization", 0).invoke(); // Ref<Sonolus.Core.Localization.AvailableLocalization>
             if (ref.isNull()) return null;
 
-            Object.setPrototypeOf(ref, Ref.prototype);
-            const availableLocalization = (ref as Ref<Il2Cpp.Object>).value;
+            const availableLocalization: Il2Cpp.Object = Object.setPrototypeOf(ref, Ref.prototype).value;
             if (availableLocalization.isNull()) return null;
 
             // { Name = "en", Title = "English (English)" } for eng

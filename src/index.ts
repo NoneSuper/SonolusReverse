@@ -9,9 +9,9 @@ import { TitleLabel } from "./mod/features/TitleLabel";
 import { UserInfoSpoof } from "./mod/features/UserInfoSpoof";
 import { VersionCheck } from "./mod/features/VersionCheck";
 import { I18n } from "./mod/i18n/I18n";
-import { SonolusI18n } from "./sonolus/I18n";
-import { RoutesSettings } from "./sonolus/routes/Settings";
-import { Title } from "./sonolus/ui/Title";
+import { I18nHook } from "./sonolus/I18nHook";
+import { SectionsHook } from "./sonolus/routes/SectionsHook";
+import { TitleHook } from "./sonolus/ui/TitleHook";
 import { App } from "./sonolus/wrappers/App";
 import { Logger } from "./utils/Logger";
 
@@ -39,9 +39,9 @@ function initEngine(): void {
 }
 
 function initGame(): void {
-    Title.init();
-    RoutesSettings.init();
-    SonolusI18n.init();
+    TitleHook.init();
+    SectionsHook.init();
+    I18nHook.init();
 }
 
 function initMod(): void {

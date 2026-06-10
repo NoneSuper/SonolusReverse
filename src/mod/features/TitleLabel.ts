@@ -1,7 +1,8 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
-import { Title } from "../../sonolus/ui/Title";
+import { TitleHook } from "../../sonolus/ui/TitleHook";
 import { App } from "../../sonolus/wrappers/App";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
+import { Logger } from "../../utils/Logger";
 
 export class TitleLabel {
     static init(): void {
@@ -12,12 +13,13 @@ export class TitleLabel {
 
         // @ts-ignore
         LblTitle.implementation = this.lblTitleHook;
+
+        Logger.info("[TitleLabel::init] Initialized");
     }
 
     private static lblTitleHook(this: Il2Cpp.Object, title: Il2Cpp.Object): Il2Cpp.Object {
-        if (Title.inTitleSetup) {
-            Object.setPrototypeOf(title, Dep.prototype);
-            const value: Il2Cpp.String = (title as Dep<Il2Cpp.String>).value;
+        if (TitleHook.inTitleSetup) {
+            const value: Il2Cpp.String = Object.setPrototypeOf(title, Dep.prototype).value;
 
             if (!value.isNull() && value.content === App.version) {
                 // or we can re-use value.content

@@ -12,7 +12,6 @@ import { Rows } from "../../sonolus/wrappers/ui/common/Rows";
 import { CustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
 import { SectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
 import { Widget } from "../../sonolus/wrappers/ui/Widget";
-import { Logger } from "../../utils/Logger";
 import { Config } from "../data/Config";
 import { ModPreferences } from "../data/ModPreferences";
 import { ThemeLoader } from "../data/ThemeLoader";
@@ -82,7 +81,7 @@ export class CustomSectionMod {
 
         return BtnField.new()
             .title(I18n.tRef("ui.theme.title"))
-            .description(I18n.tRef("ui.theme.description", ThemeLoader.getLoadedThemes().length, Path.getCustomThemesPath()))
+            .description(I18n.tRef("ui.theme.description", ThemeLoader.loadedThemes.length, Path.customThemesPath))
             .value(valueRef)
             .btns([themesBtn])
             .validate();

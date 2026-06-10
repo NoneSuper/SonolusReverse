@@ -1,4 +1,5 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
+import { Logger } from "../../utils/Logger";
 import { Config } from "../data/Config";
 
 // https://wiki.sonolus.com/custom-server-specs/headers/sonolus-version
@@ -15,5 +16,7 @@ export class VersionCheck {
             }
             return this.method<Il2Cpp.String>("GetResponseHeader", 1).invoke(name);
         };
+
+        Logger.info("[VersionCheck::init] Initialized");
     }
 }

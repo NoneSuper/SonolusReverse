@@ -34,7 +34,7 @@ export class ThemeLoader {
     static readonly CUSTOM_THEME_NAME_PREFIX = "sr_custom_";
 
     public static load(): void {
-        const path = Path.getCustomThemesPath();
+        const path = Path.customThemesPath;
         Path.createDirectory(path);
 
         const themeFiles = Path.getFiles(path, "*.json");
@@ -58,7 +58,7 @@ export class ThemeLoader {
         this._loadedThemes = themes;
     }
 
-    public static getLoadedThemes(): CustomThemeData[] {
+    public static get loadedThemes(): CustomThemeData[] {
         return this._loadedThemes;
     }
 }

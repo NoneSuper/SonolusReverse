@@ -27,7 +27,7 @@ export class Assets {
     // not returning null if not exist cuz I'm too lazy for check every time for null
     static getAsset(assetName: string): Texture2D | Il2Cpp.Object {
         const asset = this.class.method<Il2Cpp.Object>(`get_${assetName}`, 0).invoke();
-        if (asset.class == Texture2D.class) {
+        if (asset.class === Texture2D.class) {
             Object.setPrototypeOf(asset, Texture2D.prototype);
             return asset as Texture2D;
         }

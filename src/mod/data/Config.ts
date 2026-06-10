@@ -16,7 +16,7 @@ export class Config {
     static versionCheck: boolean = false;
 
     static load(): void {
-        const path = Path.getConfigFilePath();
+        const path = Path.configFilePath;
         try {
             const data = JSON.parse(File.readAllText(path)) as ConfigData;
             for (const key of Object.keys(data) as (keyof ConfigData)[]) {
@@ -29,7 +29,7 @@ export class Config {
     }
 
     static save(): void {
-        const path = Path.getConfigFilePath();
+        const path = Path.configFilePath;
         try {
             const file = new File(path, "w");
             file.write(this.toJSON());

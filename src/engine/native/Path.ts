@@ -10,7 +10,7 @@ export class Path {
     private static _dataPath: string | null = null;
 
     /** Wrapper over `UnityEngine.Application.get_persistentDataPath` */
-    static getDataPath(): string {
+    static get dataPath(): string {
         if (this._dataPath !== null) return this._dataPath;
 
         // Il2Cpp.application.identifier returns "app_process64" on android which is not true
@@ -67,11 +67,11 @@ export class Path {
         Il2Cpp.corlib.class("System.IO.File").method("Move", 2).invoke(Il2Cpp.string(sourcePath), Il2Cpp.string(distPath));
     }
 
-    static getConfigFilePath(): string {
-        return this.getDataPath() + this.CONFIG_FILE;
+    static get configFilePath(): string {
+        return this.dataPath + this.CONFIG_FILE;
     }
 
-    static getCustomThemesPath(): string {
-        return this.getDataPath() + this.CUSTOM_THEMES_DIRECTORY;
+    static get customThemesPath(): string {
+        return this.dataPath + this.CUSTOM_THEMES_DIRECTORY;
     }
 }

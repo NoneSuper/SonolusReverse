@@ -29,25 +29,29 @@ export class UserInfoSpoof {
         const ServiceUserInfo = AssemblyHelper.AssemblyCSharp.class("Sonolus.Core.Service.ServiceUserInfo");
 
         // @ts-ignore
-        ServiceUserInfo.method<void>(".ctor", 5).implementation = function (
-            Profile: Il2Cpp.Object,
-            GemCount: number,
-            VipEndAt: number,
-            NameChangeCount: number,
-            Themes: Il2Cpp.Array<Il2Cpp.String>
-        ): void {
-            Logger.hook(`ServiceUserInfo::.ctor called`);
-            if (!Config.spoofEnabled) {
-                this.method<void>(".ctor", 5).invoke(Profile, GemCount, VipEndAt, NameChangeCount, Themes);
-                return;
-            }
+        ServiceUserInfo.method<void>(".ctor", 5).implementation = this.ServiceUserInfoHook;
 
-            const spoofedVipEndAt = UserInfoSpoof.spoofedVipEndAt;
-            const spoofedThemes = UserInfoSpoof.spoofedThemes;
+        Logger.info("[UserInfoSpoof::init] Initialized");
+    }
 
-            this.method<void>(".ctor", 5).invoke(Profile, GemCount, spoofedVipEndAt, NameChangeCount, spoofedThemes);
+    private static ServiceUserInfoHook(
+        this: Il2Cpp.Object,
+        Profile: Il2Cpp.Object,
+        GemCount: number,
+        VipEndAt: number,
+        NameChangeCount: number,
+        Themes: Il2Cpp.Array<Il2Cpp.String>
+    ): void {
+        Logger.hook(`ServiceUserInfo::.ctor called`);
+        if (!Config.spoofEnabled) {
+            this.method<void>(".ctor", 5).invoke(Profile, GemCount, VipEndAt, NameChangeCount, Themes);
             return;
-        };
+        }
+
+        const spoofedVipEndAt = UserInfoSpoof.spoofedVipEndAt;
+        const spoofedThemes = UserInfoSpoof.spoofedThemes;
+
+        this.method<void>(".ctor", 5).invoke(Profile, GemCount, spoofedVipEndAt, NameChangeCount, spoofedThemes);
     }
 
     private static get spoofedVipEndAt(): number {
@@ -61,7 +65,7 @@ export class UserInfoSpoof {
             this.FALLBACK_THEMES.forEach((name, index) => {
                 themesArray.set(index, Il2Cpp.string(name));
             });
-            Logger.warn("using fallback themes");
+            Logger.warn("[UserInfoSpoof::spoofedThemes] ContentSystem.themes is not available, using fallback");
             return themesArray;
         }
 

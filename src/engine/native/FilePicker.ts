@@ -29,6 +29,8 @@ export class FilePicker {
      * Prompts the user to pick a file from the available document providers
      *
      * Wrapper over `NativeFilePicker.PickFile(FilePickedCallback callback, System.String[] allowedFileTypes)`
+     *
+     * @param allowedFileTypes e.g. ["json"]
      */
     static pickFile(callback: (path: Il2Cpp.String) => void, allowedFileTypes: string[]): void {
         if (this.isFilePickerBusy()) {
@@ -40,9 +42,9 @@ export class FilePicker {
         const delegate = Il2Cpp.delegate(callbackClass, callback);
 
         const typesArray = Il2Cpp.array(System.String, allowedFileTypes.length);
-        allowedFileTypes
-            .map(extension => FilePicker.getFileTypeFromExtension(extension))
-            .forEach((string, index) => typesArray.set(index, Il2Cpp.string(string)));
+        allowedFileTypes.forEach((extension, index) => {
+            typesArray.set(index, Il2Cpp.string(FilePicker.getFileTypeFromExtension(extension)));
+        });
 
         FilePicker.class.method<void>("PickFile", 2).invoke(delegate, typesArray);
     }
@@ -52,7 +54,7 @@ export class FilePicker {
      *
      * Wrapper over `NativeFilePicker.ExportFile(System.String filePath, FilesExportedCallback callback = null)`
      */
-    static exportFile(filePath: string, callback?: ((success: boolean) => void) | undefined): void {
+    static exportFile(filePath: string, callback?: (success: boolean) => void): void {
         if (this.isFilePickerBusy()) {
             Logger.warn(`[${this.tag}::exportFile] FilePicker is busy`);
             return;
@@ -65,7 +67,7 @@ export class FilePicker {
             const delegate = Il2Cpp.delegate(callbackClass, callback);
             method.invoke(Il2Cpp.string(filePath), delegate);
         } else {
-            method.invoke(Il2Cpp.string(filePath), NULL);
+            method.invoke(Il2Cpp.string(filePath), ptr(0));
         }
     }
 

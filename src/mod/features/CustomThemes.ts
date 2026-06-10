@@ -9,6 +9,8 @@ export class CustomThemes {
         // @ts-ignore
         // void SetData(Sonolus.Content.ContentSystem.ContentCache data);
         ContentSystem.class.method<void>("SetData", 1).implementation = this.setDataHook;
+
+        Logger.info("[CustomThemes::init] Initialized");
     }
 
     private static setDataHook(this: Il2Cpp.Object, data: Il2Cpp.Object): void {
@@ -35,7 +37,7 @@ export class CustomThemes {
             }
         }
 
-        const customThemes = ThemeLoader.getLoadedThemes();
+        const customThemes = ThemeLoader.loadedThemes;
         const newThemes = Il2Cpp.array<ContentTheme>(ContentTheme.class, keptThemes.length + customThemes.length);
         keptThemes.forEach((theme, index) => newThemes.set(index, theme));
         customThemes.forEach((theme, index) => newThemes.set(keptThemes.length + index, CustomThemes.buildCustomTheme(theme)));
