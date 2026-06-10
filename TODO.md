@@ -4,28 +4,21 @@ Mostly for developers and me, so I don't forgetting things.
 
 ### Architecture
 
-- [x] i18n: read locale from game
-- [x] BaseModule: use it
-- [x] ESLint integration
-- [x] Webpack integration
+- [ ] JSDoc to wrappers
 - [ ] GitHub workflow
 - [ ] Popup Sonolus System
 - [ ] Alert Sonolus System
-- [x] JSON Config System
 
 ### Features
 
+- [ ] Monet theme on Android
+- [ ] Spoof themes and Vip without account (offline)
+- [ ] Fix Theme button
 - [ ] Disable Background picture
-- [ ] Custom color background
-- [x] Custom Themes
-- [x] Theme JSON parsing
-- [x] Russian localization
 - [ ] UwUify across all Sonolus
-- [x] Version Spoof
 - [ ] Export / Import Sonolus Settings
 - [ ] Export / Import Sonolus Account Info
-- [ ] About tab in SonolusReverse settings
-- [x] Modify version text in startup screen to show `Reverse`
+- [ ] About tab in SonolusReverse settings (Create BtnField -> Button creates a new Route (not exactly))
 - [ ] Alert if speed modified or autofail turned on (use notification popup (like auto-exit TIP))
 - [ ] Sonolus_UI_Title\_\_GetTitleTheme (`0x28173C4`) maybe something do with that
 
@@ -36,7 +29,6 @@ Mostly for developers and me, so I don't forgetting things.
 ### Some day idk
 
 - [ ] Disable Analytics
-- [ ] Change Health value
 - [ ] Information about your recent plays on map (by replays)
 - [ ] Auto saving replay
 
