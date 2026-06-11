@@ -2,7 +2,7 @@ import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 import { System } from "../../../engine/System";
 import { Texture2D } from "../../../engine/wrappers/Texture";
 
-/** Wrapper over `Sonolus.Reactivity.Dep` class extends `Il2Cpp.Object` */
+/** `Sonolus.Reactivity.Dep` - non-generic base */
 class DepBase extends Il2Cpp.Object {
     protected static _class: Il2Cpp.Class | null = null;
 
@@ -10,11 +10,6 @@ class DepBase extends Il2Cpp.Object {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.Reactivity.Dep"));
     }
 
-    /**
-     * Wrapper over `Sonolus.Reactivity.Dep.Hook(System.Action effect)`
-     *
-     * @returns `System.Action`
-     */
     hook(effect: () => void): Il2Cpp.Object {
         const action = Il2Cpp.delegate(Il2Cpp.corlib.class("System.Action"), effect);
         return this.method<Il2Cpp.Object>("Hook", 1).invoke(action);
@@ -25,11 +20,7 @@ class DepBase extends Il2Cpp.Object {
     }
 }
 
-/**
- * Wrapper over `Sonolus.Reactivity.Dep<T>` class extends `DepBase`
- *
- * Read-only reactive value
- */
+/** `Sonolus.Reactivity.Dep<T>` - read-only reactive value, created via `opImplicit` */
 export class Dep<T> extends DepBase {
     protected static override _class: Il2Cpp.Class | null = null;
 
@@ -44,6 +35,7 @@ export class Dep<T> extends DepBase {
         super(handle);
     }
 
+    /** `Dep<T>.op_Implicit(T)` - overloaded for Texture2D / string / boolean / generic */
     static opImplicit(value: Texture2D): Dep<Texture2D>;
     static opImplicit(value: string): Dep<Il2Cpp.String>;
     static opImplicit(value: boolean): Dep<boolean>;
@@ -84,7 +76,7 @@ export class Dep<T> extends DepBase {
         return this;
     }
 
-    /** Wrapper over `Sonolus.Reactivity.Dep.get_Value` */
+    /** `Dep<T>.get_Value()` */
     get value(): T {
         //return Object.setPrototypeOf(this.method<Il2Cpp.Object>("get_Value", 0).invoke(), T.prototype);
         const value = this.method<Il2Cpp.Field.Type>("get_Value", 0).invoke();

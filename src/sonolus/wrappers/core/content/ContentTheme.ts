@@ -1,6 +1,7 @@
 import { AssemblyHelper } from "../../../../engine/AssemblyHelper";
 import { Srl } from "../Srl";
 
+/** `Sonolus.Core.Content.ContentTheme` - implements content theme object (in the shop) */
 export class ContentTheme extends Il2Cpp.Object {
     protected static _class: Il2Cpp.Class | null = null;
 
@@ -13,6 +14,7 @@ export class ContentTheme extends Il2Cpp.Object {
         super(handle);
     }
 
+    /** Alloc + `.ctor(name, title, ...) */
     static create(
         name: string,
         title: string,

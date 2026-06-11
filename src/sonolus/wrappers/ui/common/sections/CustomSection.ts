@@ -2,6 +2,11 @@ import { AssemblyHelper } from "../../../../../engine/AssemblyHelper";
 import { Widget } from "../../Widget";
 import { SectionBase } from "./SectionBase";
 
+/**
+ * `Sonolus.UI.Common.Sections.CustomSection` - section with custom Widget content (extends SectionBase)
+ *
+ * @requires Content
+ */
 export class CustomSection extends SectionBase {
     protected static override _class: Il2Cpp.Class | null = null;
 

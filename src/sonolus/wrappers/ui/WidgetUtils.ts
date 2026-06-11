@@ -1,7 +1,7 @@
 import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 import { Widget } from "./Widget";
 
-/** Wrapper over `Sonolus.UI.WidgetUtils` class */
+/** `Sonolus.UI.WidgetUtils` - static helper class for `Sonolus.UI.Widget` */
 export class WidgetUtils {
     private static _class: Il2Cpp.Class | null = null;
 
@@ -9,12 +9,6 @@ export class WidgetUtils {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.UI.WidgetUtils"));
     }
 
-    /**
-     * Wrapper over `Sonolus.UI.WidgetUtils.Margin<Sonolus.UI.Widget>`
-     * Inflated with `Sonolus.UI.Widget`
-     *
-     * @returns `Sonolus.UI.Widget`
-     */
     static margin<T extends Widget>(widget: T, left: number, top: number, right: number, bottom: number): Widget {
         return this.class.method<Widget>("Margin", 5).inflate(Widget.class).invoke(widget, left, top, right, bottom);
     }

@@ -2,11 +2,7 @@ import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 import { System } from "../../../engine/System";
 import { Dep } from "./Dep";
 
-/**
- * Wrapper over `Sonolus.Reactivity.Ref<T>` class extends `Dep<T>`
- *
- * Read-Write reactive value
- */
+/** `Sonolus.Reactivity.Ref<T>` - read-write reactive value, created via `create` */
 export class Ref<T> extends Dep<T> {
     protected static override _class: Il2Cpp.Class | null = null;
 
@@ -14,11 +10,12 @@ export class Ref<T> extends Dep<T> {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.Reactivity.Ref`1"));
     }
 
-    /** use `create` instead */
+    /** Use `create` instead */
     protected constructor(handle: NativePointer) {
         super(handle);
     }
 
+    /** Alloc + `.ctor(initial)` + `.ref(true)` - only handles boolean/string */
     static create(initialValue: boolean): Ref<boolean>;
     static create(initialValue: string): Ref<Il2Cpp.String>;
     static create(initialValue: unknown): Ref<unknown>;

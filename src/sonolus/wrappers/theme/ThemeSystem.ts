@@ -2,6 +2,7 @@ import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 import { Ref } from "../reactivity/Ref";
 import { Theme } from "./Theme";
 
+/** `Sonolus.Theme.ThemeSystem` - static class */
 export class ThemeSystem {
     protected static _class: Il2Cpp.Class | null = null;
 

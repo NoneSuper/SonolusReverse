@@ -1,6 +1,7 @@
 import { Srl } from "../core/Srl";
 import { Dep } from "../reactivity/Dep";
 
+/** `Sonolus.Theme.Theme` - implements theme object */
 export class Theme extends Il2Cpp.Object {
     get title(): Dep<Il2Cpp.String> {
         const dep = this.method<Il2Cpp.Object>("get_Title", 0).invoke();

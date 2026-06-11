@@ -3,6 +3,11 @@ import { Dep } from "../../../reactivity/Dep";
 import { ImgLblBtn } from "../ImgLblBtn";
 import { Field } from "./Field";
 
+/**
+ * `Sonolus.UI.Common.Fields.BtnField` - field with value text + action buttons (extends Field)
+ *
+ * @requires Title, Value, Btns
+ */
 export class BtnField extends Field {
     protected static override _class: Il2Cpp.Class | null = null;
 

@@ -3,6 +3,11 @@ import { Dep } from "../../../reactivity/Dep";
 import { Ref } from "../../../reactivity/Ref";
 import { Field } from "./Field";
 
+/**
+ * `Sonolus.UI.Common.Fields.ToggleField` - boolean toggle switch (extends Field)
+ *
+ * @requires Title, Value
+ */
 export class ToggleField extends Field {
     protected static override _class: Il2Cpp.Class | null = null;
 

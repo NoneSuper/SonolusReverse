@@ -3,6 +3,7 @@ import { Dep } from "../../../reactivity/Dep";
 import { CompositeWidget } from "../../CompositeWidget";
 import { Widget } from "../../Widget";
 
+/** `Sonolus.UI.Common.Sections.SectionBase` - abstract base for settings sections (extends CompositeWidget) */
 export class SectionBase extends CompositeWidget {
     protected static override _class: Il2Cpp.Class | null = null;
 

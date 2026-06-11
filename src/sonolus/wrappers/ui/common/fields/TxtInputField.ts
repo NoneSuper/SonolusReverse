@@ -5,8 +5,13 @@ import { Dep } from "../../../reactivity/Dep";
 import { Ref } from "../../../reactivity/Ref";
 import { Field } from "./Field";
 
-// TODO correct types
+// TODO: Enums
 
+/**
+ * `Sonolus.UI.Common.Fields.TxtInputField` - text input field (extends Field)
+ *
+ * @requires Title, Icon, Value, DefaultValue, Placeholder
+ */
 export class TxtInputField extends Field {
     protected static override _class: Il2Cpp.Class | null = null;
 

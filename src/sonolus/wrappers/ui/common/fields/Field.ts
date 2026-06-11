@@ -1,6 +1,7 @@
 import { Dep } from "../../../reactivity/Dep";
 import { CompositeWidget } from "../../CompositeWidget";
 
+/** `Sonolus.UI.Common.Fields.Field` - abstract base for fields. Never instantiate directly (extends CompositeWidget) */
 export class Field extends CompositeWidget {
     title(title: Dep<Il2Cpp.String>): this {
         this.method<void>("SetTitle", 1).invoke(title);

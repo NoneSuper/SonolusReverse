@@ -1,5 +1,6 @@
 import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 
+/** `Sonolus.UI.Widget` - base class for all UI components */
 export class Widget extends Il2Cpp.Object {
     protected static _class: Il2Cpp.Class | null = null;
 
@@ -26,6 +27,7 @@ export class Widget extends Il2Cpp.Object {
         return this;
     }
 
+    /** `class.new()` + setPrototypeOf */
     protected static _new<T extends Widget>(): T {
         const obj = this.class.new(); // call alloc + il2cpp_object_initialize export
         Object.setPrototypeOf(obj, this.prototype);

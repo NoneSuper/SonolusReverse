@@ -4,6 +4,11 @@ import { Texture2D } from "../../../../engine/wrappers/Texture";
 import { Dep } from "../../reactivity/Dep";
 import { CompositeWidget } from "../CompositeWidget";
 
+/**
+ * `Sonolus.UI.Common.ImgLblBtn` - icon + label + onClick button (extends CompositeWidget)
+ *
+ * @requires Title, Icon
+ */
 export class ImgLblBtn extends CompositeWidget {
     protected static override _class: Il2Cpp.Class | null = null;
 

@@ -1,7 +1,7 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
 import { Texture2D } from "../../engine/wrappers/Texture";
 
-/** Wrapper over `Sonolus.Assets` class */
+/** `Sonolus.Assets` - static class for loaded textures/materials */
 export class Assets {
     private static _class: Il2Cpp.Class | null = null;
 
@@ -9,12 +9,6 @@ export class Assets {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.Assets"));
     }
 
-    /**
-     * Wrapper over `Sonolus.Assets.GetIcon(key)`
-     *
-     * @returns `UnityEngine.Texture2D`
-     * @deprecated Use `getAsset` instead
-     */
     static getIcon(iconName: string): Il2Cpp.Object {
         return this.class.method<Il2Cpp.Object>("GetIcon", 1).invoke(Il2Cpp.string(iconName));
     }
@@ -22,7 +16,7 @@ export class Assets {
     /**
      * Wrapper over `Sonolus.Assets.get_{assetName}`
      *
-     * @returns `UnityEngine.Texture2D` or `UnityEngine.Material` if you searching for Material
+     * @returns `UnityEngine.Texture2D` or `UnityEngine.Material` if searching for Material
      */
     // not returning null if not exist cuz I'm too lazy for check every time for null
     static getAsset(assetName: string): Texture2D | Il2Cpp.Object {

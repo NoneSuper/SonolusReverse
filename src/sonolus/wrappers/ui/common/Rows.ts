@@ -3,6 +3,7 @@ import { NativeWidget } from "../NativeWidget";
 import { Widget } from "../Widget";
 import { WidgetUtils } from "../WidgetUtils";
 
+/** `Sonolus.UI.Common.Rows` - Rows layout for Section (extends NativeWidget) */
 export class Rows extends NativeWidget {
     protected static override _class: Il2Cpp.Class | null = null;
 

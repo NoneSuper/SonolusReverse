@@ -1,6 +1,6 @@
 import { AssemblyHelper } from "../../engine/AssemblyHelper";
 
-/** Wrapper over `Sonolus.App` class */
+/** `Sonolus.App` - static class for version */
 export class App {
     private static _class: Il2Cpp.Class | null = null;
 
@@ -10,7 +10,6 @@ export class App {
         return (this._class ??= AssemblyHelper.AssemblyCSharp.class("Sonolus.App"));
     }
 
-    /** Wrapper over `Sonolus.App.Version` field */
     static get version(): string {
         return (this._version ??= this.class.field<Il2Cpp.String>("Version").value.content ?? "unknown");
     }

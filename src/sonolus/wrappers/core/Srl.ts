@@ -1,5 +1,6 @@
 import { AssemblyHelper } from "../../../engine/AssemblyHelper";
 
+/** `Sonolus.Core.Srl` - hash / URL for assets */
 export class Srl extends Il2Cpp.Object {
     private static _class: Il2Cpp.Class | null = null;
 
@@ -13,6 +14,7 @@ export class Srl extends Il2Cpp.Object {
         super(handle);
     }
 
+    /** Alloc + `.ctor(hash, url)` */
     static create(hash: string, url: string): Srl {
         const obj = this.class.alloc();
         obj.method<void>(".ctor", 2).invoke(Il2Cpp.string(hash), Il2Cpp.string(url));
