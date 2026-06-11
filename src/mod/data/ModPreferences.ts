@@ -9,7 +9,7 @@ declare const process: {
 export class ModPreferences {
     // read by webpack
     static readonly MAJOR = 0;
-    static readonly MINOR = 3;
+    static readonly MINOR = 9;
 
     static readonly ENV = process.env.BUILD_ENV;
     static readonly COMMIT = process.env.BUILD_COMMIT;
