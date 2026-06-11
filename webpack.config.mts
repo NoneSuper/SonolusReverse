@@ -22,7 +22,7 @@ function getCommitHash(): string {
 }
 
 function getBaseVersion(): string {
-    const prefPath = path.resolve(import.meta.dirname, "src/data/mod-preferences.ts");
+    const prefPath = path.resolve(import.meta.dirname, "src/mod/data/ModPreferences.ts");
     const content = fs.readFileSync(prefPath, "utf-8");
 
     const major = content.match(/static readonly MAJOR = (\d+)/)?.[1] || "unknown";

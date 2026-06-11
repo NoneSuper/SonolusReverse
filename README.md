@@ -15,7 +15,7 @@ Tested Sonolus version `1.1.1` on Android. Should work on iOS too, but **unteste
 <img src="assets/images/screenshot1.jpg" width="700" alt="SonolusReverse section in Settings">
 <img src="assets/images/screenshot2.jpg" width="700" alt="Themes shortcut & Themes spoofing">
 
-> `Rosé Pine 2` - A custom theme  
+> `Rosé Pine 2`, `Everforest Dark` - A custom themes  
 > `彗く星（しいたけ杯）` - An exclusive theme for tournament participants
 
 ## Features
@@ -92,7 +92,7 @@ NOTE: You can re-build script without re-launching game
 
 ### Developer infrastructure
 
-- Typed widget builders for Sonolus UI
+- Wrappers for Sonolus Classes, UI
 - i18n ready
 - Webpack bundler with contiditional compilation _(ifdef)_
 - Pre-commit hooks
@@ -100,7 +100,6 @@ NOTE: You can re-build script without re-launching game
 - Simple, but yet enough Logger
 - JSON Config system
 - File Picker and Path Utils
-- Pretty documented code
 
 ## Scripts
 
