@@ -4,7 +4,7 @@ Mostly for developers and me, so I don't forgetting things.
 
 ### Architecture
 
-- [ ] JSDoc to wrappers
+- [x] JSDoc to wrappers
 - [ ] GitHub workflow
 - [ ] Popup Sonolus System
 - [ ] Alert Sonolus System
