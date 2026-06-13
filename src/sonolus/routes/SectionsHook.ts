@@ -7,6 +7,8 @@ export class SectionsHook {
     private static _routeSection: Il2Cpp.Class;
     private static _settingsRoute: Il2Cpp.Class;
 
+    private static _router: Il2Cpp.Object;
+
     static init(): void {
         const Route = AssemblyHelper.AssemblyCSharp.class("Sonolus.Routing.Route");
 
@@ -22,6 +24,7 @@ export class SectionsHook {
 
     private static sectionHook(this: Il2Cpp.Object, sections: Il2Cpp.Array<RouteSection>): Il2Cpp.Object {
         const route = this;
+        SectionsHook._router = route.method<Il2Cpp.Object>("get_Router", 0).invoke();
 
         // If this is not Settings Route return original sections
         if (route.class !== SectionsHook._settingsRoute) return this.method<Il2Cpp.Object>("Sections", 1).invoke(sections);
@@ -36,5 +39,9 @@ export class SectionsHook {
         }
 
         return this.method<Il2Cpp.Object>("Sections", 1).invoke(newSectionsArray);
+    }
+
+    static get router(): Il2Cpp.Object {
+        return this._router;
     }
 }
