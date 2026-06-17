@@ -1,6 +1,10 @@
 import { Path } from "../../engine/native/Path";
 import { Logger } from "../../utils/Logger";
 
+/* 
+redesign loading theme code: DRY
+*/
+
 export interface CustomThemeData {
     Id: string;
     Title: string;
@@ -29,17 +33,16 @@ export interface CustomThemeData {
 }
 
 export class ThemeLoader {
-    private static _loadedThemes: CustomThemeData[] = [];
+    // fileName: string
+    private static _loadedThemes: Map<string, CustomThemeData> = new Map();
 
     static readonly CUSTOM_THEME_NAME_PREFIX = "sr_custom_";
 
-    public static load(): void {
+    static load(): void {
         const path = Path.customThemesPath;
         Path.createDirectory(path);
 
         const themeFiles = Path.getFiles(path, "*.json");
-
-        const themes: CustomThemeData[] = [];
 
         for (const filePath of themeFiles) {
             try {
@@ -47,18 +50,40 @@ export class ThemeLoader {
 
                 const theme = JSON.parse(File.readAllText(filePath)) as CustomThemeData;
                 theme.Id = `sr_custom_${theme.Id}`;
-                themes.push(theme);
+
+                const fileName = Path.getFileNameFromPath(filePath);
+                this._loadedThemes.set(fileName, theme);
             } catch (error) {
                 Logger.warn(`[Themes::load] Failed to parse custom theme ${filePath}: ${error}`);
             }
         }
 
-        Logger.info(`[Themes::load] Loaded ${themes.length} custom themes`);
-
-        this._loadedThemes = themes;
+        Logger.info(`[Themes::load] Loaded ${this._loadedThemes.size} custom themes`);
     }
 
-    public static get loadedThemes(): CustomThemeData[] {
+    static get loadedThemes(): Map<string, CustomThemeData> {
         return this._loadedThemes;
+    }
+
+    /**
+     *
+     * @returns 0 if everything good, else 1
+     */
+    static importTheme(filePath: string): number {
+        try {
+            const theme = JSON.parse(File.readAllText(filePath)) as CustomThemeData;
+            theme.Id = `sr_custom_${theme.Id}`;
+            const fileName = Path.getFileNameFromPath(filePath);
+
+            for (const [key, val] of this.loadedThemes) {
+                if (val.Id === theme.Id) this.loadedThemes.delete(key);
+            }
+
+            this.loadedThemes.set(fileName, theme);
+            return 0;
+        } catch (error) {
+            Logger.warn(`[Themes::importTheme] Failed to import theme ${filePath}: ${error}`);
+            return 1;
+        }
     }
 }

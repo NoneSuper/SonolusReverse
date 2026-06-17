@@ -1,3 +1,4 @@
+import { FilePicker } from "../../engine/native/FilePicker";
 import { Path } from "../../engine/native/Path";
 import { Assets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
@@ -12,6 +13,8 @@ import { Rows } from "../../sonolus/wrappers/ui/common/Rows";
 import { CustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
 import { SectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
 import { Widget } from "../../sonolus/wrappers/ui/Widget";
+import { WidgetUtils } from "../../sonolus/wrappers/ui/WidgetUtils";
+import { Logger } from "../../utils/Logger";
 import { Config } from "../data/Config";
 import { ModPreferences } from "../data/ModPreferences";
 import { ThemeLoader } from "../data/ThemeLoader";
@@ -60,11 +63,36 @@ export class CustomSectionMod {
     }
 
     private static themeField(): BtnField {
-        const themesBtn = ImgLblBtn.new()
+        const importBtn = ImgLblBtn.new()
+            .title(I18n.tRef("ui.theme.import_button"))
+            .icon(Dep.opImplicit(Assets.getAsset("Import")))
+            .onClick(() => {
+                FilePicker.pickFile(
+                    (path: Il2Cpp.String) => {
+                        if (!path.isNull() && path.content) {
+                            const filePath = path.content;
+                            const distPath = Path.customThemesPath + filePath.split("/").at(-1);
+                            Path.move(filePath, distPath);
+                            const status = ThemeLoader.importTheme(distPath);
+                            if (status !== 0) {
+                                Logger.debug("Something goes wrong");
+                            } else {
+                                Logger.debug("everything is fine");
+                            }
+                        }
+                    },
+                    ["json"]
+                );
+            })
+            .validate();
+
+        let themeBtn = ImgLblBtn.new()
             .title(I18n.tRef("ui.theme.select_button"))
             .icon(Dep.opImplicit(Assets.getAsset("Theme")))
             .enabled(false)
             .validate();
+
+        themeBtn = WidgetUtils.margin(themeBtn, 20, 0, 0, 0) as ImgLblBtn;
 
         // currentTheme: Ref<Theme> .value: Theme .title: Dep<Il2Cpp.String> .value: Il2Cpp.String .content: string | null
         // const valueRef: Ref<Il2Cpp.String> = Ref.create(ThemeSystem.currentTheme.value.title.value.content ?? "unknown");
@@ -81,9 +109,9 @@ export class CustomSectionMod {
 
         return BtnField.new()
             .title(I18n.tRef("ui.theme.title"))
-            .description(I18n.tRef("ui.theme.description", ThemeLoader.loadedThemes.length, Path.customThemesPath))
+            .description(I18n.tRef("ui.theme.description", ThemeLoader.loadedThemes.size, Path.customThemesPath))
             .value(valueRef)
-            .btns([themesBtn])
+            .btns([importBtn, themeBtn])
             .validate();
     }
 }

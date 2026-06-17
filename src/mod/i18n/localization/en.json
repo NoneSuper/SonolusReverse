@@ -13,6 +13,7 @@
         "theme": {
             "title": "Theme",
             "description": "Button is under maintenance.\nColor theme to use. You have loaded {0} custom themes.\n\nTheme files are located at: {1}",
+            "import_button": "Import",
             "select_button": "Select"
         }
     }

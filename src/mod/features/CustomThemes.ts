@@ -38,9 +38,14 @@ export class CustomThemes {
         }
 
         const customThemes = ThemeLoader.loadedThemes;
-        const newThemes = Il2Cpp.array<ContentTheme>(ContentTheme.class, keptThemes.length + customThemes.length);
+        const newThemes = Il2Cpp.array<ContentTheme>(ContentTheme.class, keptThemes.length + customThemes.size);
         keptThemes.forEach((theme, index) => newThemes.set(index, theme));
-        customThemes.forEach((theme, index) => newThemes.set(keptThemes.length + index, CustomThemes.buildCustomTheme(theme)));
+
+        let i = 0;
+        customThemes.forEach(theme => {
+            newThemes.set(keptThemes.length + i, CustomThemes.buildCustomTheme(theme));
+            i++;
+        });
 
         return newThemes;
     }
