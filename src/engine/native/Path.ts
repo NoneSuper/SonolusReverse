@@ -63,8 +63,26 @@ export class Path {
         return result;
     }
 
+    static exists(path: string): boolean {
+        Logger.debug(`[${this.tag}::exists] ${path}`);
+        return Il2Cpp.corlib.class("System.IO.File").method<boolean>("Exists", 1).invoke(Il2Cpp.string(path));
+    }
+
+    static delete(path: string): void {
+        Logger.debug(`[${this.tag}::delete] ${path}`);
+        Il2Cpp.corlib.class("System.IO.File").method<void>("Delete", 1).invoke(Il2Cpp.string(path));
+    }
+
     static move(sourcePath: string, distPath: string): void {
+        Logger.debug(`[${this.tag}::move] sourcePath: ${sourcePath} distPath: ${distPath}`);
+        if (!Path.exists(sourcePath)) throw new Error("sourceFile not found");
+        if (Path.exists(distPath)) Path.delete(distPath); // overwrite
         Il2Cpp.corlib.class("System.IO.File").method("Move", 2).invoke(Il2Cpp.string(sourcePath), Il2Cpp.string(distPath));
+    }
+
+    static getFileNameFromPath(filePath: string): string {
+        const fileName = filePath.split("/").at(-1);
+        return fileName ? fileName : filePath;
     }
 
     static get configFilePath(): string {
