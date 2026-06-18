@@ -5,7 +5,7 @@ import { Dep } from "../../reactivity/Dep";
 import { CompositeWidget } from "../CompositeWidget";
 
 /**
- * `Sonolus.UI.Common.ImgLblBtn` - icon + label + onClick button (extends CompositeWidget)
+ * `Sonolus.UI.Common.ImgLblBtn` - button with title and icon (extends CompositeWidget)
  *
  * @requires Title, Icon
  */
