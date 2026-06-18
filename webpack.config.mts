@@ -10,6 +10,7 @@ interface WebpackEnv {
     dev?: boolean;
     release?: boolean;
     buildCommit?: string;
+    noBump?: boolean;
 }
 
 function getCommitHash(): string {
@@ -31,9 +32,11 @@ function getBaseVersion(): string {
     return `${major}.${minor}`;
 }
 
-function bumpBuildNumber(): number {
+function bumpBuildNumber(noBump?: boolean): number {
     const counterPath = path.resolve(import.meta.dirname, ".build-counter");
     const current = fs.existsSync(counterPath) ? parseInt(fs.readFileSync(counterPath, "utf-8").trim(), 10) || 0 : 0;
+    if (noBump) return current;
+
     const next = current + 1;
     fs.writeFileSync(counterPath, String(next));
     return next;
@@ -48,7 +51,7 @@ export default function (env: WebpackEnv): Configuration {
     const isRelease = targetEnv === "release";
 
     const buildCommit = env.buildCommit || getCommitHash();
-    const buildVersion = `${getBaseVersion()}.${bumpBuildNumber()}`;
+    const buildVersion = `${getBaseVersion()}.${bumpBuildNumber(env.noBump)}`;
 
     console.log(`BUILD INFO:\n- Version: ${buildVersion}\n- Environment: ${targetEnv}\n- Commit: ${buildCommit}\n`);
 

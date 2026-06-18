@@ -21,6 +21,7 @@
     "build": "npm run build:release",
     "build:dev": "npm run prettier && webpack --env dev",
     "build:release": "npm run prettier && webpack --env release",
+    "build:nobump": "npm run prettier && webpack --env release --env noBump",
     "spawn": "frida -U Gadget -l dist/agent.js",
     "spawn:dev": "npm run build:dev && npm run spawn",
     "spawn:release": "npm run build && npm run spawn",
