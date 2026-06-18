@@ -1,4 +1,3 @@
-import { FilePicker } from "../../engine/native/FilePicker";
 import { Path } from "../../engine/native/Path";
 import { Assets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
@@ -14,11 +13,12 @@ import { CustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomS
 import { SectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
 import { Widget } from "../../sonolus/wrappers/ui/Widget";
 import { WidgetUtils } from "../../sonolus/wrappers/ui/WidgetUtils";
-import { Logger } from "../../utils/Logger";
 import { Config } from "../data/Config";
+import { Constants } from "../data/Constants";
 import { ModPreferences } from "../data/ModPreferences";
 import { ThemeLoader } from "../data/ThemeLoader";
 import { I18n } from "../i18n/I18n";
+import { SectionUtils } from "./SectionUtils";
 
 export class CustomSectionMod {
     private static readonly SECTION_ICON_NAME: string = "IconStar";
@@ -63,37 +63,43 @@ export class CustomSectionMod {
     }
 
     private static themeField(): BtnField {
-        const importBtn = ImgLblBtn.new()
+        return BtnField.new()
+            .title(I18n.tRef("ui.theme.title"))
+            .description(I18n.tRef("ui.theme.description", ThemeLoader.loadedThemes.size, Path.customThemesPath, Constants.WIKI_URL))
+            .value(this.themeValueRef())
+            .btns([this.refreshBtn(), this.importBtn(), this.themeBtn()])
+            .validate();
+    }
+
+    private static refreshBtn(): ImgLblBtn {
+        return ImgLblBtn.new()
+            .title(I18n.tRef("ui.theme.refresh_button"))
+            .icon(Dep.opImplicit(Assets.getAsset("Refresh")))
+            .onClick(() => SectionUtils.refreshAndNotify())
+            .validate();
+    }
+
+    private static importBtn(): ImgLblBtn {
+        const btn = ImgLblBtn.new()
             .title(I18n.tRef("ui.theme.import_button"))
             .icon(Dep.opImplicit(Assets.getAsset("Import")))
-            .onClick(() => {
-                FilePicker.pickFile(
-                    (path: Il2Cpp.String) => {
-                        if (!path.isNull() && path.content) {
-                            const filePath = path.content;
-                            const distPath = Path.customThemesPath + filePath.split("/").at(-1);
-                            Path.move(filePath, distPath);
-                            const status = ThemeLoader.importTheme(distPath);
-                            if (status !== 0) {
-                                Logger.debug("Something goes wrong");
-                            } else {
-                                Logger.debug("everything is fine");
-                            }
-                        }
-                    },
-                    ["json"]
-                );
-            })
+            .onClick(() => SectionUtils.onThemeImportPicked())
             .validate();
 
-        let themeBtn = ImgLblBtn.new()
+        return WidgetUtils.margin(btn, 20, 0, 0, 0) as ImgLblBtn;
+    }
+
+    private static themeBtn(): ImgLblBtn {
+        const btn = ImgLblBtn.new()
             .title(I18n.tRef("ui.theme.select_button"))
             .icon(Dep.opImplicit(Assets.getAsset("Theme")))
             .enabled(false)
             .validate();
 
-        themeBtn = WidgetUtils.margin(themeBtn, 20, 0, 0, 0) as ImgLblBtn;
+        return WidgetUtils.margin(btn, 20, 0, 0, 0) as ImgLblBtn;
+    }
 
+    private static themeValueRef(): Ref<Il2Cpp.String> {
         // currentTheme: Ref<Theme> .value: Theme .title: Dep<Il2Cpp.String> .value: Il2Cpp.String .content: string | null
         // const valueRef: Ref<Il2Cpp.String> = Ref.create(ThemeSystem.currentTheme.value.title.value.content ?? "unknown");
         // refactored cuz reading issue
@@ -107,11 +113,6 @@ export class CustomSectionMod {
             valueRef.value = theme.title.value;
         });
 
-        return BtnField.new()
-            .title(I18n.tRef("ui.theme.title"))
-            .description(I18n.tRef("ui.theme.description", ThemeLoader.loadedThemes.size, Path.customThemesPath))
-            .value(valueRef)
-            .btns([importBtn, themeBtn])
-            .validate();
+        return valueRef;
     }
 }

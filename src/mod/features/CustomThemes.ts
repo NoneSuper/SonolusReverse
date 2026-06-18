@@ -1,6 +1,7 @@
 import { ContentSystem } from "../../sonolus/wrappers/content/ContentSystem";
 import { ContentTheme } from "../../sonolus/wrappers/core/content/ContentTheme";
 import { Srl } from "../../sonolus/wrappers/core/Srl";
+import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
 import { Logger } from "../../utils/Logger";
 import { CustomThemeData, ThemeLoader } from "../data/ThemeLoader";
 
@@ -11,6 +12,18 @@ export class CustomThemes {
         ContentSystem.class.method<void>("SetData", 1).implementation = this.setDataHook;
 
         Logger.info("[CustomThemes::init] Initialized");
+    }
+
+    static refreshThemes(): void {
+        Logger.debug(`[CustomThemes::refreshThemes] refreshing`);
+        // Dep<ContentTheme[]>
+        const oldThemesRaw = ContentSystem.class.method<Il2Cpp.Object>("get_Themes", 0).invoke();
+        const oldThemesDep = Object.setPrototypeOf(oldThemesRaw, Dep.prototype) as Dep<Il2Cpp.Array>;
+        const oldThemes = oldThemesDep.value as Il2Cpp.Array<Il2Cpp.Object>;
+
+        const newThemes = CustomThemes.buildMergedThemes(oldThemes);
+        const newThemesDep = Dep.opImplicit(newThemes.object, oldThemes.object.class);
+        ContentSystem.class.method<void>("set_Themes", 1).invoke(newThemesDep);
     }
 
     private static setDataHook(this: Il2Cpp.Object, data: Il2Cpp.Object): void {
