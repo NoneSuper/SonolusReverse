@@ -4,9 +4,10 @@ Mostly for developers and me, so I don't forgetting things.
 
 ### Architecture
 
-- [x] JSDoc to wrappers
+- [ ] Widgets shortcuts (e.g. for popups buttons)
+- [ ] Il2Cpp Array short-hand
 - [ ] GitHub workflow
-- [ ] Popup Sonolus System
+- [x] Popup Sonolus System
 - [ ] Alert Sonolus System
 
 ### Features
