@@ -107,6 +107,7 @@ NOTE: You can re-build script without re-launching game
 Compile the agent into `./dist/agent.js`  
 `npm run build` - a **RELEASE** version _(minified, optimized, no debug logs)_  
 `npm run build:dev` - a **DEV** version
+`npm run build:nobump` - a **RELEASE** version without incrementing `.build-counter`
 
 `npm run spawn` - Inject a script into the game with the Gadget _(You need patched game with Gadget in **listen** mode and `Frida` Installed)_
 `npm run spawn:dev` - Build a **DEV** version and spawn
