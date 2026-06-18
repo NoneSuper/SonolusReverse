@@ -23,7 +23,7 @@ Tested Sonolus version `1.1.2` on Android. Should work on iOS too, but **unteste
 - **Custom Settings Section**
 - **VIP + Themes spoof**: Client-side unlock of VIP _(removes ad)_ and all themes _(including exclusives)_
 - **Version Spoof**: Override the version used by client compatibility checks
-    > WIP: **Custom Themes**: Create your own themes in json format!
+- **Custom Themes**: Create your own themes in json format! See our [wiki](https://github.com/repinek/SonolusReverse/wiki)
 
 ##### Planned:
 
