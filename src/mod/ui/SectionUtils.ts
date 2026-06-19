@@ -3,6 +3,9 @@ import { Path } from "../../engine/native/Path";
 import { SectionsHook } from "../../sonolus/routes/SectionsHook";
 import { Assets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
+import { Ref } from "../../sonolus/wrappers/reactivity/Ref";
+import { Theme } from "../../sonolus/wrappers/theme/Theme";
+import { ThemeSystem } from "../../sonolus/wrappers/theme/ThemeSystem";
 import { ImgLblBtn } from "../../sonolus/wrappers/ui/common/ImgLblBtn";
 import { PopupExtensions } from "../../sonolus/wrappers/ui/popup/PopupExtensions";
 import { ThemeLoader } from "../data/ThemeLoader";
@@ -42,5 +45,22 @@ export class SectionUtils {
             .title(I18n.tRef("ui.theme.popup.ok"))
             .icon(Dep.opImplicit(Assets.getAsset("Check")))
             .validate();
+    }
+
+    static themeValueRef(): Ref<Il2Cpp.String> {
+        // currentTheme: Ref<Theme> .value: Theme .title: Dep<Il2Cpp.String> .value: Il2Cpp.String .content: string | null
+        // const valueRef: Ref<Il2Cpp.String> = Ref.create(ThemeSystem.currentTheme.value.title.value.content ?? "unknown");
+        // refactored cuz reading issue
+        const currentThemeRef: Ref<Theme> = ThemeSystem.currentTheme;
+        const themeTitleDep: Dep<Il2Cpp.String> = currentThemeRef.value.title;
+        const titleStr: string = themeTitleDep.value.content ?? "unknown";
+
+        const valueRef: Ref<Il2Cpp.String> = Ref.create(titleStr);
+        currentThemeRef.hook(() => {
+            const theme: Theme = currentThemeRef.value;
+            valueRef.value = theme.title.value;
+        });
+
+        return valueRef;
     }
 }

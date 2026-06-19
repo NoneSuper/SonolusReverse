@@ -19,7 +19,7 @@ Mostly for developers and me, so I don't forgetting things.
 - [ ] UwUify across all Sonolus
 - [ ] Export / Import Sonolus Settings
 - [ ] Export / Import Sonolus Account Info
-- [ ] About tab in SonolusReverse settings (Create BtnField -> Button creates a new Route (not exactly))
+- [x] About tab in SonolusReverse settings
 - [ ] Alert if speed modified or autofail turned on (use notification popup (like auto-exit TIP))
 - [ ] Sonolus_UI_Title\_\_GetTitleTheme (`0x28173C4`) maybe something do with that
 
