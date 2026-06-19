@@ -1,10 +1,7 @@
 import { Path } from "../../engine/native/Path";
 import { Assets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
-import { Ref } from "../../sonolus/wrappers/reactivity/Ref";
 import { RouteSection } from "../../sonolus/wrappers/routing/RouteSection";
-import { Theme } from "../../sonolus/wrappers/theme/Theme";
-import { ThemeSystem } from "../../sonolus/wrappers/theme/ThemeSystem";
 import { BtnField } from "../../sonolus/wrappers/ui/common/fields/BtnField";
 import { ToggleField } from "../../sonolus/wrappers/ui/common/fields/ToggleField";
 import { ImgLblBtn } from "../../sonolus/wrappers/ui/common/ImgLblBtn";
@@ -66,7 +63,7 @@ export class CustomSectionMod {
         return BtnField.new()
             .title(I18n.tRef("ui.theme.title"))
             .description(I18n.tRef("ui.theme.description", ThemeLoader.loadedThemes.size, Path.customThemesPath, Constants.WIKI_URL))
-            .value(this.themeValueRef())
+            .value(SectionUtils.themeValueRef())
             .btns([this.refreshBtn(), this.importBtn(), this.themeBtn()])
             .validate();
     }
@@ -97,22 +94,5 @@ export class CustomSectionMod {
             .validate();
 
         return WidgetUtils.margin(btn, 20, 0, 0, 0) as ImgLblBtn;
-    }
-
-    private static themeValueRef(): Ref<Il2Cpp.String> {
-        // currentTheme: Ref<Theme> .value: Theme .title: Dep<Il2Cpp.String> .value: Il2Cpp.String .content: string | null
-        // const valueRef: Ref<Il2Cpp.String> = Ref.create(ThemeSystem.currentTheme.value.title.value.content ?? "unknown");
-        // refactored cuz reading issue
-        const currentThemeRef: Ref<Theme> = ThemeSystem.currentTheme;
-        const themeTitleDep: Dep<Il2Cpp.String> = currentThemeRef.value.title;
-        const titleStr: string = themeTitleDep.value.content ?? "unknown";
-
-        const valueRef: Ref<Il2Cpp.String> = Ref.create(titleStr);
-        currentThemeRef.hook(() => {
-            const theme: Theme = currentThemeRef.value;
-            valueRef.value = theme.title.value;
-        });
-
-        return valueRef;
     }
 }
