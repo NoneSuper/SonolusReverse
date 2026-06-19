@@ -41,7 +41,7 @@ export class CustomSectionMod {
         // later this information will be in About Tab
         return SectionBase.createTitle(
             /// #if DEV
-            I18n.tRef("ui.title_dev", ModPreferences.VERSION, ModPreferences.COMMIT, ModPreferences.ENV),
+            I18n.tRef("ui.title_dev", ModPreferences.VERSION, ModPreferences.HASH, ModPreferences.ENV),
             /// #else
             // @ts-ignore
             I18n.tRef("ui.title", ModPreferences.VERSION)
@@ -119,7 +119,7 @@ export class CustomSectionMod {
 
         return BtnField.new()
             .title(I18n.tRef("ui.about.title"))
-            .description(I18n.tRef("ui.about.description", ModPreferences.VERSION, ModPreferences.COMMIT, ModPreferences.ENV))
+            .description(I18n.tRef("ui.about.description", ModPreferences.VERSION, ModPreferences.HASH, ModPreferences.ENV))
             .value(Dep.opImplicit(""))
             .btns([updateBtn, githubBtn])
             .validate();

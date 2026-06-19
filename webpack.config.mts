@@ -1,35 +1,34 @@
-import { execSync } from "node:child_process";
-import fs from "node:fs";
-import path from "node:path";
+import { createHash } from "node:crypto";
+import fs, { readdirSync, readFileSync } from "node:fs";
+import path, { join } from "node:path";
 
 import TerserPlugin from "terser-webpack-plugin";
 import type { Configuration } from "webpack";
 import webpack from "webpack";
 
+import version from "./version.json" with { type: "json" };
+
 interface WebpackEnv {
     dev?: boolean;
     release?: boolean;
-    buildCommit?: string;
     noBump?: boolean;
 }
 
-function getCommitHash(): string {
-    try {
-        return execSync("git rev-parse --short HEAD").toString().trim();
-    } catch (error: unknown) {
-        console.warn(`Unable to get git commit hash: ${error as Error}, "unknown" will be used instead`);
-        return "unknown";
+function hashDir(dir: string): string {
+    const hash = createHash("sha256");
+    const entries = readdirSync(dir, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
+    for (const entry of entries) {
+        const full = join(dir, entry.name);
+        hash.update(entry.name);
+        if (entry.isFile()) hash.update(readFileSync(full));
+        else if (entry.isDirectory()) hash.update(hashDir(full));
     }
+
+    return hash.digest("hex");
 }
 
 function getBaseVersion(): string {
-    const prefPath = path.resolve(import.meta.dirname, "src/mod/data/ModPreferences.ts");
-    const content = fs.readFileSync(prefPath, "utf-8");
-
-    const major = content.match(/static readonly MAJOR = (\d+)/)?.[1] || "unknown";
-    const minor = content.match(/static readonly MINOR = (\d+)/)?.[1] || "unknown";
-
-    return `${major}.${minor}`;
+    return `${version.major}.${version.minor}`;
 }
 
 function bumpBuildNumber(noBump?: boolean): number {
@@ -50,10 +49,10 @@ export default function (env: WebpackEnv): Configuration {
     const isDev = targetEnv === "dev";
     const isRelease = targetEnv === "release";
 
-    const buildCommit = env.buildCommit || getCommitHash();
+    const srcHash = hashDir("src/").slice(0, 12);
     const buildVersion = `${getBaseVersion()}.${bumpBuildNumber(env.noBump)}`;
 
-    console.log(`BUILD INFO:\n- Version: ${buildVersion}\n- Environment: ${targetEnv}\n- Commit: ${buildCommit}\n`);
+    console.log(`BUILD INFO:\n- Version: ${buildVersion}\n- Environment: ${targetEnv}\n- Src hash: ${srcHash}\n`);
 
     const ifdef_options = {
         DEV: isDev,
@@ -68,7 +67,7 @@ export default function (env: WebpackEnv): Configuration {
     plugins.push(
         new webpack.DefinePlugin({
             "process.env.BUILD_ENV": JSON.stringify(targetEnv),
-            "process.env.BUILD_COMMIT": JSON.stringify(buildCommit),
+            "process.env.BUILD_HASH": JSON.stringify(srcHash),
             "process.env.BUILD_VERSION": JSON.stringify(buildVersion)
         })
     );
