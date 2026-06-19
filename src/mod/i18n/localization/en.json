@@ -21,6 +21,12 @@
                 "message_error": "Failed to import theme. The file you provided is not a valid theme.\nCheck the wiki for theme format reference.",
                 "ok": "OK"
             }
+        },
+        "about": {
+            "title": "About SonolusReverse",
+            "description": "SonolusReverse - Free and open source client-side modification for Sonolus. Check out our GitHub and leave a star if you like it!\n\nv{0} - #{1} ({2})",
+            "update_button": "Check for Updates",
+            "github_button": "GitHub"
         }
     }
 }

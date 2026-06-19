@@ -1,4 +1,5 @@
 import { Path } from "../../engine/native/Path";
+import { Application } from "../../engine/wrappers/Application";
 import { Assets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
 import { RouteSection } from "../../sonolus/wrappers/routing/RouteSection";
@@ -25,8 +26,9 @@ export class CustomSectionMod {
         const spoofField = this.spoofField();
         const versionField = this.versionField();
         const themeField = this.themeField();
+        const aboutField = this.aboutField();
 
-        const rows = Rows.new().gap(20).children([title, spoofField, versionField, themeField]);
+        const rows = Rows.new().gap(20).children([title, spoofField, versionField, themeField, aboutField]);
 
         const section = CustomSection.new().content(rows).validate();
 
@@ -94,5 +96,32 @@ export class CustomSectionMod {
             .validate();
 
         return WidgetUtils.margin(btn, 20, 0, 0, 0) as ImgLblBtn;
+    }
+
+    private static aboutField(): BtnField {
+        const updateBtn = ImgLblBtn.new()
+            .title(I18n.tRef("ui.about.update_button"))
+            .icon(Dep.opImplicit(Assets.getAsset("Refresh")))
+            .onClick(() => {
+                // TODO
+            })
+            .validate();
+
+        let githubBtn = ImgLblBtn.new()
+            .title(I18n.tRef("ui.about.github_button"))
+            .icon(Dep.opImplicit(Assets.getAsset("Link")))
+            .onClick(() => {
+                Application.openURL(Constants.GITHUB_URL);
+            })
+            .validate();
+
+        githubBtn = WidgetUtils.margin(githubBtn, 20, 0, 0, 0) as ImgLblBtn;
+
+        return BtnField.new()
+            .title(I18n.tRef("ui.about.title"))
+            .description(I18n.tRef("ui.about.description", ModPreferences.VERSION, ModPreferences.COMMIT, ModPreferences.ENV))
+            .value(Dep.opImplicit(""))
+            .btns([updateBtn, githubBtn])
+            .validate();
     }
 }
