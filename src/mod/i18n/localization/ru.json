@@ -1,7 +1,7 @@
 {
     "ui": {
         "title": "SonolusReverse v{0}",
-        "title_dev": "SonolusReverse v{0} - #{1} ({2})",
+        "title_dev": "SonolusReverse v{0} - {1} ({2})",
         "spoof": {
             "title": "Подмена VIP и тем",
             "description": "Клиентская подмена VIP и доступных тем. Переоткройте настройки чтобы применить изменения."
@@ -24,9 +24,14 @@
         },
         "about": {
             "title": "О SonolusReverse",
-            "description": "SonolusReverse - Бесплатная модификация Sonolus с открытым исходным кодом. Загляните на наш GitHub и поставьте звезду, если вам нравится!\n\nv{0} - #{1} ({2})",
+            "description": "SonolusReverse - Бесплатная модификация Sonolus с открытым исходным кодом. Загляните на наш GitHub и поставьте звезду, если вам нравится!\n\nv{0} - {1} ({2})",
             "update_button": "Проверить обновления",
-            "github_button": "GitHub"
+            "github_button": "GitHub",
+            "popup": {
+                "checking": "Проверка обновлений...",
+                "update_available": "Доступна новая версия! Вы можете ее скачать на GitHub во вкладке releases.",
+                "up_to_date": "Вы используете последную версию."
+            }
         }
     }
 }

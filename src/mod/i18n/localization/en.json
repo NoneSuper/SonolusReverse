@@ -1,7 +1,7 @@
 {
     "ui": {
         "title": "SonolusReverse v{0}",
-        "title_dev": "SonolusReverse v{0} - #{1} ({2})",
+        "title_dev": "SonolusReverse v{0} - {1} ({2})",
         "spoof": {
             "title": "VIP and Themes Spoof",
             "description": "Client-side spoof of VIP and owned themes. You need to re-open settings to update owned Themes and VIP."
@@ -24,9 +24,14 @@
         },
         "about": {
             "title": "About SonolusReverse",
-            "description": "SonolusReverse - Free and open source client-side modification for Sonolus. Check out our GitHub and leave a star if you like it!\n\nv{0} - #{1} ({2})",
+            "description": "SonolusReverse - Free and open source client-side modification for Sonolus. Check out our GitHub and leave a star if you like it!\n\nv{0} - {1} ({2})",
             "update_button": "Check for Updates",
-            "github_button": "GitHub"
+            "github_button": "GitHub",
+            "popup": {
+                "checking": "Checking for updates...",
+                "update_available": "New version available! Download it on GitHub Releases.",
+                "up_to_date": "You are using the latest version."
+            }
         }
     }
 }

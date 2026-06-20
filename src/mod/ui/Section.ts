@@ -1,5 +1,6 @@
 import { Path } from "../../engine/native/Path";
 import { Application } from "../../engine/wrappers/Application";
+import { SectionsHook } from "../../sonolus/routes/SectionsHook";
 import { Assets } from "../../sonolus/wrappers/Assets";
 import { Dep } from "../../sonolus/wrappers/reactivity/Dep";
 import { RouteSection } from "../../sonolus/wrappers/routing/RouteSection";
@@ -9,19 +10,30 @@ import { ImgLblBtn } from "../../sonolus/wrappers/ui/common/ImgLblBtn";
 import { Rows } from "../../sonolus/wrappers/ui/common/Rows";
 import { CustomSection } from "../../sonolus/wrappers/ui/common/sections/CustomSection";
 import { SectionBase } from "../../sonolus/wrappers/ui/common/sections/SectionBase";
+import { PopupExtensions } from "../../sonolus/wrappers/ui/popup/PopupExtensions";
 import { Widget } from "../../sonolus/wrappers/ui/Widget";
 import { WidgetUtils } from "../../sonolus/wrappers/ui/WidgetUtils";
 import { Config } from "../data/Config";
 import { Constants } from "../data/Constants";
 import { ModPreferences } from "../data/ModPreferences";
 import { ThemeLoader } from "../data/ThemeLoader";
+import { UpdateChecker } from "../features/UpdateChecker";
 import { I18n } from "../i18n/I18n";
+import { Version } from "../utils/version";
 import { SectionUtils } from "./SectionUtils";
 
 export class CustomSectionMod {
     private static readonly SECTION_ICON_NAME: string = "IconStar";
+    private static _versionPopupShown: boolean = false;
 
     static buildCustomSection(): RouteSection {
+        // Show popup if outdated version
+        const latest = UpdateChecker.latestVersion;
+        if (!this._versionPopupShown && latest && Version.isNewerThan(latest, ModPreferences.VERSION)) {
+            PopupExtensions.showHelp(SectionsHook.router, I18n.t("ui.about.popup.update_available"));
+            this._versionPopupShown = true;
+        }
+
         const title = this.title();
         const spoofField = this.spoofField();
         const versionField = this.versionField();
@@ -41,7 +53,7 @@ export class CustomSectionMod {
         // later this information will be in About Tab
         return SectionBase.createTitle(
             /// #if DEV
-            I18n.tRef("ui.title_dev", ModPreferences.VERSION, ModPreferences.COMMIT, ModPreferences.ENV),
+            I18n.tRef("ui.title_dev", ModPreferences.VERSION, ModPreferences.HASH, ModPreferences.ENV),
             /// #else
             // @ts-ignore
             I18n.tRef("ui.title", ModPreferences.VERSION)
@@ -103,7 +115,18 @@ export class CustomSectionMod {
             .title(I18n.tRef("ui.about.update_button"))
             .icon(Dep.opImplicit(Assets.getAsset("Refresh")))
             .onClick(() => {
-                // TODO
+                UpdateChecker.checkVersion();
+                const latest = UpdateChecker.latestVersion;
+                if (!latest) {
+                    PopupExtensions.showError(SectionsHook.router, I18n.t("ui.about.popup.checking"), [SectionUtils.okBtn()]);
+                    return;
+                }
+
+                if (Version.isNewerThan(latest, ModPreferences.VERSION)) {
+                    PopupExtensions.showHelp(SectionsHook.router, I18n.t("ui.about.popup.update_available"));
+                } else {
+                    PopupExtensions.showHelp(SectionsHook.router, I18n.t("ui.about.popup.up_to_date"));
+                }
             })
             .validate();
 
@@ -119,7 +142,7 @@ export class CustomSectionMod {
 
         return BtnField.new()
             .title(I18n.tRef("ui.about.title"))
-            .description(I18n.tRef("ui.about.description", ModPreferences.VERSION, ModPreferences.COMMIT, ModPreferences.ENV))
+            .description(I18n.tRef("ui.about.description", ModPreferences.VERSION, ModPreferences.HASH, ModPreferences.ENV))
             .value(Dep.opImplicit(""))
             .btns([updateBtn, githubBtn])
             .validate();
