@@ -7,6 +7,7 @@ import type { Configuration } from "webpack";
 import webpack from "webpack";
 
 import version from "./version.json" with { type: "json" };
+import { execSync } from "node:child_process";
 
 interface WebpackEnv {
     dev?: boolean;
@@ -41,6 +42,15 @@ function bumpBuildNumber(noBump?: boolean): number {
     return next;
 }
 
+function getGitBranch(): string {
+    try {
+        return execSync("git rev-parse --abbrev-ref HEAD").toString().trim();
+    } catch {
+        console.warn("Can't get git branch");
+        return "unknown";
+    }
+}
+
 export default function (env: WebpackEnv): Configuration {
     console.log(""); // indent one line after prettier
     let targetEnv = "release";
@@ -51,6 +61,7 @@ export default function (env: WebpackEnv): Configuration {
 
     const srcHash = hashDir("src/").slice(0, 12);
     const buildVersion = `${getBaseVersion()}.${bumpBuildNumber(env.noBump)}`;
+    const gitBranch = getGitBranch();
 
     console.log(`BUILD INFO:\n- Version: ${buildVersion}\n- Environment: ${targetEnv}\n- Src hash: ${srcHash}\n`);
 
@@ -68,7 +79,8 @@ export default function (env: WebpackEnv): Configuration {
         new webpack.DefinePlugin({
             "process.env.BUILD_ENV": JSON.stringify(targetEnv),
             "process.env.BUILD_HASH": JSON.stringify(srcHash),
-            "process.env.BUILD_VERSION": JSON.stringify(buildVersion)
+            "process.env.BUILD_VERSION": JSON.stringify(buildVersion),
+            "process.env.BUILD_BRANCH": JSON.stringify(gitBranch)
         })
     );
 
