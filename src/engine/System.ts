@@ -4,6 +4,7 @@ export class System {
     private static _string: Il2Cpp.Class;
     private static _boolean: Il2Cpp.Class;
     private static _action: Il2Cpp.Class;
+    private static _action1: Il2Cpp.Class;
     private static _func1: Il2Cpp.Class;
 
     static get String(): Il2Cpp.Class {
@@ -14,6 +15,9 @@ export class System {
     }
     static get Action(): Il2Cpp.Class {
         return (this._action ??= Il2Cpp.corlib.class("System.Action"));
+    }
+    static get Action1(): Il2Cpp.Class {
+        return (this._action1 ??= Il2Cpp.corlib.class("System.Action`1"));
     }
     static get Func1(): Il2Cpp.Class {
         return (this._func1 ??= Il2Cpp.corlib.class("System.Func`1"));
