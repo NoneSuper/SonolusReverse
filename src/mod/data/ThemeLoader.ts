@@ -55,6 +55,7 @@ export class ThemeLoader {
                 this._loadedThemes.set(fileName, theme);
             } catch (error) {
                 Logger.warn(`[Themes::load] Failed to parse custom theme ${filePath}: ${error}`);
+                Path.delete(filePath);
             }
         }
 
@@ -83,6 +84,7 @@ export class ThemeLoader {
             return 0;
         } catch (error) {
             Logger.warn(`[Themes::importTheme] Failed to import theme ${filePath}: ${error}`);
+            Path.delete(filePath);
             return 1;
         }
     }
