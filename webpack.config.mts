@@ -1,3 +1,4 @@
+import { execSync } from "node:child_process";
 import { createHash } from "node:crypto";
 import fs, { readdirSync, readFileSync } from "node:fs";
 import path, { join } from "node:path";
@@ -7,7 +8,6 @@ import type { Configuration } from "webpack";
 import webpack from "webpack";
 
 import version from "./version.json" with { type: "json" };
-import { execSync } from "node:child_process";
 
 interface WebpackEnv {
     dev?: boolean;
