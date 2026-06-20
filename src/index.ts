@@ -6,6 +6,7 @@ import { ModPreferences } from "./mod/data/ModPreferences";
 import { ThemeLoader } from "./mod/data/ThemeLoader";
 import { CustomThemes } from "./mod/features/CustomThemes";
 import { TitleLabel } from "./mod/features/TitleLabel";
+import { UpdateChecker } from "./mod/features/UpdateChecker";
 import { UserInfoSpoof } from "./mod/features/UserInfoSpoof";
 import { VersionCheck } from "./mod/features/VersionCheck";
 import { I18n } from "./mod/i18n/I18n";
@@ -52,6 +53,7 @@ function initMod(): void {
     I18n.init();
     UserInfoSpoof.init();
     CustomThemes.init();
+    UpdateChecker.checkVersion();
 }
 
 function init(): void {
@@ -60,7 +62,7 @@ function init(): void {
     Il2Cpp.perform(() => {
         ifDev();
 
-        Logger.info("Il2cpp loaded!");
+        Logger.info("Il2Cpp loaded!");
 
         initEngine();
 

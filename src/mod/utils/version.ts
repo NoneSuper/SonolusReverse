@@ -15,4 +15,16 @@ export class Version {
         const build = ModPreferences.VERSION.split(".").at(2);
         return build ? Number(build) : 0;
     }
+
+    static isNewerThan(latest: string, current: string): boolean {
+        const l = latest.split(".").map(Number);
+        const c = current.split(".").map(Number);
+        for (let i = 0; i < Math.max(l.length, c.length); i++) {
+            const lv = l[i] ?? 0;
+            const cv = c[i] ?? 0;
+            if (lv > cv) return true;
+            if (lv < cv) return false;
+        }
+        return false;
+    }
 }
