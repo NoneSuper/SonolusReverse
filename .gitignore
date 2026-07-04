@@ -25,3 +25,6 @@ temp
 
 # Sonolus Wiki, you can obtain one here https://github.com/Sonolus/wiki 
 SonolusWiki
+
+# Nix
+.direnv
