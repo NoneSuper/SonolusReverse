@@ -3,6 +3,7 @@ import { Ref } from "../../sonolus/wrappers/reactivity/Ref";
 import { Logger } from "../../utils/Logger";
 import en from "./localization/en.json";
 import ru from "./localization/ru.json";
+import vi from "./localization/vi.json";
 
 // Own I18n system, updates from In-game I18n hook
 // We can probably use a Sonolus I18n System
@@ -11,7 +12,8 @@ import ru from "./localization/ru.json";
 
 const TRANSLATIONS: Record<string, unknown> = {
     en: en,
-    ru: ru
+    ru: ru,
+    vi: vi
 };
 
 interface CacheEntry {

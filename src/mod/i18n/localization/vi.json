@@ -1,0 +1,37 @@
+{
+    "ui": {
+        "title": "SonolusReverse v{0}",
+        "title_dev": "SonolusReverse v{0} - {1} ({2})",
+        "spoof": {
+            "title": "VIP và Chủ đề Spoof",
+            "description": "Giả mạo VIP và Chủ đề phía máy khách. Bạn cần mở lại cài đặt để cập nhật Chủ đề và VIP."
+        },
+        "version_check": {
+            "title": "Tắt tính năng kiểm tra phiên bản (trong Server)",
+            "description": "Vô hiệu hóa kiểm tra khả năng tương thích Server."
+        },
+        "theme": {
+            "title": "Chủ đề tùy chỉnh",
+            "description": "Nút đang được bảo trì.\nChủ đề màu sắc sẽ được sử dụng. Bạn đã tải {0} chủ đề tùy chỉnh.\n\nCác tệp chủ đề nằm tại: {1}\n\nBạn có thể tìm hiểu thêm về chủ đề tùy chỉnh tại đây: {2}",
+            "refresh_button": "Làm mới",
+            "import_button": "Nhập",
+            "select_button": "Chọn",
+            "popup": {
+                "message": "Mở lại cài đặt để xem các chủ đề mới.",
+                "message_error": "Không thể nhập chủ đề tùy chỉnh. Tệp bạn cung cấp không phải là chủ đề hợp lệ. Vui lòng xem hướng dẫn về định dạng chủ đề trên wiki.",
+                "ok": "OK"
+            }
+        },
+        "about": {
+            "title": "Giới thiệu SonolusReverse",
+            "description": "SonolusReverse - Bản mod miễn phí và mã nguồn mở dành cho Sonolus. Hãy xem GitHub của chúng tôi và để lại ngôi sao nếu bạn thích!\n\nv{0} - {1} ({2})",
+            "update_button": "Cập nhật",
+            "github_button": "GitHub",
+            "popup": {
+                "checking": "Đang kiểm tra cập nhật...",
+                "update_available": "Đã có Phiên bản mới! Tải xuống trên GitHub Releases.",
+                "up_to_date": "Hiện tại, chưa có bản cập nhật nào."
+            }
+        }
+    }
+}
