@@ -11,14 +11,14 @@
             "description": "Vô hiệu hóa khả năng tương thích Server."
         },
         "theme": {
-            "title": "Chủ đề tùy chỉnh",
-            "description": "Tùy chọn này hiện đang được bảo trì.\nChủ đề màu sắc sẽ được sử dụng. Bạn đã tải {0} chủ đề tùy chỉnh.\n\nCác tệp chủ đề nằm tại: {1}\n\nBạn có thể tìm hiểu thêm về chủ đề tùy chỉnh tại đây: {2}",
+            "title": "Chủ đề",
+            "description": "Tùy chọn chủ đề hiện đang được bảo trì.\nChủ đề màu sắc sẽ được sử dụng. Bạn đã tải {0} chủ đề.\n\nCác tệp chủ đề sẽ nằm tại: {1}\n\nBạn có thể tìm hiểu thêm về chủ đề tùy chỉnh tại đây: {2}",
             "refresh_button": "Làm mới",
             "import_button": "Nhập",
             "select_button": "Chọn",
             "popup": {
                 "message": "Mở lại cài đặt để xem các chủ đề mới.",
-                "message_error": "Không thể nhập chủ đề tùy chỉnh. Tệp bạn cung cấp không phải là chủ đề hợp lệ. Vui lòng xem hướng dẫn về định dạng chủ đề trên wiki.",
+                "message_error": "Không thể nhập chủ đề. Tệp bạn cung cấp không phải là chủ đề hợp lệ. Vui lòng xem hướng dẫn về định dạng chủ đề trên wiki.",
                 "ok": "OK"
             }
         },
